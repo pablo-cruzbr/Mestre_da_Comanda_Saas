@@ -1,0 +1,660 @@
+
+DOCUMENTAÇÃO DE ERROS E TAREFAS 12/03
+-- Resolvi a questão a rota session (Pegar o Cookie Token JWT)
+-- Resolvi a questão da propriedade id que estava invalida no banco de dados (services)
+-- Resolvi a questão do map que estava puxando o name de category e não o indice (value={index})
+-- Configurei Alertas (sonner, toast, success, warning) dentro da Aplicação 
+
+
+> Configurando Alertas
+
+OBS. Usar sempre dentro de funções onde o componente é "use client"
+
+
+- Instalar o Sonner
+npm install sonner
+
+
+- Editar nosso Toaster em nossa aplicação
+Documento: app\layout.tsx
+import {Toaster} from 'sonner'
+
+
+<Toaster
+position = "bottm-ritgh"
+toastOptions={{
+
+}
+/>
+
+- Importar para uso e Editar Toaster
+
+import {toast} from 'sonner'
+
+toast.sucess("Produto Cadastrado")
+toast.warnign("Preeencha todos os campos")
+
+
+
+> Buscando Pedidos do banco
+
+- Por enquanto Adicionamos pelo insominia, pois essa função de adicionar pedidos é pelo app.
+
+- obs. Devemos mudar o status, finalizar order, recebemos ela na lista.
+
+Documento: Dashboard\page.tsx
+Dica: Pesquise: <Orders/>
+
+1 - Vamos criar uma função chamada (getOrders) que vai fazer uma requisição http que vai buscar as orders.
+ 
+- importar api
+
+async function gerOrders(){
+try{
+   const token = await getCookieServer();
+
+   const response = await api.get("/orders",{
+     headers: {
+       Authorization: `Bearer ${token}`,
+     },
+   });
+ 
+	return response.data || []
+} catch (err) {
+  console.log(err);
+  return[];
+	}
+}
+
+
+2 - Quando Cadastrarmos nossas orders, ele sempre vai nos retornar um array de objetos com as seguintes propriedades [id, status, draft, name...]
+
+
+3 - Porém precisamos deixar explicito que teremos que devolver um array de objetos.
+
+x 4 - Vamos criar uma tipagem chamda OrderProps:
+Documento: lib\ order.type.ts
+
+export interface OrderProps{
+	id:string;
+	table: number;
+	name: string;
+	dradft: Boolean;
+	status: Boolean;
+}
+
+
+5 - Agora essa função vai retornar um array ou um array vazio.
+
+
+6 - Buscar nossas Orders do banco e mostrar no CMD:
+
+const orders = await getOrders();
+console.log(orders); 
+
+
+DOCUMENTAÇÃO DE ERROS E TAREFAS 14/03
+-- Lembrar de incluuir o await no getCookieServer ou getCookieClient, pois é uma promise.
+
+const token = await getCookieServer()
+
+
+> Exibindo Pedidos do banco
+
+Documento: dashboard\components\order\index.tsx
+
+1 - Importar orderProps e criar uma interface fora do export.
+
+Criar uma interface, e vamos esperar uma propriedade chamada orders. e passar na export function.
+
+2 - Criar um map para percorrer nossa lista
+
+Documento: dashboard\page.tsx
+
+3 - Especificar o que vamos receber em linha: 30
+
+> Criando modal do pedido
+
+Vamos criar um modal após clicar nas orders.
+
+Documento: dashboard\components\modal\index.tsx
+
+- Tag de modal: <dialog> é um elemento HTML5 usado para criar caixas de diálogo interativas, como modais ou janelas de confirmação.
+
+1 - documento padrão:
+
+import styles from './styles.module.scss'
+
+export function Modalorder(){
+return(
+<dialog className={styles.dialogContainer}> 
+ <sectio className={styles.dialogContent}>
+	<button className={styles.dialogBack}>
+	</button>
+
+	<article className={styles.container}>
+		....
+	</article
+ </section>
+</dialog>
+)
+}
+
+
+>Funcionalidade do modal
+
+- Documento: Dashboard\orders\index.ts
+
+- Podemos criar um função useState pra abrir, quando ta aberto o modal e quando vc quer fechar o  modal.
+
+- Podemos usar um Context API para criar essa funcionalidade. Pra qualquer local podemos abrir o modal, fechar o modal, buscar os detalhes do pedido
+
+- Documento: src\providers\order.tsx
+
+1 - Criar o nosso context 'use client'
+2 - importar {createContext, ReactNode, useState}
+3 - Criar um type 1 chamado OrderContextData: vai ter as seguintes propriedades:
+
+ - isOpen: Saber se o modal ta aberto ou fechado
+ - onRequestOpen: para abrir o modal: void
+ - onRequestClose: para fechar o modal: void
+
+4 - Criar um type 2 Receber o cheldren para renderizar o componente que vai ser renderizado.
+
+5 - Criar o export contexto OrderContext = createContext({} as OrderContextData)
+
+6 - Criar uma função OrderProvider e dentro dele crio as funções useState:
+ - function onRequestOpen()
+ - function onRequestClose()
+
+7 - Retorna o OrderContext.Provider e exportar as funções: isOpen, onRequestOpen(), onRequestClose() dentro de um value={{....}}
+	
+	return(
+	
+)
+
+
+8 - Chamar para ser executado no layout:
+
+Documento: dashboard\layout.tsx
+obs: function: DashboardLayout
+
+- importar o orderProvider
+- envolver nossas rotas dentro do provider em baixo do header.
+
+9 - Consumir o contexto dentro do documento e fazer uma renderização condicional.
+
+Documento: dashboard\orders\index.tsx
+
+'use client'
+
+- importar {OrderContext}
+- Passar o contexto em const e pegar as propriedades que queremos pegar.
+
+
+- se isOpen tiver true vamos chamar o Modaloder se estiver false, ele some.
+
+{isOpen && <Modalorder/>}
+
+
+
+> Abrindo Modal
+
+-> Abrir e fechar o modal
+-> Trazer as informações da order_id do banco 
+-> Fazer Requisição http e buscar os detalhes do pedido/array do banco.
+
+
+Estamos usando o context para controlar a funcionalidade para abrir.
+
+Documento: dashboard\components\orders\index.tsx
+
+Abrir o Modal
+- Criar uma função handleDetailOrder um onClick dentro do button.
+
+- Função handleDatailOrder
+ - onRequestOpen() 
+
+Documento: modal\index.tsx
+
+Fechar o Modal
+- importa use, OrderContext
+- criar const em baixo do export function
+
+const {onRequestClose} = use(OrderContext)
+
+- Na linha do ícone: onClick = {onRequestClose}
+
+
+
+-> Trazer as informações da order_id do banco 
+Documento: dashboard\providers\order.tsx
+
+- receber um parametro de order_id:string em onRequestOpen
+onRequesOpen: (order_id:string)
+
+Documento: dashboard\orders\index.tsx
+
+- Envolver o Button em um map {orders.map = > (...button)}
+- Modificar o button, adicionar onClick uma função
+onClick={() => handleDetailOrder(order.id)}
+
+- Passar order_id: string em handleDetailOrder(order_id: string)
+- Passar order_id  em onRequest dentro de handleDetailOrder
+
+
+
+-> Fazer Requisição http e buscar os detalhes do pedido/array do banco.
+
+Documento: dashboard\providers\order.tsx
+
+1 - Criar função useState
+export function OrderProvider....
+const [order, setOrder] = useState<OrderItemProps[]>([])
+
+2 - Criar uma tipagem do Order Item: Criamos uma interface chamada OrderItemProps.
+
+3 - Fazer a Requisição 
+ - importar api e getCookieServer
+
+4 - Transformar onRequestOpen em uma função assincrona
+async function
+
+- Fazer Requisição dentro da função onRequestOpen
+
+- Preciso passar dentro do params um order_id: order_id
+	
+const token = getCookieCLient 
+(//obs. awai antes do get..)
+
+const response = await api.get("/order/detail"), {
+	headers:{
+	Authorization: `Bearer ${token}`
+	params:{
+		order_id: order_id
+	}
+}
+})
+
+console.log(response.data)
+
+
+> Exibindo modal na tela
+- Trazendo informações da order para o modal.
+
+Documento: dashboard\provider\order.tsx
+
+1 - após a requisição http em cima do setIsOpen(true);
+setOrder(response.data);
+
+type OrderContextData = {
+    isOpen: Boolean;
+    onRequestOpen: (order_id: string) => void;
+    onRequestClose: () => void;
+}
+2 - Agora ela é uma promise que não devolve nada
+onRequestOpen: (order_id: string) => Promise<void>;
+
+Documento: dashboard\orders\index.tsx
+3 - Transformar a função handleDetailOrder em asyncrona 
+
+await  onRequestOpen(order_id)
+
+Documento: dashboard\provider\order.tsx
+
+4 - Exportar a UseStateOrder na tipagem OrderContextData
+ onRequestOpen: (order_id: string) => Promise<void>;
+ order: OrderItemProps[]
+
+5 - Colocamos a tipagem dela 
+ onRequestOpen: (order_id: string) => Promise<void>;
+ - > order: OrderItemProps[];
+
+
+6 - Exportar order dentro do value
+ return(
+        <OrderContext.Provider 
+        value={{
+            isOpen,
+            onRequestOpen,
+            onRequestClose
+	    --> order
+            }}
+
+
+Documento dashboard\components\modal\index.tsx
+
+7 - Dentro da const incluir a Propriedade 'order' dentro da função Modalorder(){
+
+cosnt {onRequestClose, order} = use(OrderContext)
+-> Buscar os Pedidos/Informações pelo MAP:
+
+8 - Obs. Como estamos fazendo um Map sempre o primeiro item do map precisamos passar a propriedade key.
+ 
+{order.map(item => (
+	<section className={styles..} key={item.id}
+))}
+
+Documento dashboard\components\modal\index.tsx
+
+OBS. Uso do Length: 
+- Usamos o length para evitar erros.
+Com {order.length > 0 ? (...) : (...)}, garantimos que só acessamos order[0] quando houver pelo menos um item na array. Caso order[] estiver vazio, adicionamos uma mensagem "Está order não contém pedidos !" será mostrada, evitando um erro de acesso a undefined.
+
+
+order.length > 0 → Significa que o array tem itens (pode acessar order[0] sem erro).
+
+Lembrete: length é usado para verificar o tamanho de um array
+
+
+> Concluindo Pedidos
+Documento: Documento dashboard\components\modal\index.tsx
+
+1 - Criar uma função Assyncrona para Finalizar a order
+
+async function handleFinichOrder(){
+
+}
+
+Documento: Documento app\provider\order.tsx
+3 - Criar uma função Assyncrona para Finalizar a order, com o parâmetro order_id:string
+
+async function finishOrder (order_id:string){
+
+}
+
+2 - Passar const token = getCookieClient();
+
+
+3 - Criar um const data= {order_id: order_id} para passar o id da order que queremos finalizar.
+
+4 - Fazer Requisição http com try e catch await  api.put(...
+
+5 - Em baixo do catch, passar toast.sucess("Pedido Finalizado com Sucesso")
+
+6 - Exportar a função finishOrder: (order_id: string) => Promisse<void>; na type OrderContextData
+
+7 - Exportar a função finishOrder dentro do value: return 
+finishOrder;
+
+Documento: Documento app\dashboard\modal\index.tsx
+ const { onRequestClose, order, finishOrder } = useContext(OrderContext);
+
+8 - Passar a posição da order dentro do handleFinishOrder(){
+await finishOrder(order[0].order.id)
+} 
+
+- PRIMEIRO PASSO OK. ESTAMOS FINALIZANDO PEDIDO
+
+Documento: Documento app\provider\order.tsx
+
+- SEGUNDO PASSO: ATUALIZAR A PÁGINA APÓS FINALIZAR O PEDIDO E FECHAR O MODAL
+
+9  - Atualizar a página (importar useRouter)
+import {useRouter} from 'next/navigation'
+
+10 - abaixo do provider, vamos instanciar:
+const router = useRouter();
+
+11 - Abaixo do toast.sucess ("Pedido Finalizado com Sucesso"): Incluir router.refresh();
+
+12 - Para Fechar o modal, abaixo do router.refesh(); incluir setIsOpen(false);
+
+
+
+
+
+ async function handleFinishOrder(){
+         console.log("Valor de order:", order);
+        if (Array.isArray(order) && order.length > 0) {
+            await finishOrder(order[0].order.id);
+        } else {
+            console.log("Erro: order está vazio ou não é um array.");
+        }
+    }
+
+> Ajustando Dashboard
+Documento: Dashboard\order\index.tsx
+Funcionalidades:
+- Colocar um aviso quando não tem nenhum pedido: linha 24
+- Atualizar a pagina ao clicar no icone e incluir um aviso de sucesso.
+
+1 - importar useRouter 'next\navigation', e toast 'sonner'
+2 - criar uma const router = useRouter(); em baico do export default
+3 - Criar uma async function chamada handleRefresh(){...}
+4 - incluir o router.refesh(); --> handlerefresh
+5 - toast.sucess("....")  --> handleRefresh
+6 - Incluir no botão: onClick(handleRefresh)
+
+
+> Finalizando projeto Web 
+Lembrete: 
+- Podemos acessar a url da nossa imagem pelo.
+http://localhost:3333/files/1da28b74d83ca5fedc969959f51b32be-1.png
+
+- Pasta onde nossas imagens estão sendo salvas: tmp
+
+
+Funcionalidades:
+- Exibir Imagem dos Pedidos no modal
+- Exibir o total do preço dos pedidos no modal:
+
+5:35 - Exibir a imagem dos pedidos no modal
+
+Documento: Dashboard\components\modal\index.tsx
+- Exibir o total do preço dos pedidos:7:17 
+
+1 - Pegar o valor do item usando parseFloat:
+R& {parseFloat(item.product..price) * item.amout;
+	return total + itemTotal
+}, 0)
+
+- Precisamos percorrer toda lista e somar 
+2 - Criar uma função separada
+
+8:50 - Criar uma função para fazer esse calculo
+
+Documento: Dashboard\lib\helper.ts
+3 - usar o reduce para percorrer toda nossa lista
+
+4 - Criar Função e exporta-la: calculateTotalOrder
+Calcula o valor total de um pedido somando o preço de cada item multiplicado pela sua quantidade.
+
+--> Explicação da Função:
+ - Percorremos o array "orders" utilizando o reduce(). 
+ - O primeiro parâmetro "total" representa o acumulador, que começa em 0.
+ - Para cada "item" no array, calculamos o total multiplicando o preço do produto pela quantidade.
+  -O resultado é somado ao acumulador e passado para a próxima iteração.
+
+ return orders.reduce((total, item) =>{
+        const itemTotal = parseFloat(item.product.price) * item.amount;
+        return total + itemTotal
+    }, 0)
+
+
+5 - Importar função
+Documento: Dashboard\components\modal\index.ts
+import {calculateTotalOrder} from '@/lib/helper';
+
+Explicação: Termos de JavaScipt
+
+- parseFloat(): Converte dados de string em numeros de ponto flutuante: float: ("10.50" ao invés de  10.50)
+
+- reduce(): é usado para percorrer um array e transformar em um único valor. Ou seja, é essencial para processar grandes volumes de dados.
+ 
+Conclusão:
+- parseFloat(): Para garantir que strings numéricas sejam tratadas como números reais. converter "10.50" para 10.50 antes de cálculos
+
+- reduce(): Para transformar arrays em um único valor (soma, contagem, objeto). (somar valores de ordens de serviço)
+
+6 - Usar função:
+<h3 className:{styles.total}> Valor Total: 
+R$ {calculateTotalOrder(order)}</h3>
+
+
+
+> Deploy
+
+> Usando storage para upload de imagens
+ERRO: Prestar atenção nos arquivos .env e Adicionar Logs para Depuração e descobrir o erro
+
+https://cloudinary.com/
+Site para Armazenar Imagens do nosso Software: Cloudinary
+
+0 - Criar conta em https://cloudinary.com/
+
+1 - Cadastrar Name,key,secret
+- Consultar dados dentro do dashboard cloudinary em API Keys
+
+Documento: .env
+
+#Cloudinary
+CLOUDINARY_NAME= 
+CLOUDINARY_KEY=
+CLOUDINARY_SECRET=
+
+2 - Instalar a Biblioteca cloudinary no backend
+- npm install cloudinary
+
+Instalar as tipagens do fileupload 
+- yarn add -D @types/express-fileupload
+
+- Importar desta forma: 
+import fileUpload = require('express-fileupload');
+
+É um middleware do express.js que facilita o envio de arquivos para o servidor.
+
+3 - Configurar fileUpload
+Documento: Backend\server.ts
+
+- importar fileUpload
+
+- Só queremos enviar arquivos de no máximo 50 mega
+
+-- Abaixo do app.use(cors..
+
+app.use(fileUpload({
+	limits: {fileSize: 50 * 1024 * 1024}
+}))
+
+Documento: routes.ts
+
+4 - Comentar, duplicar e : 
+//router.post('/product', isAuthenticated, upload.single('file'), new CreateProductController().handle)
+
+router.post('/product', isAuthenticated, new CreateProductController().handle)
+
+5 - Novo modo de envio de imagem  XXXXX 7:49
+
+Documento: Backend\controllers\product\CreateProductController.ts
+
+Antigo:
+
+ if(!req.file) {
+            throw new Error("error upload file")
+        }else{
+            const {originalname, filename: banner} = req.file;
+        
+
+        const product = await createProductService.execute({
+            name,
+            price,
+            description,
+            banner,
+            category_id     
+        });
+
+Novo:
+- Importar a tipagem UploadFile
+
+ if(!request.files || Object.keys(request.files).length === 0) {
+            throw new Error("error upload file")
+        }else{
+            const file: UploadFile = request.files['file']
+
+
+console.log(file)
+return response.json({})
+        
+
+        const product = await createProductService.execute({
+            name,
+            price,
+            description,
+            banner,
+            category_id     
+        });
+
+6 - Agora queremos enviar para o cloudinary
+
+Documento: Backend\controllers\product\CreateProductController.ts
+
+7 - Importar o cloudinary 
+import from  {v2 as cloudinary, UploadApiResponse} from 'cloudinary'
+
+8 - Colocar as chaves do cloudinary
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_NAME,
+	api.key: processs.env.CLOUDINARY_KEY,
+	api.secret: process.env.CLOUDINARY_SECRET
+})
+
+9 - criar uma promisse com callback que recebemos uma função que recebe 2 estados:
+
+error e result
+
+O que estamos fazendo:
+Estamos verificando se você enviou uma imagem, depois eu pego essa imagem e envio para api do cloudinary, caso der erro rejeitamos e caso der certo, da um resolve e retorna para a nossa variável resultFile e damos um console.log
+
+- Agora precisamos salvar a url da imagem no banco de dados para o usuário poder utilizar.
+
+> Ajustando envio de imagens
+Vamos salvar a url da imagem do cloudinary no nosso banco de dados.
+
+Documento: Backend\controllers\product\CreateProductController.ts
+
+1 - Dizer que resultFile é do tipo UploadApiResponse
+
+resultFile: UploadApiResponse
+
+2 - passar resultFile.url no banner na const product
+
+banner: resultFile.url,
+
+PRONTO !!!
+
+3 - Deletar todos os produtos,itens, pois estava salavando na pasta.
+
+- Então estamos cadastrando um Produto e cadastrando a imagem no cloudinary e a url da imagem do cloudinary no banco de dados.
+
+
+
+------------Cotinuar
+
+
+> Deploy da api (backend)
+Documento: Backend
+1 - Criar uma conta da vercel, e podemos criar conta no github
+
+Documento: packege.json
+2 - Criar scripts de produção / script de build
+Comando cmd para gerar o build: npm run build
+- Script que usaremos quando subir para hospedagem.
+
+start: node dist/server.json
+
+Ele já criar convertido em JS porque o ts é apenas para desenvolvimento.
+
+3 - Criar a porta do Servidor
+Documento: .env
+
+#PORTA 
+PORT=3333
+
+Documento: server.ts
+- Temos a porta fixa, vamos usar a variável de ambiente ao invés de fixa: quando a hospedagem subir é ela que vai decidir qual porta será usada.
+
+Criar documento: na raiz do projeto backend.
+verce.json
+
+> Deploy do projeto web (frontend)

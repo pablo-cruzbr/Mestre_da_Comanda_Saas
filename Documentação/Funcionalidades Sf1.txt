@@ -1,0 +1,25 @@
+Funcionalidades do Software SF1: Restaurante
+
+> Web:
+- Cadastro e Logins de usuário com Token (JWT) e Rotas Privadas(Cookies)
+- Botão de Logout apagando o Token dentro do Cookie
+- Cadastro de Categorias
+
+- Cadastro de Produtos
+ --> Anexo de Imagens PNG, JPEG
+ --> Preview da Imagem ao Cadastrar o Produto
+ --> Seleção de Categoria
+ --> Nome do Produto
+ --> Preço do Produto
+ --> Descrição do Produto
+
+- Visualizar contéudo das ordens e atualizar Ordens
+- Fechar Ordens
+- Visualizar Preço dos Produtos 
+
+
+> Mobile:
+- Abrir Ordens/Mesas
+- Seleção de Categorias e Produtos
+- Enviar a Order
+

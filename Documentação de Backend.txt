@@ -1,0 +1,468 @@
+Projeto Front-end e backend 
+
+Vamos criar primeiro o Backend.
+
+1 - Criar a pasta - Backend
+2 - Criar o package.json (yarn init -y)
+3 - Vamos usar o typescript (add typescript -D)
+4 - Instalar o express (yarn add express)
+5 - Tipagem do express: (yarn add @types/express -D) 
+
+Já te sugere o que tem dentro daquele cara. Para ter um autocomplete. isso que o typescript faz.
+
+6 - inicializar o typescript dentro do nosso projeto:  (yarn tsc --init)
+
+7 - Criar pasta "src" com 2 documentos: com as rotas da API separadas do nosso server.
+
+- routes.ts
+ > Criar as rotas da API (req,res) e vamos retornar um json. 
+
+Esse seria o arquivo principal da nossa aplicação que quando agendar rodar, vai chamar o server.ts
+
+- server.ts
+ > inicializar o express com seus parametros e porta 3333. com um aviso: console.log("Servidor Online!")
+
+> Inicializar (yarn add ts-node-dev -D)
+....7:20
+
+> Tratando de Erros:
+(yarn add express-async-errors)
+- Instalamos o cors: yarn add @types/cors -D
+
+ - Tratamos os erros da nossa aplicação do ripo status 400 e 500 ("app.use(express.json)")
+
+- Deixamos livre nossa aplicação para que não bloqueie nenhuma requisição com uma api externa. Pois o navegador bloqueia por padrão.
+
+
+
+> Instalando (postgreSQL)
+
+Instalando o postBird para ter uma melhor visualização do banco de dados. 
+
+
+
+> Usando Postgreasql 
+
+Instalar: 
+
+- prisma:  vc trabalha com:
+ORM: typescript, node js, postgresql
+
+- beekeeper Studio: 
+Serve para: Visualizar as tabelas do banco de dados, editar tabela e o valor que tem dentro do banco de dados e etc.
+
+
+
+> Criando Migration
+
+Migração de 1 pra N (1-N)
+Uma categoria possui N produtos
+
+> Configurando a Estrutura
+
+Temos uma estrutura que iremos usar:
+
+controlers, rotas e serviços.
+
+1- ROTAS: PORTA DA LOJA
+2- CONTROLLERS: CHEFE/ GERENTE DA LOJA
+3- SERVIÇOS: OS FUNCIONARIOS QUE VÃO FAZER O TRABALHO PESADO.
+
+(controlers): que vão se comunicar diretamente com as nossas (rotas) e os (serviços) iram fazer a lógica que agente quer.
+
+
+
+
+> Cadastrando User
+Precisamos Cadastrar no Banco de dados
+
+1 - Importar prismaClient no (CreaterUserservice)
+2 - Adicionamos Middlewars(Verificar se o foi fornecido, Verificar se o e-mail já está cadastrado no banco de dados, Criar um novo usuário no banco de dados)
+
+> Criptografando Senha
+- Instalar a biblioteca brypt (yarn add bcryptjs)
+- Instalar as tipagens do brypt(yarn add @types/bcryptjs -D)
+
+- hash seria pra importar algo.
+Importar  import {hash} form 'bcrypt.js'
+
+- Importars senha criptografada em cima do password.
+
+const passwordHash = awit hash(password, 8)
+
+password: passwordHash,
+
+-> Criar sistema de Login
+
+authUserService.ts
+
+Enviar email e password
+- Verificar se (o email existe, verificar se a senha que ele mandou está correta)
+
+> Conhecendo JWT
+
+Utilizamos que quando a gente quer autenticar usuários em aplicações reais. Vai ajudar na parte de segurança.
+ >Rota: http://api.com/sessions
+
+- {Azul} header do token (Qual o tipo)
+- {Vermelho} Payload (Pode conter dados: id, nome do usuário)
+- {Verde} Assinatura (saber se esse token foi manipulado, garante autenticidade)
+
+> Logando e gerando token JWT
+
+O usuário vai poder logar esse token com as novas requisições, por exemplo (rotas privadas).
+Cada Token é unico, e assim não tem como forjar tokens.
+
+
+1 - Instalar JWT (yarn add jsonwebtoken)
+2 - Importa no AuthUserService.js (import {sign} from 'jsonwebtoken')
+3 - Instalar em versão de desenvolvimento: (yarn add @types/jsonwebtoken -D) obs. senão ele não ativa as tipagens.
+
+4 - jwt_secreat= (gerar do site -> https://www.md5hashgenerator.com/)
+
+5 - Desabilitar Type Checking (false) (tsconfig.json)
+
+6 - Função token = sign{...} + return(id,name, email, token: user.email, )
+
+
+> Criando Middleware
+
+- Buscar as Informações do user que fez o login
+
+- Pegar o Token e validar se está correto
+
+- O Usuário precisa fornecer o token para deixar proceguir.
+
+Novo: DatailUserService.ts
+Novo: DatailUserController.ts
+Criar Rota: router.get('/me', )
+
+Utilizaremos o metodo {verify} do 'jsonwebtoken'
+Já utilizamos o {sign > para criar},{verify > para verificar}
+
+sub > Seria o id do usuário
+
+> Detalhes do usuário
+Vamos pegar os dados  do usuário: nome, e-mail, id = user_id (Pegar o id do usuário).
+
+Iremos pegar o id do usuário que está logado
+ 
+Criar Tipagens nossas
+Pasta: @types
+Documento: index.d.ts
+
+declare namespace Express{
+export interface Request{
+	user_id: string;
+}
+}
+
+Criando uma tipagem para o id do Usuário: user_id.
+ 
+Recuperar o id do token e colocar dentro de uma variavel, user_id dentro do req.
+
+Revisão do que foi feito: 9:23
+
+ROTA: DETAIL USER
+
+router.get('/me', isAuthenticated, new DetailUserController().handle)
+export { router };
+
+Passou pelo nosso middleware, validou o token, e deixou prosseguir, deixou prosseguir chamando nosso DetailUserController, o controler pegou o id do usuário 
+
+Revisão do Cadastro, login + autenticação, Detalhes: Aula - Cadastrando Categorias: 00:05
+  
+> Cadastrando Categoria
+
+Agora vamos criar as funcionalidades de:
+1 - Listar uma Categoria
+2 - Cadastrar uma categoria
+
+
+Então no nosso Schema category, precisamos fornecer: 
+- Verificar se o usuário está logado
+- Usuário precisa fornecer o nome da categoria que ele quer.
+
+
+Pasta: Category 
+Vai Buscar os dados no banco de dados.
+- Documento: CreateCartegoryService.ts
+
+Vai trazer o Request, Response da nossa requisição, importar o serviço, criar o name, criar um execute(name).
+
+- Documento: CreateCategoryController.ts
+
+Rota privada do tipo (post).
+
+ > Listando Categorias
+- Router:
+
+router.get('/category', isAuthenticated, new ListCategoryController().handle)
+
+import { ListCategoryController } from "./category/ListCategoryController";
+
+- Controller
+
+CreateCategoryController.ts
+
+LitsCategoryController.ts
+
+- Service
+
+CreateCategorieService.ts
+ListCategoryService.ts
+
+
+> Rota Produtos
+
+category_id
+
+1 - Rotas
+
+2 - Services
+
+3 - Controler
+
+
+> Configurando Envio de imagem
+
+Não vamos armazenar a foto no banco, apenas o nome.
+A foto vai ficar dentro do nosso backend.
+Vamos criar uma pasta chamada: "temporária", tpm.
+
+
+Biblioteca para trabalhar com o envio de imagens
+
+- Instalar a biblioteca: Multer
+(yarn add multer)
+- Instalar as tipagens: (yarn add @types/multer - D)
+
+
+1 - Configurar o envio de imagem
+
+config/multer.ts
+
+Vamos importar:
+- crypto - para as imagens nunca criar o mesmo nome. vamos criar um (hash criptografado)
+
+- multer
+Para o envio de imagens.
+
+- Criando arquivo: multer.ts
+- Criando a pasta que vamos salvar as fotos: tmp (fora de src)
+
+- router.ts: importar multer e uploadfileConfig from './config/multer'
+
+- criar uma const upload = multer (uploadConfig.upload("./tmp"));
+
+- incluir na rota PRODUTOS após o middledware isAuthenticated, upload.single('file')...
+
+pois queremos enviar apenas uma foto.
+
+ OBS. Para teste no insominia, criar após o body, formato: Multipart.
+
+> Cadastrar um produto
+
+Já configuramos nosso multer, para trabalhar com envio de imagens.
+
+- Como acessar a foto
+
+importar o patch no server.ts
+criar uma rota estática em server.ts
+
+app.use(
+    '/files',
+    express.static(path.resolve(__dirname, '..', 'tmp'))
+)
+
+> Filtrando produtos por categorias
+
+
+- Routers
+
+router.get('/category/product', isAuthenticated, new ListByCategoryController().handle)
+
+- Service
+ListByCategoryServices.ts
+
+//id produtos
+interface ProductRequest{
+category_id: string;
+}
+
+const findByCategory = await prismaCilent.product.findMany({
+where:{
+category_id: category_id
+}
+})
+
+- Controller
+
+findByCategoryController.ts
+
+
+> Criando order Pedido
+
+- Service
+CreateOrderService.ts
+
+- Controller
+CreateOrderController.ts
+
+OBS. Eu quero acessar a order_id que é uma string.
+
+ const order_id = req.query.order_id as string;
+
+- Router
+
+router.post('/order', isAuthenticated, new CreateOrderController().handle)
+
+> Fechando um pedido (delete - CRUD)
+
+RemoveOrderService.ts
+
+Iremos deletar a order pelo id criando "order_id: string" na interface.
+
+Usando o metodo (delete) do prismaCliente.
+const order = await prismaCliente order.delete({
+	where:{
+	id: order_id,
+}
+})
+
+> Adicionando itens ao pedido
+
+Dentro de um pedido tem os itens.
+
+
+Estamos adicionando um item ao pedido: 
+Este item tem a seguintes propriedades.
+
+- order_id (pedido)
+- product_id
+- amount (Qtd.)
+
+AddItemService.ts
+AddItemController.ts
+
+
+> Removendo Itens do Pedido
+
+- Service
+RemoveItemService.ts
+
+- Controller
+RemoveItemController.ts
+
+- Router
+
+router.post('/item/remove', isAuthenticated, new RemoveItemController().handle)
+
+> Enviando Pedido
+Retirando do Rascunho e enviando orderns
+
+draft de true para false
+
+const order = prismaClient.order.update
+
+where:{
+id:order_id
+},data:{
+ order_id:false
+}
+
+> Últimos Pedidos (Listando os Pedidos)
+
+Só que listar os pedidos que estão fora de rascunho.
+
+ const orders = await prismaClient.order.findMany
+
+findmany - Encontrar todos os itens do modal.
+
+where:{
+draft: false
+status: false
+},
+
+orderBy:{
+created_at: 'desc'
+}
+
+> Detalhes do Pedido
+
+1º Pegar os Itens da order_id
+
+Pegar todo o Conteúdo
+
+- Service
+DetailOrderService.ts
+
+interface DatailRequest: order.id: string
+
+prismaClient.item.findMany
+
+where:{
+order_id: order_id
+}
+
+- DetailOrderController.ts
+
+Tipa falando que esse order_id vai ser uma string.
+
+const order_id = req.query.order_id as string
+
+
+
+
+- Router
+ 
+router.get('/order/detail', isAuthenticated, new DetailOrderController().handle)
+
+2º Precisamos pegar os detalhes da order_id
+
+Order e produto
+
+Em DetailOrderService.ts
+
+"include": Inclua tudo em nossa resposta.
+
+where:{
+order_id: order_id
+} include:{
+ product: true,
+ order: true,
+}
+
+
+> Funcionalidade para Concluir pedido
+
+Deixaro status de False para true
+
+- Service
+
+FinishOrderService.ts
+
+interface: order_id: string
+
+const order = prismaClient.order.update
+
+where:{
+id:order_id
+},data:{
+ status: true
+}
+
+- Controller
+
+FinishOrderController.ts
+
+Quero que ele me mande do corpo da requisição o order_id
+
+const {order_id} = req.body;
+
+- Route
+
+router.put('/order/finish', isAuthenticated, new FinishOrderController().handle)
+
+
+

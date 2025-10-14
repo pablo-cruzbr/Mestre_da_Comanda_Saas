@@ -1,0 +1,1108 @@
+
+App - Sujeito Pizza
+> Entendendo Projeto
+1 - Pagina de login
+Só podemos logar e não Cadastrar.
+
+2 - Tela de novo Pedido - Numero da mesa
+
+3 - Cadastrando itens - Adicionando Pedidos
+
+4 - Finalizar Pedidos
+
+Vamos Precisar ter: 
+- Controle de Rotas para usuários logados e não logados.
+- Navegação de Páginas, Navegação de pilha
+
+> Criando Projeto
+
+- Criar pasta:
+1 - Instalar o Expo cli:
+- npm install --global expo-cli
+- expo init (nome do porjeto)
+
+Templates:
+- blank (JavaScript) ou blank (typescript) 
+
+
+import {StyleSheet, Text, View, StatusBar from 'react-native'
+
+2 - Importar e Configurar a <StatusBar/>
+
+3 - Criar pasta: src\assets\logo.svg
+
+4 - Criar pasta pages: src\signin\index.tsx
+Documento:src\signin\index.tsx
+
+Padrão:
+
+import React from 'react';
+import { Text, View} from 'react-native';
+
+export default function Signin(){
+    return(
+
+    )
+}
+
+
+> Configurando Navegação
+
+1- Instalar React Navigation para Navegação de Páginas
+Dentro da pasta mobile:
+expo install @react-navigation/native
+
+
+2 - Vamos Instalar o tipo de Navegação: Native Stack
+- expo install @react-navigation/native-stack
+
+3 - Configurar nossas Rotas 
+Documento: routes\index.tsx
+index.tsx - componente que vai decidir qual rota vou mostrar
+
+routes\app.routes.tsx: Todas as nossas rotas onde só usuários logados vão poder acessar.
+
+routes\auth.routes.tsx: Onde só usuário não logados vão poder acessar, como a tela de login por exemplo.
+Instalar a Biblioteca: 
+
+ - importar: import {createNavigatioStackNavigation} from '@react-navigation/native-react';
+
+4 - index.tsx que vai controlar quem esta logado e quem não está logado.
+Criamos por enquanto um valor ternário para controle de quais paginas vamos mostrar.
+
+Se ele estiver logado, quero mostrar AppRoutes senão, eu mostro o AuthRoutes
+<isAuthenticated ? <AppRoutes/> : <AuthRoutes/>
+
+5 - importar index.tsx em App.tsx
+
+> Tela login
+Documento: routes\index.tsx
+
+1 - Criar uma tela amigavel enquanto a aplicação carrega
+2 - importar o ActivityIndicator que seria aquele spyner rodando.
+
+Se loading estiver true, mostrar spyner de carregamento, caso seja falso, mostrar a tela de login.
+
+3 - Estilização
+Documento: Pages\Signin.tsx
+
+- incluir no elemento:
+style={styles.container}
+
+- Estilização
+
+- ESPAÇAMENTO DOS ITENS AO CENTRO:
+const styles = StySheet.create({
+container:{
+	flex: 1,
+	justifyContent: 'center',
+	alignItens: 'center',
+	backgroundColor: '#1d1d2e'
+}
+})
+
+
+- ESPAÇAMENTO DOS ITENS AO CENTRO:
+
+  inputContainer:{
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+       paddingVertical:3        
+    },
+
+importar: Image, TextInput, TouchableOpacity
+
+- Para deixar o input de senha:
+secureTextEntry={true}
+
+
+> Tela login pt2
+
+ - Pegar o que o usuário digite, iremos usar sempre o useState, para criarmos os estados para armazenar o que o usuário digita no campo e-mail e senha.
+
+1 - Criar useState dentro do componente abaixo do export default function. 
+- obs. que vai receber se iniciar com uma string vazia.
+    
+const [email, setEmail] = useState('');
+    const [passsword, setPassword] = useState('');
+
+
+2 - adicionar 2 propriedades nos inputs:
+value={email}
+onChangeTex={setMail}
+
+
+3 - Adicionar onPress no botão e criar a função 
+handleLogin(){
+//Verificação se não digitar nada, não vai retornar nada
+	if(email === '' || password === ''){
+	return;
+}
+	console.log("Email digitado" + email)
+}
+
+
+
+> Fluxo de Autenticação
+
+Context API sera o responsável pelo: 
+Sistema de Login, cadastro e informações do usuário
+
+Infomações do User, 
+Métodos de login cadastro, 
+Se user ta logado,
+Salvar os dados do Local Storage
+Função para deslogar o Usuário e apagar os dados do LocalStorage
+
+> Criando Contexto login
+- Estamos construindo uma Estrura de Authenticação onde os dados do usuário são salvos no app (com asynStorage), e compartilhados via Context API  
+
+1 - Instalar asyncStorage para salvar o token do usuário de forma off-line
+
+- npx expo install @react-native-async-storage/async-storage
+
+2 - criar o context: src\contexts\authContext.tsx
+Documento: src\contexts\authContext.tsx
+
+- importar useState, createContext, ReactNode
+import React, {useState, createContext, ReactNode} from 'react';
+
+3 - Criar as tipagens Necessárias
+
+3.1 - Tipagem do Contexto
+type AutContextData = {
+user: UserProps 
+isAuthenticated: boolean;
+}
+
+
+3.2 - Tipagem das informações do usuário
+
+type UserProps = {
+ 	id: string;
+	name: string;
+	email: string;
+	token: string; 
+}
+
+3.3 - Tipagem do componente Provider
+
+type AuthProviderProps = {
+	children: ReactNode;
+}
+
+4 - Criar o AuthContext e Provider
+
+4.1 - AuthContext
+export const AuthContext = createContext({} as AuthContextData);
+
+Vamos usar uma variavel que vai ser controlada com base nas informações do usuário:
+
+
+
+4.2 - Provider 
+Criar o Provider do Contexto que cai receber as informações: id, name, email, token
+export function AuthProvider(){}
+
+4.3 - Criar variável boleana 
+Uma variável booleana, dizendo que ele fez ou não o login.
+const isAuthenticated  = !! user.name;
+
+Queremos dizer que ele fez o login.
+
+Queremos que nosso contexto esteja por volta da nossa aplicação.
+
+
+5 - Integrar o Contexto na Aplicação para englobar todas as rotas.
+Documento: app.tsx
+
+<AuthProvider> 
+	<Routes/>
+</AuthProvider>
+
+6 - Consumir nosso contexto 
+Documento: Signin\index.tsx
+
+Agora precisamos criar o método pra quando o cara clicar em acessar buscar a requisição api e ir buscar as informações do usuário:
+
+
+> Funcionalidade de Login
+
+
+Documento: context\AuthContext.tsx
+
+1 - Criar uma função asyncrona
+async 
+2 - Criar tipagem chamada SignInProps
+
+type SignInProps = {
+	email: string;
+	password: string;
+}
+
+- Tipamos a Função.
+- Passar o signIn no value
+
+Documento: Signin\index.tsx
+4 - Passar o signIn dentro do useContext(AuthContext)
+
+const {signIn} = useContext(AuthContext)
+
+5 - transformar a função handleLogin em asyncrona e passar o email e password em await dentro da função handleLogin:
+
+async function handleLogin(){
+//Condicional de campos vazios
+
+await signIn({email,password})
+} 
+
+Ele vai chamar a funcionalidade do contexto e ele precisa me mandar aqui no console.log, jogar as informações que digitamos.
+
+
+6 - Configurar a API
+
+- Instalar o axios: expo install axios
+Documento: service\api.ts
+
+
+7 - Importar a api criar useState loadingAuth, setLoadingAuth.
+Documento: context\AuthContext.tsx
+
+const [loadingAuth, setLoaginAuth] = useState(false)
+
+Documento: contexts\context.tsx
+
+-- - Pegar as Informações do usuário e passar para o nosso useState:
+
+- Pegar as informações do usuário e salvar AsyncStorage
+
+- Importar asyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+- Converter as informações de objeto para string
+JSON.stringify(data)
+
+- Todas as informações precisamos fornecer o bearer Token nas requisições:
+
+api.defauts.headers.common['Authorization'] = `Bearer${token}`
+
+
+- O nosso isAuthenticated precisa estar atrelado ao nosso controle de rotas:
+
+Documento: router\index.tsx
+
+importar o AuthContext
+
+> Permanencendo Login
+
+Documento: AuthContext.tsx
+
+1 - Criar uma useEffect com uma função asyncrona para pegar os dados do user.
+
+useEffect (() => {
+	async function getUser(){
+	//Pegar os dados do user
+}
+}, {})
+
+2 - Criar 2 useState de loading mostrar um loading de carregamento enquanto pega a api pega os dados do usuário.
+ Documento: AuthContext.tsx
+Enquanto o useEffect faz as requisiçõe para a função getUser fazer as requisições necessárias para guardar os dados do usuário no 
+
+Criar 2 useState para que nosso useContext esteja controlando nosso loading.
+    const[loadingAuth, setLoadingAuth] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+- Criar tipagens de loading em type AuthContextData:
+loadingAuth: boolean
+loading: Boolean
+
+- passar loading e loadingAuth para o value AuthContext.Provider
+  
+<AuthContext.Provider value={{user, isAuthenticated, signIn, loading, loadingAuth}}>
+        {children}
+    </AuthContext.Provider>
+
+
+- Passar nosso loading para em nossa const em indext.tsx
+
+Documento: Routes\index.tsx
+const {isAuthenticated, loading} = useContext(AuthContext)
+
+3 - Método de Logout
+Documento: AuthContext.tsx
+
+- Criar uma função Assincrona passar um await AsyncStorage.clear()
+
+async function signOut(){
+	await AsyncStorage.clear()
+	.then(() => {
+	setUser({
+	id: ''
+})
+})
+}
+
+- Passar para type AuthContextData o nosso método signOut:
+
+sigOut: () => Promise<void>
+
+- Passar para o value AuthContext.Provider
+
+<AuthContext.Provider value={{user, isAuthenticated, signIn, loading, loadingAuth, signOut}}>
+        {children}
+    </AuthContext.Provider>
+
+- Trazer o Método de logOut em nosso Dashboard
+Documento: Pages\Dashboard.tsx
+
+
+- Importar Button
+- Passara const {signOut} em baixo do expot default...
+
+const {signOut} = useContext(AuthContext)
+
+<Button
+tittle='Sair do App'
+onPress= {signOut}
+/>
+
+4 - Adionar loading no botão Acessar.
+Documento: Signin.tsx
+- importar ActivityIndicator
+
+- Abaixo do export default function:
+const {signIn, loadingAuth} = useContext(AuthContext)
+
+- Criar uma renderização condicional dentro do TouchableOpacity
+
+
+OBS. Verifique a api.ts para ver o ip da maquina.
+ Ipconfig - cmd
+
+
+> Tela de novo Pedido
+
+<SafeAreaView>
+</SafeAreaView>
+- Para Dispositivos Iphone
+
+- Propriedade para deixar apenas teclado numérico:
+obs. passar proriedade no input.
+
+keyboardType='numeric'
+
+> Abrindo Mesa
+
+1 - Pegar os dados que o usuário digita e salvar me uma useState
+
+- Criar useState number, setNumber
+Abaixo do export Default function...
+const [number,setNumber] = useState('');
+
+- passar propriedades value, e onChangeText
+value={number}
+onChangeText={setNumber}
+
+2 - Abrir uma função função asyncrona:
+ async function openOrder(){
+	alert("TESTE")
+}
+
+- Incluir no TouchableOpacity 
+onPress={openOrder}
+
+3 - Criar um if se caso não digitar nada, não retorna nada.
+
+if(number === ""){
+	return;
+}
+
+4 - Fazer a Requisição, abrir a mesa e navegar para a próxima tela
+- Criar a próxima tela de fazer pedido
+Documento: Order\index.tsx
+
+- importar em app.routes.tsx onde só usuários logados podem acessar:
+Documento: routes\app.routes.tsx
+
+   	<Stack.Screen
+            name="Order"
+            component={Order}
+            options={{headerShown: false}}
+            />
+
+
+5 - importar useNavigation para navegar entre as páginas
+Documento: Pages\Dashboard
+
+6 - Criar Tipagem em app.routes.tsx
+
+const Stack = createNativeStackNavigator<StackPramsList>();
+
+export type StackPramsList={
+	Dashboard: undefined;
+	Order: undefined;
+}
+
+
+- Importar tipagem no Dashboard.tsx
+
+import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+import { StackPramsList } from '../routes/app.routes';
+
+- criar const navigation com nossa tipagem: 
+
+const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>();
+
+
+- Queremos pegar na próxima tela alguns parâmetros
+Documento: app.routes.tsx
+
+
+export type StackPramsList={
+	Dashboard: undefined;
+	Order: {
+	 number: number | string;
+	 order_id: string;
+	};
+}
+
+
+- Estamos passando para o nosso navigation um parâmetro para a tela de Order um parâmentro number e outro que seria o order_id
+Documento: Dashboard.tsx
+
+
+ navigation.navigate('Order', {number: number, order_id: '05fdee3a-e494-4183-9614-6c1a0d8bd8f6'})
+
+
+> Recebendo Parâmetros
+Documento: Pages\Order\index.tsx
+
+Tela de Adicionar Itens ao pedido
+Precisamos pegar as informações que pegamos tela anterior e imprimir na página de Adicionar tens ao Pedido.
+
+1 - Importar o useRoute, RouteProp para pegar os Parâmetros:
+
+import { useRoute, RouteProp } from "@react-navigation/native";
+
+2 - Criar const route
+export default function Order()...
+const route = useRoute();
+
+3 - Criar tipagem Dizendo o que vemos receber dois parâmetros de um objeto.
+
+type RouteDetailParams = {
+    Order: {
+        number: number | string;
+        order_id: string;
+    }
+}
+
+type OrderRouteProps = RouteProp<RouteDetailParams, 'Order'>;
+
+export default function Order()...
+ const route = useRoute<OrderRouteProps>();
+
+
+Passar Parâmetros de uma tela e na outra receber esses parâmetros.
+
+- Tela que passamos os parâmetros: Documento: Pages\Page\Dashboard.tsx
+- Tela que recebemos os parâmetros: Documento: Pages\Order\index.tsx
+
+
+> Tela Pedido Order ()
+Documento: Pages\Order\index.tsx
+import { View, Text, StyleSheet } from "react-native";
+
+export default function Order(){
+
+	return(
+	 <View style={styles.container}>
+		<Text style={styles.title}></Text>
+	<View styles={styles.header}>
+		<Text style={styles.title}> Mesa {route.params.number}</Text>
+	 </View>
+        <View/>
+	)
+}
+
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: "#1D1D2E",
+        paddingVertical: '5%',
+        paddingEnd: '4%',
+        paddingStart: '4%'
+        
+    },
+
+
+	header:{
+	flexDirectio: 'row',
+	marginBottom: 12,
+	
+	}	
+
+> Tela Pedido Order pt2
+Documento: Pages\Order\index.tsx 
+Estilização:
+
+
+> Funcionalodade mesa
+Documento: Pages\Dashboard.tsx
+
+1 - importar api
+import {api}
+
+2 - Antes de enviar para outra tela, precisamos fazer a requisição http
+3 - Fornecer o numero da mesa que quer abrir (table)
+4 - Converser o useState number como numero
+
+     //alert('TESTE')
+        //1 - condicional caso não digite nada, não retorna nada
+        if(number === ""){
+            return;
+        }
+
+        const response = await api.post('/order',{
+            table: Number(number)
+
+        
+        }) 
+        console.log(response.data)
+        //precisa fazer a requisição e abrir a mesa e navegar pra próxima tela
+        
+        console.log('[openOrder] response.data:', response.data);
+
+        navigation.navigate('Order', {
+        number: number,
+        order_id: response.data.id
+        });
+
+        //Limpar campo após digitar
+        setNumber('');
+
+    }
+
+5 - Funcionalidade de handleCLoseOrder
+Documento: Pages\Order\index.tsx
+
+
+async function handleCloseOrder(){
+         //alert("CLICOU")
+         try{
+            const response = await api.delete('/order/delete',{
+            params:{
+                order_id:route.params?.order_id
+            }
+            })
+
+            navigation.goBack();
+         }catch(err){
+            console.log(err)
+         }
+
+
+Agora estamos abrindo a mesa e fechando a mesa.
+
+> Buscando categorias
+
+Documento: Pages\Order\index.tsx
+
+Criar a Funcionalidade de Buscar as categorias
+Utilizar o UseEffect.
+
+1 - importar useffect e useState
+import React, {useState, useEffect} from "react";
+
+2 - Criar 2 useState abaixo do export default function Order()
+
+-- Estado 1: criado para armazenar as categorias que temos em nossa lista
+const [category, setCategory] = useState([])
+
+-- Estado 2: criado para saber qual esta selecionada atualmente
+const [categorySelect, setCategorySelect] = useState()
+
+Lembrando que em nosso backend, quando listamos as categorias, rebemos um id e um name:
+
+3 - Criar uma tipagem para receber esses valores / parâmetros
+Documento: Pages\Order\index.tsx
+
+ 
+-- Estado 3: Controlar a quantidade que queremos
+const [amount, setAmont] = useState('1')
+
+   <TextInput
+        style={[styles.input, {width: '60%', textAlign:'center'}]}
+        placeholderTextColor={"#F0F0F0"}
+        keyboardType="numeric"
+        value={amount}
+        onChangeText={setAmont}              
+        />
+
+
+4 - Buscar as categorias
+
+ useEffect(()=>{
+        async function loadInfo(){
+            const response = await api.get('/category')
+            console.log(response.data)
+
+        }
+
+        loadInfo();
+    }, [])
+
+
+ 	<TouchableOpacity style={styles.input}>
+                <Text style={{color:'#FFF'}}>
+                    {categorySelect?.name}
+                </Text>
+            </TouchableOpacity>
+
+
+Criar uma verificação para ver os itens dentro do inputSelect, pois pode demorar um pouco pra ser chamado
+
+ {category.length !== 0 && (
+             <TouchableOpacity style={styles.input}>
+             <Text style={{color:'#FFF'}}>
+                 {categorySelect?.name}
+             </Text>
+         </TouchableOpacity>
+           )}
+
+
+> Modal categoria
+
+1 - Criar componente de modal
+Documento: src\components\ModalPicker\index.tsx
+
+2 - Criar useState para o modal mudando de false pra true
+Documento: Pages\Order\index.tsx
+
+-- Estado 1: Controlar quando o modal Esta fechado ou aberto
+const [modalCategoryVisible, setModalCategoryVisible] = useState(false)
+
+- onPress={() => setModalCategoryVisible(true)}
+
+3 - Importar componente de Modal.
+
+Precisamos passar todas as categorias, o método para fechar o modal o  modal e qual está selecionado.
+
+Documento: src\components\ModalPicker\index.tsx
+
+<Modal>
+<ModalPicker/>
+
+ 	<Modal 
+            transparent={true}
+            visible={modalCategoryVisible}
+            animationType="fade"
+            >
+                <ModalPicker
+                handleCloseModal={() => setModalCategoryVisible(false)}
+                options={category}
+                selectedItem={() => {} }
+                />
+            </Modal>
+
+
+4  - Tipar as propriedades no componente ModalPicker
+Documento: src\Components\ModalPicker\index.tsx
+
+interface ModalPickerProps{
+  options: CategoryProps[];
+  hadnleCloseModal: () => void;
+  selectedItem: () => void
+}
+
+5 - usar o Dimensions (Para o modal ser responsivo)
+
+const {width: WIDTH, height: HEIGHT} = Dimensions.get('window')
+
+
+6 - Fazer o Map para pegar as categorias:
+Documento: src\Components\ModalPicker\index.tsx
+
+
+ const option = options.map((item, index) => (
+        <TouchableOpacity key={index} style={styles.option} onPress={() => onPressItem(item)}>
+            <Text style={styles.item}>
+                {item?.name}
+            </Text>
+        </TouchableOpacity>
+    ))
+
+    return(
+       <TouchableOpacity style={styles.container} onPress={handleCloseModal}>
+        <View style={styles.content}>
+        <ScrollView showsHorizontalScrollIndicator={false}>
+        {option}
+        </ScrollView>
+        </View>
+       </TouchableOpacity>
+    )
+
+
+7 - Criar a função onPressItem para selecionar a categoria, salvar a categoria selecionada na variável de estado e fechar o modal.
+onPress
+
+Documento: src\Components\ModalPicker\index.tsx
+
+function onPressItem(item: CategoryProps){
+        //console.log(item)
+       selectedItem(item)
+       handleCloseModal()
+    }
+
+- Tipar o parâmetro selectedItem:
+
+
+interface ModalPickerProps{
+    options: CategoryProps[];
+    handleCloseModal: () => void;
+    selectedItem: (item: CategoryProps) => void;
+
+}
+
+- Passar a função handleChangeCategory na propriedade seletedItem no  componete ModalPicker.
+
+Documento: src\Pages\Order\index.tsx
+
+ function handleChangeCategory(item: CategoryProps){
+        setCategorySelect(item);
+    }
+
+
+> Produtos de uma categoria
+Documento: Pages\Order\index.tsx
+
+1 - Criar variáveis de Estados do Product e tipagem, atribuir a tipagem de estados.
+
+- Criar Tipagem ProductProps
+
+type ProductProps = {
+id: string
+name: string
+}
+- Atribuir a tipagem a tipagem ProductProps
+
+-- Estado 1: Listar todos os produtos de uma categoria
+   const [product, setProduct] = useState<ProductProps[] | []>([])
+
+-- Estado 2: Variável de estádo do select para selecionar e armazenar o product.
+   const [productSelect, setProductSelect] = useState<ProductProps | undefined>()
+
+-- Estado 3: Variável para abrir o modal e fechar o Modal
+   const [modalProductVisible, setModalProductVisible] = useState(false)
+
+2 - Criar useEffect e criar uma async function loadProduct para fazer requisição da api. Com requisição 
+
+3 - incluir ProductSelect?.name no TouchableOpacity
+
+	{product.length !== 0 && (
+             <TouchableOpacity style={styles.input}>
+             <Text style={{color:'#FFF'}}>{produtctSelect?.name}</Text>
+            </TouchableOpacity>
+           )}
+4 - Reaproveitar o <ModalPicker/> e alterar apenas as propriedades
+
+
+> Modal Produtos
+Documento: Routes\Order\index.tsx
+
+1 - Criamos uma tipagem chamada 
+export type ProductProps = {
+    id: string;
+    name: string;
+}
+
+2 - Reutilizamos o ModalPickere mudados alguns useStates de product
+
+ 	<Modal
+           transparent={true}
+           visible={modalProductVisible}
+           animationType="slide"
+           >
+                <ModalPicker
+                handleCloseModal={() => setModalProductVisible(false)}
+                options={product}
+                selectedItem={handleChangeProduct}
+                />
+           </Modal>
+
+
+3 - Ativar o setModalProductVisible (true) no  componente <TouchbleOpacity\>
+
+	{product.length !== 0 && (
+             <TouchableOpacity style={styles.input} onPress={()=> 		setModalProductVisible(true)}>
+             <Text style={{color:'#FFF'}}>{produtctSelect?.name}</Text>
+            </TouchableOpacity>
+           )}
+
+
+OBS. Podemos usar essa lógica de api.get ('/category') para atribuir tarefas aos usuários:
+
+- Se podemos atribuir produtos para uma categoria específica
+- Podemos atribuir tarefas para um técnico específico
+
+
+
+> Itens de um pedido
+Documento: Routes\Order\index.tsx
+
+1 - Criar uma useState para salvar os itens em uma array
+
+-- Estado 1: Salvar os itens em uma array vazia (useState que vai ser uma array vazia)
+   const [items, setItems] = useState([]);
+
+2 - Criar uma tipagem chama ItenProps e atrelar a useState items
+
+type ItemProps = {
+   id: string;
+   product_id: string;
+   name: string;
+   amount: string | number;
+}
+
+const [items, setItems] = useState<ItemPops[]>([])
+
+3 - Primeira verificação, adicionar o disable: true no botão avançar
+
+ 	<TouchableOpacity 
+                style={[styles.button, {opacity: items.length === 0 ? 	  0.3 : 1}]}
+                disabled={items.length === 0}
+              >
+
+4 - importar o FlatList para ter listas dinâmicas
+Documento: Routes\Order\index.tsx
+
+  <FlatList
+            showsHorizontalScrollIndicator={false}
+            style={{flex: 1, marginTop: 24}}
+            data={items}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => }
+            
+            />
+
+5  - Criar um componente ListItem e importar em Order\index.tsx
+Documento: Components\ListItem\index.tsx
+
+6 - Criar tipagem ItemProps
+
+   interface ItemProps {
+       data:{
+        id: string;
+        name: string;
+        product_id: string;
+        amount: string | number
+       }
+    }
+
+  	<FlatList
+            showsHorizontalScrollIndicator={false}
+            style={{flex: 1, marginTop: 24}}
+            data={items}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <ListItem data={item}/> }
+            
+            />
+
+7 - Criar funcionalidade de adicionar items a order
+Documento: Components\ListItem\index.tsx
+
+> Adicionando itens
+
+1 - Criar funcionalidade de adicionar items a order
+- criar async function handleAdd()
+
+- Passar os Parâmetros que iremos receber de cada item: order_id, product_id, amount
+
+- Passar os mesmos parâmetros dentro de um objeto chamado data 
+
+- Incrementar e adicionar o objeto data dentro da useState setItems utilizando o sprindOperation.
+
+
+> Removendo itens
+Documento: Components\ListItem\index.tsx
+
+1 - Criar tipagem chamada deleteItem que vai receber uma propriedade
+
+deleteItem: (item_id: string) => void;
+export function ListItem ({data, deleteItem })
+
+2 - Criar função handleDeleteItem
+handleDeleteItem(){ 
+ deleteItem(data.id)	
+}
+
+
+3 - Criar uma função chamada handleDeleteItem e fazer requisição a api
+Documento: Pages\Order\index.tsx
+
+async function handleDeleteItem(item_id: string){
+	
+	//Deleta do banco 
+	await api.delete('/order/delete',{
+	params:{
+	   item_id: item_id
+	}
+})
+	//Deletar o card 
+
+}
+
+> Tela Finalizando Pedido
+
+Documento: Pages\FinishOrder\index.tsx
+
+1 - Criação de documento e estrutura da Pagina
+
+2 - Habilitar tela em app.routes.tsx
+Documento: routes\app.routes.tsx
+
+- importar FinishOrder
+- Tipar do tipo undefined
+FinishOrder: undefined;
+
+- criar Stack.Screen
+
+<Stack.Screen
+name: "FinishOrder"
+component={FinishOrder}
+/>
+
+3 - Navegar para a página FinishOrder clicando no botão
+Documento: Pages\Order\index.tsx
+
+- importar NativeStackNavigationProp
+
+- importar tipagem StackParamsList
+
+- Criar const navigation = useNavigation e passar NativeStackNavigationProp e StackParamsList
+
+Embaixo de export default function Order()
+
+const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>()
+
+4  - Navegar para a tela FinishOrder
+- Criar função handleFinishOrder() e atrelar ao botão Avançar
+
+function handleFinishOrder(){
+	navigation.navigate("FinishOrder")
+}
+
+-- PRONTO, ESTAMOS NA PÁGINA
+ 
+-- Estilizadações:
+Documento: Pages\FinishOrder\index.tsx
+
+
+
+> Finalizando Pedido:
+
+1 - Quero receber alguns parâmetros 
+Documento: src\routes\app.routes.tsx
+
+FinishOrder:{
+        number: number | string;
+        order_id: string
+    };
+
+2 - Passar os parâmetros através do routes
+Documento: Pages\Order\index.tsx
+
+	 navigation.navigate("FinishOrder",{
+            number: route.params.number,
+            order_id: route.params.order_id
+        })
+
+3 - Receber os parâmetros para envio da Mesa
+Documento: Pages\FinishOrder\index.tsx
+
+- Rebemos através do useRoute
+
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native"
+
+- Criar tipagem para recebermos os parâmetros
+
+type RouteDetailParams = {
+    FinishOrder:{
+        number: number | string;
+        order_id: string;
+    }
+}
+
+- Criar const route abaixo do export function
+
+ const route = useRoute<RouteDetailParams>();
+
+- Passar tipagem para nossa const route
+
+type FinishOrderRouteProp = RouteProp<RouteDetailParams, 'FinishOrder'>
+
+export function FinishOrder(){
+    const route = useRoute<FinishOrderRouteProp>();
+
+ <Text style={styles.titleMesa}>Mesa {route.params.number}</Text>
+
+
+- Agora estamos Rebendo o numero da mesa
+
+
+> Finalizando Pedido pt2:
+Documento: Pages\FinishOrder\index.tsx
+
+1 - Importar api
+
+2 - 
+- Criar um try e um catch e tornar função handleFinish assyncriona
+- fazer requisição api.put
+- passar o params e route
+
+3 - Redirecionar para o inicio da primeira tela
+
+- importar StackParamsList
+import { StackPramsList } from "../../routes/app.routes";
+
+- Criar a const navigation 
+const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>()
+
+- propriedade: popToTop para voltar a primeira tela
+navigation.popToTop()
+
+
+-- PRONTO !!!
+
+> Concluindo Projeto
+
+Software FullStack: Backend <-> Frontend
+
+Trabalhamos com:
+TypeScript, NextJs, ReactNative,NodeJs, Postgresql, Prisma
+
+Ferramentas para suporte: 
+insominia, BeeckperStudio, Cloudinary, Json Web Token, bcrypt
+
+--> Funcionalidade do SF1 Dashboard Admin
+Cadastrar um novo usuário
+Logar usuário 
+Cadastrar Produtos
+Cadastrar Categorias
+Visualizar Pedidos
+Concluir Pedidos
+
+--> Funcionalidade do SF1 APP Mobile:
+Logar usuário usando: AsyncStorage.clear
+Abrir Mesa
+Adicionar Itens a Order da mesa
+Finalizar Pedido
+
+
+
+NOVAS FUNCIONALIDADE E PAGINAS
+Dashbaord com Dados a qtd de ordersn abertas e finalizadas
+

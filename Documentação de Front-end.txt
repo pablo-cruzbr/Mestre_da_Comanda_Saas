@@ -1,0 +1,54 @@
+Front-end Pizzaria 
+
+> Criando Projeto
+
+cmd: (npx create-next-app@latest frontend)
+cmd: (npm install sass)
+Instalar extesão: css Modules, Sass
+page.module.scss
+import styles from '.page.module.scss'
+
+arquivo:
+global.scss
+layout.scss
+
+- DEFINIR ESTILOS GLOBAIS EM TODOS OS SOFTWARES
+	-- DEFINIR
+(
+- Cores padrões, 
+- botões,
+- inputs, 
+- link, 
+- text,
+- font-size, 
+- media query (reponsividade), 
+)
+
+Cores padrões:
+
+global.scss
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing: 0;
+	outline: 0;
+}
+
+
+:root{
+	--white: 
+	-- black:
+
+	--dark-900
+	--dark-700	
+}
+
+Definiu também padrões de:
+
+botão, links (a), body.
+
+body,input,textarea,select,button
+
+@media query
+
