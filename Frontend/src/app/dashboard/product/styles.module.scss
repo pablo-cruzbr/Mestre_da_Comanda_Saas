@@ -1,0 +1,16 @@
+.container{
+    max-width: 720px;
+    margin: 20px auto;
+    padding: 0 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    h1{
+        font-family: sans-serif;
+        font-size: 27px;
+        color: var(--white);
+       
+    }
+}
