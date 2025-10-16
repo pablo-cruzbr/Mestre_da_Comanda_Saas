@@ -29,11 +29,14 @@ type RouteDetailParams = {
 export type CategoryProps = {
     id: string;
     name: string;
+    description: string;
 }
 
 export type ProductProps = {
     id: string;
     name: string;
+    description: string;
+    banner: string;
 }
 
 type ItemProps = {
@@ -80,7 +83,13 @@ export default function Order(){
     useEffect(()=>{
         async function loadInfo(){
             const response = await api.get('/category')
-            
+
+           const categorizedData: CategoryProps[] = response.data.map( (cat: any) => ({
+            id: cat.id,
+            name: cat.name,
+            description: "", 
+        }))
+              
             //Vamos passar dentro da nossa listagem de categoria
             setCategory(response.data);
             //Pegar a Primeira posição  da categoria selecionada
@@ -114,6 +123,7 @@ export default function Order(){
    
     function handleChangeCategory(item: CategoryProps){
         setCategorySelect(item);
+        setModalProductVisible(true);
     }
 
     function handleChangeProduct(item: ProductProps){
