@@ -68,7 +68,6 @@ _(adicione prints do app aqui se quiser)_
 Esse projeto foi desenvolvido com o objetivo de consolidar conhecimentos **Fullstack** utilizando o ecossistema **TypeScript + Prisma + PostgreSQL + React/Next + Express**, explorando conceitos de:
 - Autenticação JWT e Context API
 - Consumo de APIs REST
-- Estrutura SaaS (múltiplos usuários/empresas)
 - Integração em tempo real Web ↔ Mobile
 
 ---
