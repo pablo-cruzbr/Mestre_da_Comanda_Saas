@@ -1,6 +1,7 @@
 # 🍽️ Mestre da Comanda
 
 Um sistema completo de **controle de comandas para restaurantes**, desenvolvido com foco em performance, escalabilidade e usabilidade — disponível em **versão Web e Mobile**.
+<img width="850" height="1961" alt="projeto" src="https://github.com/user-attachments/assets/1.png" />
 
 ## 🚀 Tecnologias Utilizadas
 
