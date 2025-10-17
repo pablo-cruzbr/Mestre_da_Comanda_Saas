@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "../page.module.scss";
-import logoImg from "../../../public/logo.svg";
+import logoImg from "../../../public/logo2.svg";
 import Link from "next/link";
 import {api} from '@/services/api';
 import {toast} from 'sonner';
