@@ -10,12 +10,13 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
 
 ---
 ### 💻 Web
-![Diagrama da arquitetura do sistema](Frontend/src/assets/2.png)
+
+<img src="Frontend/src/assets/2.png" alt="Diagrama da arquitetura do sistema" width="750" />
 ---
 ### 📱 Mobile
 
 
-![Diagrama da arquitetura do sistema](Frontend/src/assets/3.png)
+<img src="Frontend/src/assets/3.png" alt="Diagrama da arquitetura do sistema" width="750" />
 ---
 
 ## 🚀 Tecnologias Utilizadas
