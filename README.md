@@ -2,7 +2,21 @@
 
 Um sistema completo de **controle de comandas para restaurantes**, desenvolvido com foco em performance, escalabilidade e usabilidade — disponível em **versão Web e Mobile**.
 
+
+
+## 🖼️ Telas do Sistema
+
 ![Diagrama da arquitetura do sistema](Frontend/src/assets/1.png)
+
+---
+### 💻 Web
+![Diagrama da arquitetura do sistema](Frontend/src/assets/2.png)
+---
+### 📱 Mobile
+
+
+![Diagrama da arquitetura do sistema](Frontend/src/assets/3.png)
+---
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -15,18 +29,6 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
   <a href="https://reactnative.dev/"><img src="https://img.shields.io/badge/React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=white" /></a>
 </p>
 
-## 🖼️ Telas do Sistema
-
-### 💻 Web
-![Diagrama da arquitetura do sistema](Frontend/src/assets/2.png)
----
-### 📱 Mobile
-_(adicione prints do app aqui se quiser)_
-
-![Diagrama da arquitetura do sistema](Frontend/src/assets/3.png)
-
-
----
 
 ## 💡 Sobre o Projeto
 
