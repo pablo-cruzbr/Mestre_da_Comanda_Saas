@@ -1,10 +1,8 @@
 # 🍽️ Mestre da Comanda
 
 Um sistema completo de **controle de comandas para restaurantes**, desenvolvido com foco em performance, escalabilidade e usabilidade — disponível em **versão Web e Mobile**.
-<img width="850" height="1961" alt="projeto" src="https://github.com/user-attachments/assets/1.png" />
-![projeto](assets/1.png)
+
 ![Diagrama da arquitetura do sistema](Frontend/src/assets/1.png)
-<img width="850" height="1961" alt="projeto" src="./assets/1.png" />
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -16,6 +14,15 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
   <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" /></a>
   <a href="https://reactnative.dev/"><img src="https://img.shields.io/badge/React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=white" /></a>
 </p>
+
+## 🖼️ Telas do Sistema
+
+### 💻 Web
+![Diagrama da arquitetura do sistema](Frontend/src/assets/2.png)
+![Diagrama da arquitetura do sistema](Frontend/src/assets/3.png)
+
+### 📱 Mobile
+_(adicione prints do app aqui se quiser)_
 
 ---
 
@@ -56,14 +63,6 @@ Os pedidos criados no **app mobile** são sincronizados em tempo real com o **pa
 
 ---
 
-## 🖼️ Telas do Sistema
-
-### 💻 Web
-![Tela de Pedido](./images/detalhes-pedido.png)
-![Tela de Login](./images/login.png)
-
-### 📱 Mobile
-_(adicione prints do app aqui se quiser)_
 
 ---
 
