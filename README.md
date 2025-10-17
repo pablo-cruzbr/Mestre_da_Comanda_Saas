@@ -7,7 +7,7 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
 ## 🖼️ Telas do Sistema
 
 ![Diagrama da arquitetura do sistema](Frontend/src/assets/1.png)
-![Diagrama da arquitetura do sistema](Frontend/src/assets/1.png){width=500}
+<img src="Frontend/src/assets/1.png" alt="Diagrama da arquitetura do sistema" width="500" />
 
 ---
 ### 💻 Web
