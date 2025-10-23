@@ -96,3 +96,6 @@ yarn install
 
 # Execute o servidor de desenvolvimento
 yarn dev
+
+## ⚙️ Futuras Atualizações
+- Criar um Cardápio Digital para os Clientes 
