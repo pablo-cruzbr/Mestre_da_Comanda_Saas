@@ -14,12 +14,8 @@
 Um sistema completo de **controle de comandas para restaurantes**, desenvolvido com foco em performance, escalabilidade e usabilidade — disponível em **versão Web e Mobile**.
 
 
-
-
 ## 🖼️ Telas do Sistema
 <img width="900" height="800" alt="1" src="https://github.com/user-attachments/assets/91c09e4a-4e39-4eea-9efe-66d79ef8e0f0" />
-
-<img src="Frontend/src/assets/1.png" alt="Diagrama da arquitetura do sistema" width="750" />
 
 ---
 ### 💻 Web
@@ -27,9 +23,12 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
 
 ---
 ### 📱 Mobile
-
-
 <img src="Frontend/src/assets/3.png" alt="Diagrama da arquitetura do sistema" width="900" />
+---
+
+## Diagrama de Arquitetura do Sistema: A Fazer
+<img src="Frontend/src/assets/1.png" alt="Diagrama da arquitetura do sistema" width="750" />
+
 ---
 
 ## 💡 Sobre o Projeto
