@@ -73,7 +73,7 @@ Os pedidos criados no **app mobile** são sincronizados em tempo real com o **pa
 
 ## 🧠 Aprendizados e Objetivos
 
-Esse projeto foi desenvolvido com o objetivo de consolidar conhecimentos **Fullstack** utilizando o ecossistema **TypeScript + Prisma + PostgreSQL + React/Next + Express**, explorando conceitos de:
+Esse projeto foi desenvolvido com o objetivo de consolidar conhecimentos **Fullstack** utilizando o ecossistema **TypeScript + Prisma + PostgreSQL + React/Next + Express + NodeJs**, explorando conceitos de:
 - Autenticação JWT e Context API
 - Consumo de APIs REST
 - Integração em tempo real Web ↔ Mobile
