@@ -17,13 +17,13 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
 
 
 ## 🖼️ Telas do Sistema
-<img width="1280" height="800" alt="1" src="https://github.com/user-attachments/assets/91c09e4a-4e39-4eea-9efe-66d79ef8e0f0" />
+<img width="1180" height="800" alt="1" src="https://github.com/user-attachments/assets/91c09e4a-4e39-4eea-9efe-66d79ef8e0f0" />
 
 <img src="Frontend/src/assets/1.png" alt="Diagrama da arquitetura do sistema" width="750" />
 
 ---
 ### 💻 Web
-<img width="1280" height="800" alt="2" src="https://github.com/user-attachments/assets/78cddbde-2bb0-4fd1-a593-74f188e2fe5c" />
+<img width="1180" height="800" alt="2" src="https://github.com/user-attachments/assets/78cddbde-2bb0-4fd1-a593-74f188e2fe5c" />
 
 ---
 ### 📱 Mobile
