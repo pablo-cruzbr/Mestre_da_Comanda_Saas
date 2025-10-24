@@ -29,7 +29,7 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
 ### 📱 Mobile
 
 
-<img src="Frontend/src/assets/3.png" alt="Diagrama da arquitetura do sistema" width="750" />
+<img src="Frontend/src/assets/3.png" alt="Diagrama da arquitetura do sistema" width="900" />
 ---
 
 ## 💡 Sobre o Projeto
