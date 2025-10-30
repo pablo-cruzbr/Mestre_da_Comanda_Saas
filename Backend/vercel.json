@@ -5,12 +5,12 @@
       "src": "dist/server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["dist/**"]
+        "includeFiles": ["dist/**", "node_modules/.prisma/**"]
       }
     }
   ],
   "routes": [
-    {    
+    {
       "src": "/(.*)", 
       "dest": "dist/server.js"
     }
