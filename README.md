@@ -79,7 +79,11 @@ Esse projeto foi desenvolvido com o objetivo de consolidar conhecimentos **Fulls
 - Integração em tempo real Web ↔ Mobile
 
 ---
+## 💡 Próximos Passos
+- Fazer Deploy na Vercel Backend + Fontend na vercel
+- Migrando Migration das Tabelas do Banco de de Dados no Neon
 
+---
 ## ⚙️ Como Executar o Projeto
 
 ### 🖥️ Web
