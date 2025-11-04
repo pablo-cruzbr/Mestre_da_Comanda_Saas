@@ -40,8 +40,7 @@ O sistema permite que garçons e administradores controlem todo o fluxo de pedid
 ---
 
 ## 🚀 Acesse a Aplicação em Produção
-
-[**Clique aqui para abrir o Software em uma nova aba**]([https://app.gestaoservicos.com.br](https://mestre-da-comanda-saas-2qod.vercel.app/))
+<a href="https://app.gestaoservicos.com.br](https://mestre-da-comanda-saas-2qod.vercel.app/" target="_blank">Clique aqui para Abrir o software em nova aba</a>
 
 ---
 
