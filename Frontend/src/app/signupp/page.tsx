@@ -94,8 +94,11 @@ export default function login(){
               height={500}
               className={styles.image}
             />
-            <h3>Registre um Novo Usuário</h3>
-            
+             <h3>Gestão de Comandas que Transforma <br></br> seu Atendimento.</h3>
+            <h4>
+              A solução ideal para Restaurantes, Hamburguerias, <br /> Lanchonetes, Bares e Padarias.
+            </h4>
+            <p>Feito para Restaurantes, Lanchonetes, Hamburguerias e Padarias</p>
           </div>
         </div>
       </div>
