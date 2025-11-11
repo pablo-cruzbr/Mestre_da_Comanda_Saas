@@ -39,51 +39,66 @@ export default function login(){
   }
 
     return(
-        <div className={styles.containerCenter}>
-        <Image
-          src={logoImg}
-          alt="Logo da pizzaria"
-        />
-  
-        <section className={styles.login}>
+      <div className={styles.container}>
+      <div className={styles.formsContainer}>
+        <div className={styles.signinSignup}>
+          <form action={handleRegister} className={styles.signInForm}>
+            <h2 className={styles.title}>Cadastre um Novo Usuário</h2>
 
-        <h1>Nova Tela de Registro</h1>
-          <form action={handleRegister}>
-        
-          <input
+            <div className={styles.inputField}>
+            <input
             type="name"
             required
             name="name"
             placeholder="Digite seu nome"
             className={styles.input}
             />
+             </div>
+            
+            <div className={styles.inputField}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
 
-            <input
-            type="email"
-            required
-            name="email"
-            placeholder="Digite seu email"
-            className={styles.input}
-            />
-  
-          <input
-            type="password"
-            required
-            name="password"
-            placeholder="Digite sua senha"
-            className={styles.input}
-            />
-  
-           <button type="submit">
-            Acessar
+            <div className={styles.inputField}>
+              <input
+                type="password"
+                name="password"
+                placeholder="Senha"
+                required
+              />
+            </div>
+
+            <button type="submit" className={`${styles.btn} ${styles.solid}`}>
+              Registrar
             </button>
           </form>
-          
-            <Link href="/login" className={styles.text}>
-              Já possui uma conta? Faça seu Login
-            </Link> 
-  
-        </section>
+
+           <Link href="/login" className={styles.text}>
+            Nova Página de Login
+          </Link> 
+        </div>
       </div>
+
+      <div className={styles.panelsContainer}>
+        <div className={`${styles.panel} ${styles.leftPanel}`}>
+          <div className={styles.content}>
+            <Image
+              src={logoImg}
+              alt="Ilustração de boas-vindas"
+              width={400}
+              height={500}
+              className={styles.image}
+            />
+            <h3>Registre um Novo Usuário</h3>
+            
+          </div>
+        </div>
+      </div>
+    </div>
     )
 } 

@@ -8,41 +8,30 @@ import { redirect } from "next/navigation";
 
 
 export default async function Home() {
-  //FUNÇÃO PARA LOGAR O USUÁRIO NA PLATAFORMA
+
   async function handleLogin(formData: FormData){
     "use server"
-
     const email = formData.get("email")
     const password = formData.get("password")
 
-    //CONDICIONAL CASO O USUÁRIO QUERER BURLAR
     if(email ==="" || password === ""){
       console.log("POR FAVOR PREENCHA TODOS OS CAMPOS")
-    }
-
-    //FAZER REQUISIÇÃO, REGISTRAR USUÁRIO AO BANCO DE DADOS
+    } 
     try{
     const response = await api.post("/session",{
       email,
       password
     })
-
-    //VERIFICAÇÃO DE TOKEN DO USUÁRIO
     if(!response.data.token){
       return;
     }
 
-  
-    //Cria um tempo estimado para o cookie expirar
     const expressTime = 60 * 60 * 24 * 30 * 1000;
-    //Função assincrona
     const cookieStore = await cookies();
     cookieStore.set("session", response.data.token,{
-    //Tempo que queremos que o cookie expire
       maxAge: expressTime,
       path:"/",
       httpOnly: false,
-    //Só habilitar em produção por agente estar em localhost 
     secure: process.env.NODE_ENV === "production"
    
   })
@@ -52,20 +41,12 @@ export default async function Home() {
     }
     redirect("/dashboard");
   }
-
-  
-
-//Persistir o Token do usuário que está logado
-
-
- 
   return (
     <div className={styles.container}>
       <div className={styles.formsContainer}>
         <div className={styles.signinSignup}>
           <form action={handleLogin} className={styles.signInForm}>
             <h2 className={styles.title}>Entrar</h2>
-
             <div className={styles.inputField}>
               <input
                 type="email"
@@ -88,6 +69,10 @@ export default async function Home() {
               Acessar
             </button>
           </form>
+
+           <Link href="/signupp" className={styles.text}>
+            Nova Página de Registro
+          </Link> 
         </div>
       </div>
 
