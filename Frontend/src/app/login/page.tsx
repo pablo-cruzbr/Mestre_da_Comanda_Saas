@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 
 
 export default async function Home() {
-
   //FUNÇÃO PARA LOGAR O USUÁRIO NA PLATAFORMA
   async function handleLogin(formData: FormData){
     "use server"
@@ -59,47 +58,58 @@ export default async function Home() {
 //Persistir o Token do usuário que está logado
 
 
+ 
   return (
-    <div className={styles.containerCenter}>
-      <Image
-        src={logoImg}
-        alt="Logo da pizzaria"
-      />
+    <div className={styles.container}>
+      <div className={styles.formsContainer}>
+        <div className={styles.signinSignup}>
+          <form action={handleLogin} className={styles.signInForm}>
+            <h2 className={styles.title}>Entrar</h2>
 
-      <section className={styles.login}>
-     
-      <h1>Nova tela de Login</h1>
-        <form action={handleLogin}>
-          <input
-          type="email"
-          required
-          name="email"
-          placeholder="Digite seu email"
-          className={styles.input}
-          />
+            <div className={styles.inputField}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
 
-        <input
-          type="password"
-          required
-          name="password"
-          placeholder="Digite sua senha"
-          className={styles.input}
-          />
+            <div className={styles.inputField}>
+              <input
+                type="password"
+                name="password"
+                placeholder="Senha"
+                required
+              />
+            </div>
 
-         <button type="submit">
-          Acessar
-          </button>
-        </form>
+            <button type="submit" className={`${styles.btn} ${styles.solid}`}>
+              Acessar
+            </button>
+          </form>
+        </div>
+      </div>
 
-          <Link href="/signup" className={styles.text}>
-            Não possui uma conta? Cadastre-se
-          </Link> 
-
-          <Link href="/signupp" className={styles.text}>
-            Nova Página de Registro
-          </Link> 
-
-      </section>
+      <div className={styles.panelsContainer}>
+        <div className={`${styles.panel} ${styles.leftPanel}`}>
+          <div className={styles.content}>
+            <Image
+              src={logoImg}
+              alt="Ilustração de boas-vindas"
+              width={400}
+              height={500}
+              className={styles.image}
+            />
+            <h3>Sua Central de Comandas Inteligente e Rápida</h3>
+            <h4>
+              Abra Mesas, acompanhe pedidos e cadastre <br />
+              seus produtos e tenha seu cardápio sempre atualizado !!!.
+            </h4>
+            <p>Feito para Restaurantes, Lanchonetes,Hamburguerias e Padarias .</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
