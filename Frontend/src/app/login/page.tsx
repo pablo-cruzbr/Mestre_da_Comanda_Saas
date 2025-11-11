@@ -1,9 +1,9 @@
 import Image from "next/image";
-import styles from "./page.module.scss";
-import logoImg from "../../public/logo2.svg";
+import styles from './styles.module.scss';
+import logoImg from "../../../public/logo2.svg";
 import Link from "next/link";
 import {cookies} from "next/headers";
-import {api} from "@/services/api"
+import {api} from "@/services/api";
 import { redirect } from "next/navigation";
 
 
@@ -68,7 +68,7 @@ export default async function Home() {
 
       <section className={styles.login}>
      
-      <h1>Faça seu Login</h1>
+      <h1>Nova tela de Login</h1>
         <form action={handleLogin}>
           <input
           type="email"
@@ -96,7 +96,7 @@ export default async function Home() {
           </Link> 
 
           <Link href="/signupp" className={styles.text}>
-            Nova Página de Login
+            Nova Página de Registro
           </Link> 
 
       </section>
