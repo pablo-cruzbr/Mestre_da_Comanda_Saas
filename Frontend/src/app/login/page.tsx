@@ -101,12 +101,11 @@ export default async function Home() {
               height={500}
               className={styles.image}
             />
-            <h3>Sua Central de Comandas Inteligente e Rápida</h3>
+            <h3>Gestão de Comandas que Transforma <br></br> seu Atendimento.</h3>
             <h4>
-              Abra Mesas, acompanhe pedidos e cadastre <br />
-              seus produtos e tenha seu cardápio sempre atualizado !!!.
+              A solução ideal para Restaurantes, Hamburguerias, <br /> Lanchonetes, Bares e Padarias.
             </h4>
-            <p>Feito para Restaurantes, Lanchonetes,Hamburguerias e Padarias .</p>
+            <p>Feito para Restaurantes, Lanchonetes, Hamburguerias e Padarias</p>
           </div>
         </div>
       </div>
