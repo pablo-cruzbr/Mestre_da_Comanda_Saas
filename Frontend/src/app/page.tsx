@@ -71,7 +71,7 @@ export default async function Home() {
           </form>
 
            <Link href="/signup" className={styles.text}>
-            Nova Página de Registro
+          Página de Registro
           </Link> 
         </div>
       </div>
