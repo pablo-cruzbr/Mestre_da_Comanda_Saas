@@ -1,6 +1,6 @@
 import Image from "next/image";
-import styles from "../page.module.scss";
-import logoImg from "../../../public/logo2.svg";
+import styles from "../styles.module.scss";
+import logoImg from "../../public/logo3.svg";
 import Link from "next/link";
 import {api} from '@/services/api';
 import {toast} from 'sonner';
@@ -8,7 +8,7 @@ import {toast} from 'sonner';
 //REDIRECIONAR USUÁRIO
 import {redirect} from 'next/navigation'
 
-export default function signup(){
+export default function login(){
  async function handleRegister(formData: FormData){
   "use server"
   const name = formData.get("name")
@@ -39,51 +39,69 @@ export default function signup(){
   }
 
     return(
-        <div className={styles.containerCenter}>
-        <Image
-          src={logoImg}
-          alt="Logo da pizzaria"
-        />
-  
-        <section className={styles.login}>
+      <div className={styles.container}>
+      <div className={styles.formsContainer}>
+        <div className={styles.signinSignup}>
+          <form action={handleRegister} className={styles.signInForm}>
+            <h2 className={styles.title}>Cadastre um Novo Usuário</h2>
 
-        <h1>Faça seu Cadastro</h1>
-          <form action={handleRegister}>
-        
-          <input
+            <div className={styles.inputField}>
+            <input
             type="name"
             required
             name="name"
             placeholder="Digite seu nome"
             className={styles.input}
             />
+             </div>
+            
+            <div className={styles.inputField}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
 
-            <input
-            type="email"
-            required
-            name="email"
-            placeholder="Digite seu email"
-            className={styles.input}
-            />
-  
-          <input
-            type="password"
-            required
-            name="password"
-            placeholder="Digite sua senha"
-            className={styles.input}
-            />
-  
-           <button type="submit">
-            Acessar
+            <div className={styles.inputField}>
+              <input
+                type="password"
+                name="password"
+                placeholder="Senha"
+                required
+              />
+            </div>
+
+            <button type="submit" className={`${styles.btn} ${styles.solid}`}>
+              Registrar
             </button>
           </form>
-          
-            <Link href="/" className={styles.text}>
-              Já possui uma conta? Faça seu Login
-            </Link> 
-  
-        </section>
+
+           <Link href="/login" className={styles.text}>
+            Nova Página de Login
+          </Link> 
+        </div>
       </div>
+
+      <div className={styles.panelsContainer}>
+        <div className={`${styles.panel} ${styles.leftPanel}`}>
+          <div className={styles.content}>
+            <Image
+              src="/logo3.svg"
+              alt="Ilustração de boas-vindas"
+              width={400}
+              height={500}
+              className={styles.image}
+            />
+             <h3>Gestão de Comandas que Transforma <br></br> seu Atendimento.</h3>
+            <h4>
+              A solução ideal para Restaurantes, Hamburguerias, <br /> Lanchonetes, Bares e Padarias.
+            </h4>
+            <p>Feito para Restaurantes, Lanchonetes, Hamburguerias e Padarias</p>
+          </div>
+        </div>
+      </div>
+    </div>
     )
 } 

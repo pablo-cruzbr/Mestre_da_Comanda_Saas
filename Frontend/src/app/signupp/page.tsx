@@ -1,6 +1,6 @@
 import Image from "next/image";
-import styles from "../page.module.scss";
-import logoImg from "../../../public/logo2.svg";
+import styles from "../styles.module.scss";
+import logoImg from "../../public/logo3.svg";
 import Link from "next/link";
 import {api} from '@/services/api';
 import {toast} from 'sonner';
@@ -88,7 +88,7 @@ export default function login(){
         <div className={`${styles.panel} ${styles.leftPanel}`}>
           <div className={styles.content}>
             <Image
-              src={logoImg}
+               src="/logo3.svg"
               alt="Ilustração de boas-vindas"
               width={400}
               height={500}

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from './styles.module.scss';
-import logoImg from "../../../public/logo2.svg";
+import logoImg from "../../public/logo3.svg";
 import Link from "next/link";
 import {cookies} from "next/headers";
 import {api} from "@/services/api";
@@ -80,7 +80,7 @@ export default async function Home() {
         <div className={`${styles.panel} ${styles.leftPanel}`}>
           <div className={styles.content}>
             <Image
-              src={logoImg}
+               src="/logo3.svg"
               alt="Ilustração de boas-vindas"
               width={400}
               height={500}
