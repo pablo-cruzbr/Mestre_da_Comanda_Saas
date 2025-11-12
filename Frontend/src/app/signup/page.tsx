@@ -79,7 +79,7 @@ export default function login(){
           </form>
 
            <Link href="/login" className={styles.text}>
-            Nova Página de Login
+            Página de Login
           </Link> 
         </div>
       </div>
