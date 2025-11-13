@@ -43,7 +43,7 @@
     display: flex;
     background-color: var(--dark-900);
     align-items: center;
-    border:0;
+    border: 1px solid #c3c6ce;
     font-size: 18px;
     border-radius: 8px;
     color: var(--white);
@@ -54,9 +54,10 @@
     }
   
     .etiquetas{
-      width: 10px;
+      width: px;
       height: 60px;
       background-color: var(--green-900);
+      border: 2px solid #c3c6ce;
       border-radius: 6px 0 0 6px;
       margin-right: 16px;
     }
