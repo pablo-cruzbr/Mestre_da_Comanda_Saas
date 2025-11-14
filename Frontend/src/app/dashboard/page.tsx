@@ -56,8 +56,6 @@ async function getOrdersWithDetails() {
   return ordersWithDetails;
 }
 
-
-
 export default async function Header() {
   const orders = await getOrdersWithDetails();
 
