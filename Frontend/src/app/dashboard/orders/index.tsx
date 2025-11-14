@@ -56,6 +56,8 @@ export default function Orders({orders}: Props){
             <div className={styles.etiquetas}></div>
             <span>Mesa: {order.table}</span>
           </button>        
+
+          
     
         ))}
     </section>
