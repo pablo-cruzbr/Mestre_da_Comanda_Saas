@@ -1,72 +1,106 @@
-"use client"
+"use client";
 
-import {use} from 'react';
-import styles from '../orders/styles.module.scss';
-import {RefreshCw, Router} from 'lucide-react'
-import { OrderProps } from '@/lib/order.types';
-import { Modalorder } from '../components/modal';
-import { OrderContext } from '@/provider/order';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
+import { useContext } from "react";
+import styles from "../orders/styles.module.scss";
+import { RefreshCw } from "lucide-react";
+import { OrderProps } from "@/lib/order.types";
+import { Modalorder } from "../components/modal";
+import { OrderContext } from "@/provider/order";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { calculateTotalOrder } from '@/lib/helper';
 
-interface Props{
-  orders: OrderProps[]
+interface Props {
+  orders: OrderProps[];
 }
 
-export default function Orders({orders}: Props){
-  const {isOpen, onRequestOpen} = use(OrderContext)
+export default function Orders({ orders }: Props) {
+   const {order} = useContext(OrderContext);
   const router = useRouter();
 
-  async function handleDetailOrder(order_id: string){
-   await onRequestOpen(order_id);
+  const { isOpen, onRequestOpen } = useContext(OrderContext);
+
+  async function handleDetailOrder(order_id: string) {
+    await onRequestOpen(order_id);
   }
 
-  async function handleRefresh(){
+  function handleRefresh() {
     router.refresh();
-    toast.success("Pedidos atualizados com sucesso !!!")
+    toast.success("Pedidos atualizados com sucesso !!!");
   }
 
- 
   return (
-  <>
-    <main className={styles.container}>
+    <>
+      <main className={styles.container}>
 
-    <section className={styles.containerHeader}>
-      <h1>Últimos pedidos</h1>
-      <button>
-        <RefreshCw size={24} color="#3fffa3" onClick={handleRefresh} />
-      </button>
-    </section>
-    <section className={styles.listOrders}>
+        <section className={styles.containerHeader}>
+          <h1>Últimos pedidos</h1>
 
-    
-    {orders.length === 0 && (
-        <span className={styles.emptyItem}>
-          Nenhum pedido aberto no momento...
-        </span>
-      )}
-      
-        {orders.map(order =>(
+          <button>
+            <RefreshCw
+              size={24}
+              color="#3fffa3"
+              onClick={handleRefresh}
+            />
+          </button>
+        </section>
+
+        <section className={styles.listOrders}>
+          {orders.length === 0 && (
+            <span className={styles.emptyItem}>
+              Nenhum pedido aberto no momento...
+            </span>
+          )}
+
+          {orders.map((order) => (
             <button
-            key={order.id}
-            className={styles.orderItem}
-            onClick={() => handleDetailOrder(order.id)}
+              key={order.id}
+              className={styles.orderItem}
+              onClick={() => handleDetailOrder(order.id)}
             >
-            
-            <div className={styles.etiquetas}></div>
-            <span>Mesa: {order.table}</span>
-          </button>        
+              <div className={styles.etiquetas}></div>
 
-          
-    
-        ))}
-    </section>
-   
-  </main>
+              
+              <span className={styles.orderTitle}>
+                Mesa: {order.table}
+              </span>
 
-  {isOpen && <Modalorder/>}
-  
-  </>
-    )
+                <div className={styles.divider}></div>
+             
+              <div className={styles.orderDetails}>
+                {order.name && <p>Cliente: {order.name}</p>}
+                <p>Status: {order.status ? "Em andamento" : "Rascunho"}</p>
+              </div>
+             
+              {order.items && order.items.length > 0 && (
+                <div className={styles.productsPreview}>
+                  <strong>Produtos Pedidos:</strong>
 
+                  {order.items.slice(0, 5).map((item) => (
+                    <p key={item.id}>
+                      • {item.product.name} (x{item.amount}) 
+                    </p>
+                  ))}
+
+                  {order.items.length > 10 && (
+                    <p style={{ opacity: 0.7 }}>
+                      ...e mais {order.items.length - 2} itens
+                    </p>
+                  )}
+                  
+                  <h3 className={styles.total}>
+                  Valor Total: R$ {calculateTotalOrder(order.items)}
+                </h3>
+                                  
+                </div>
+              )}
+            </button>
+          ))}
+
+        </section>
+      </main>
+
+      {isOpen && <Modalorder />}
+    </>
+  );
 }
