@@ -6,5 +6,4 @@ export function calculateTotalOrder(orders: OrderItemProps[]){
         const itemTotal = parseFloat(item.product.price) * item.amount;
         return total + itemTotal
     }, 0)
-
 }

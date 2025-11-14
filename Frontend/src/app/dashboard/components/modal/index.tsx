@@ -8,7 +8,6 @@ import { calculateTotalOrder } from '@/lib/helper';
 
 export function Modalorder() {
     const { onRequestClose, order, finishOrder } = useContext(OrderContext);
-
     
     async function handleFinishOrder(){
             await finishOrder(order[0].order.id);
