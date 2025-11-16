@@ -21,7 +21,6 @@ export default function login(){
       return;
     
   }
-
   //Fazer a requisição, resgistrar o usuário ao nosso banco
   try{
     await api.post("/users",{
@@ -95,9 +94,9 @@ export default function login(){
               className={styles.image}
             />
              <h3>Gestão de Comandas que Transforma <br></br> seu Atendimento.</h3>
-            <h4>
-              A solução ideal para Restaurantes, Hamburguerias, <br /> Lanchonetes, Bares e Padarias.
-            </h4>
+              <h4>
+                A solução ideal para Restaurantes, Hamburguerias, <br /> Lanchonetes, Bares e Padarias.
+              </h4>
             <p>Feito para Restaurantes, Lanchonetes, Hamburguerias e Padarias</p>
           </div>
         </div>

@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 
 
 export default async function Home() {
-
   async function handleLogin(formData: FormData){
     "use server"
     const email = formData.get("email")
