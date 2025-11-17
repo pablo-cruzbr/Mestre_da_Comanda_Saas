@@ -39,7 +39,7 @@ O sistema permite que garçons e administradores controlem todo o fluxo de pedid
 
 ---
 
-## 🚀 Acesse a Aplicação em Produção
+## 🚀 Acesse a Aplicação em Produção (Vercel)
 <a href="https://mestre-da-comanda-saas-2qod.vercel.app/" target="_blank">Clique aqui para Abrir o software em nova aba</a>
 
 ---
