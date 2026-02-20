@@ -85,9 +85,8 @@ Esse projeto foi desenvolvido com o objetivo de consolidar conhecimentos **Fulls
 
 ---
 ## 💡 Próximos Passos
-- Fazer Deploy na Vercel Backend + Fontend na vercel
-- Migrando Migration das Tabelas do Banco de de Dados no Neon
-
+- Criar nova versão de Desing para o Tailwindcss
+- Criar Aba de cardapio de pordutors no dashboard
 ---
 ## ⚙️ Como Executar o Projeto
 
