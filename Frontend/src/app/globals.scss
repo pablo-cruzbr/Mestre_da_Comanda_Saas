@@ -54,6 +54,21 @@ body,input,textarea, select, button{
     font-size: 93.75%;
   }
 }
+@theme {
+  /* 🍕 Cores Customizadas do Projeto - SujeitoPizza */
+  --color-brand-primary: oklch(
+    0.62 0.25 12
+  ); /* #FF3F4B - Vermelho da pizzaria */
+  --color-brand-primary-foreground: oklch(
+    1 0 0
+  ); /* Branco para texto sobre brand */
+  --color-app-background: oklch(0.1804 0.03 268.34); /*  Background principal */
+  --color-app-card: oklch(0.2204 0.0305 269.66); /* Card levemente mais claro */
+  --color-app-border: oklch(
+    0.3491 0.0199 269.56
+  ); /* Border levemente mais clara */
+  --color-app-sidebar: oklch(0.16 0.03 270); /* Sidebar mais escura */
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
