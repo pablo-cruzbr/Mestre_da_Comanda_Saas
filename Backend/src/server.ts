@@ -24,6 +24,12 @@ app.use(
     express.static(path.resolve(__dirname, '..', 'tmp'))
 )
 
+app.get('/teste', (req: Request, res: Response) => {
+  return res.json({ 
+    status: "Online", 
+    mensagem: "O sistema Mestre da Comanda está pronto para os pedidos! 🍕" 
+  });
+});
 
 app.use((err: Error, req:Request, res:Response, next: NextFunction) => {
     if(err instanceof Error) {
