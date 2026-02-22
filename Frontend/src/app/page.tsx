@@ -85,7 +85,8 @@ export default async function Home() {
               height={500}
               className={styles.image}
             />
-            <h3>Gestão de Comandas que Transforma <br></br> seu Atendimento.</h3>
+             <h3>Taiwindcss <br></br> .</h3>
+            <h3>Gestão de Comandas que Transformaa - taiwindcss <br></br> seu Atendimento.</h3>
             <h4>
               A solução ideal para Restaurantes, Hamburguerias, <br /> Lanchonetes, Bares e Padarias.
             </h4>
