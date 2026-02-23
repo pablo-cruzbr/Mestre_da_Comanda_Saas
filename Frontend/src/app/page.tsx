@@ -90,7 +90,7 @@ export default async function Home() {
                         </div>
     
                         <Button type="submit" className="w-full bg-brand-primary text-white hover:bg-brand-primary">
-                            Cadastrar
+                            Entrar
                         </Button>
     
                         <p className="text-center text-sm text-gray-100">
