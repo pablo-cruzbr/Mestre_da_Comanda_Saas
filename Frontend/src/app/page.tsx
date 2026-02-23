@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { api } from '@/services/api'
 
-
 export default async function Home() {
 
   return (
