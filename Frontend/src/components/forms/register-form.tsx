@@ -11,8 +11,34 @@ import { Label } from '@radix-ui/react-label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import Link from 'next/link'
+import {redirect} from 'next/navigation'
+
 
 export function RegisterForm() {
+    async function handleRegister(formData: FormData){
+  "use server"
+  const name = formData.get("name")
+	const email = formData.get("email")
+	const password = formData.get("password")
+
+  //Condicional caso o usuário querer burlar
+  if(name === "" || email === "" || password === ""){
+      console.log("POR FAVOR PREENCHA TODOS OS CAMPOS")
+      return;
+    
+  }
+  //Fazer a requisição, resgistrar o usuário ao nosso banco
+  try{
+   
+    
+  
+  }catch(err){
+    console.log("error")
+    console.log(err)
+  }
+  redirect("/")
+  }
+
   return (
     <div>
         <Card className="bg-app-card border-app-border w-full max-w-md mx-auto">
@@ -22,7 +48,7 @@ export function RegisterForm() {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <form className="flex flex-col gap-4"> 
+                <form action={handleRegister} className="flex flex-col gap-4"> 
                     <div className="flex flex-col gap-4">
                         <Label htmlFor='name' className="text-white">
                             Nome</Label>
