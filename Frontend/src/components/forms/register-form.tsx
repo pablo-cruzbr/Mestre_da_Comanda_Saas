@@ -36,12 +36,12 @@ export function RegisterForm() {
             })
             
   
-  }catch(err){
-    console.log("error")
-    console.log(err)
-  }
-  redirect("/")
-  }
+        }catch(err){
+            console.log("error")
+            console.log(err)
+        }
+        redirect("/")
+    }
 
   return (
     <div>
