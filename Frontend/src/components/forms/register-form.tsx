@@ -65,7 +65,7 @@ export function RegisterForm() {
                     </Button>
 
                     <p className="text-center text-sm text-gray-100">
-                        Já tem uma conta? <Link href="/login"> Faça o login</Link>
+                        Já tem uma conta? <Link href="/login" className='text-brand-primary font-medium '> Faça o login</Link>
                     </p>
                 </form>
             </CardContent>
