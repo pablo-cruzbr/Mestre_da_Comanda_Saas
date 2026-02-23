@@ -5,6 +5,7 @@ import Link from "next/link";
 import {cookies} from "next/headers";
 import {api} from "@/services/api";
 import { redirect } from "next/navigation";
+import { RegisterForm } from "@/components/forms/register-form";
 
 
 export default async function Home() {
@@ -41,6 +42,10 @@ export default async function Home() {
     redirect("/dashboard");
   }
   return (
-    <div className="text-brand-primary bg-app-background"> <h1>REGISTER</h1></div>
+    <div className="bg-app-background min-h-screen flex items-center justify-center px-4 py-8"> 
+     <div className="w-full">
+        <RegisterForm/>
+     </div>
+    </div>
   );
 }
