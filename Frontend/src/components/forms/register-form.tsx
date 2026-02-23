@@ -12,7 +12,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import {redirect} from 'next/navigation'
-
+import { api } from '@/services/api'
 
 export function RegisterForm() {
     async function handleRegister(formData: FormData){
@@ -29,7 +29,11 @@ export function RegisterForm() {
   }
   //Fazer a requisição, resgistrar o usuário ao nosso banco
   try{
-   
+    await api.post("/users",{
+      name,
+      email,
+      password
+    })
     
   
   }catch(err){
