@@ -68,6 +68,7 @@ export default async function Home() {
                                 Email</Label>
                             <Input
                                 type='text'
+                                name='email'
                                 id='email'
                                 placeholder='Digite seu email'
                                 required
@@ -80,6 +81,7 @@ export default async function Home() {
                                 Password</Label>
                             <Input
                                 type='password'
+                                name='password'
                                 id='password'
                                 placeholder='Digite seu password'
                                 required
