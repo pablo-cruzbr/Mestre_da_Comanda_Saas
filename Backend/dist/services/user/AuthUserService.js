@@ -37,7 +37,7 @@ class AuthUserService {
             const token = (0, jsonwebtoken_1.sign)({
                 name: user.name,
                 email: user.email
-            }, process.env.JWT_SECREATE, {
+            }, process.env.JWT_SECRET, {
                 subject: user.id,
                 expiresIn: '30d'
             });
