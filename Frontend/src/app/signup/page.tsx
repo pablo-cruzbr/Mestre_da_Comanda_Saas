@@ -1,9 +1,17 @@
-import Image from "next/image";
-import styles from "../styles.module.scss";
-import logoImg from "../../public/logo3.svg";
-import Link from "next/link";
-import {api} from '@/services/api';
-import {toast} from 'sonner';
+import React from 'react'
+import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardDescription,
+    CardFooter,
+    CardContent
+} from "@/components/ui/card"
+import { Label } from '@radix-ui/react-label'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { api } from '@/services/api'
 
 //REDIRECIONAR USUÁRIO
 import {redirect} from 'next/navigation'
@@ -38,69 +46,62 @@ export default function login(){
   }
 
     return(
-      <div className={styles.container}>
-      <div className={styles.formsContainer}>
-        <div className={styles.signinSignup}>
-          <form action={handleRegister} className={styles.signInForm}>
-            <h2 className={styles.title}>Cadastre um Novo Usuário</h2>
-
-            <div className={styles.inputField}>
-            <input
-            type="name"
-            required
-            name="name"
-            placeholder="Digite seu nome"
-            className={styles.input}
-            />
-             </div>
-            
-            <div className={styles.inputField}>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
-              />
-            </div>
-
-            <div className={styles.inputField}>
-              <input
-                type="password"
-                name="password"
-                placeholder="Senha"
-                required
-              />
-            </div>
-
-            <button type="submit" className={`${styles.btn} ${styles.solid}`}>
-              Registrar
-            </button>
-          </form>
-
-           <Link href="/login" className={styles.text}>
-            Página de Login
-          </Link> 
+    <div className="min-h-screen bg-app-background flex items-center justify-center p-4">
+            <Card className="bg-app-card border-app-border w-full max-w-md mx-auto">
+                <CardHeader>
+                    <CardTitle className="text-white text-center text-3xl font-bold tracking-tight">
+                    Mestre das <span className="text-brand-primary"> Comandas</span>
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <form action={handleRegister} className="flex flex-col gap-4"> 
+                        <div className="flex flex-col gap-4">
+                            <Label htmlFor='name' className="text-white">
+                                Nome</Label>
+                            <Input
+                                type='text'
+                                id='name'
+                                placeholder='Digite seu nome'
+                                required
+                                minLength={3}
+                                className="text-white bg-app-card border-app-border"
+                            />
+                        </div>
+    
+                        <div className="flex flex-col gap-4">
+                            <Label htmlFor='name' className="text-white">
+                                Nome</Label>
+                            <Input
+                                type='text'
+                                id='email'
+                                placeholder='Digite seu email'
+                                required
+                                className="text-white bg-app-card border-app-border"
+                            />
+                        </div>
+    
+                        <div className="flex flex-col gap-4">
+                            <Label htmlFor='name' className="text-white">
+                                Nome</Label>
+                            <Input
+                                type='password'
+                                id='password'
+                                placeholder='Digite seu password'
+                                required
+                                className="text-white bg-app-card border-app-border"
+                            />
+                        </div>
+    
+                        <Button type="submit" className="w-full bg-brand-primary text-white hover:bg-brand-primary">
+                            Cadastrar
+                        </Button>
+    
+                        <p className="text-center text-sm text-gray-100">
+                            Já tem uma conta? <Link href="/" className='text-brand-primary font-medium '> Faça o login</Link>
+                        </p>
+                    </form>
+                </CardContent>
+            </Card>
         </div>
-      </div>
-
-      <div className={styles.panelsContainer}>
-        <div className={`${styles.panel} ${styles.leftPanel}`}>
-          <div className={styles.content}>
-            <Image
-              src="/logo3.svg"
-              alt="Ilustração de boas-vindas"
-              width={400}
-              height={500}
-              className={styles.image}
-            />
-             <h3>Gestão de Comandas que Transforma <br></br> seu Atendimento.</h3>
-              <h4>
-                A solução ideal para Restaurantes, Hamburguerias, <br /> Lanchonetes, Bares e Padarias.
-              </h4>
-            <p>Feito para Restaurantes, Lanchonetes, Hamburguerias e Padarias</p>
-          </div>
-        </div>
-      </div>
-    </div>
     )
 } 
