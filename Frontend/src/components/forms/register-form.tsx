@@ -16,25 +16,25 @@ import { api } from '@/services/api'
 
 export function RegisterForm() {
     async function handleRegister(formData: FormData){
-  "use server"
-  const name = formData.get("name")
-	const email = formData.get("email")
-	const password = formData.get("password")
+        "use server"
+        const name = formData.get("name")
+            const email = formData.get("email")
+            const password = formData.get("password")
 
-  //Condicional caso o usuário querer burlar
-  if(name === "" || email === "" || password === ""){
-      console.log("POR FAVOR PREENCHA TODOS OS CAMPOS")
-      return;
-    
-  }
-  //Fazer a requisição, resgistrar o usuário ao nosso banco
-  try{
-    await api.post("/users",{
-      name,
-      email,
-      password
-    })
-    
+        //Condicional caso o usuário querer burlar
+        if(name === "" || email === "" || password === ""){
+            console.log("POR FAVOR PREENCHA TODOS OS CAMPOS")
+            return;
+                    
+        }
+        //Fazer a requisição, resgistrar o usuário ao nosso banco
+        try{
+            await api.post("/users",{
+            name,
+            email,
+            password
+            })
+            
   
   }catch(err){
     console.log("error")
