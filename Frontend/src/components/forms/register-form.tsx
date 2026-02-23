@@ -10,6 +10,8 @@ import {
 import { Label } from '@radix-ui/react-label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import Link from 'next/link'
+
 export function RegisterForm() {
   return (
     <div>
@@ -61,6 +63,10 @@ export function RegisterForm() {
                     <Button type="submit" className="w-full bg-brand-primary text-white hover:bg-brand-primary">
                         Cadastrar
                     </Button>
+
+                    <p className="text-center text-sm text-gray-100">
+                        Já tem uma conta? <Link href="/login"> Faça o login</Link>
+                    </p>
                 </form>
             </CardContent>
         </Card>
