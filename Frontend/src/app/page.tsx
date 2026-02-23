@@ -24,6 +24,10 @@ export default async function Home() {
                     Mestre das <span className="text-brand-primary"> Comandas</span>
                     </CardTitle>
                 </CardHeader>
+
+                <p className="text-center text-sm text-gray-400 leading-relaxed max-w-[280px] mx-auto mt-2">
+                  Gestão de Comandas <span className="text-white font-medium">que multiplica seu faturamento e agiliza seu caixa.</span> 
+                </p>
                 <CardContent>
                     <form  className="flex flex-col gap-4"> 
                         <div className="flex flex-col gap-4">
