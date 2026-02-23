@@ -9,9 +9,9 @@ import fileUpload from 'express-fileupload';
 const app = express();  
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3000', // Permite que o frontend do localhost:3000 faça requisições
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    allowedHeaders: ['Content-Type', 'Authorization'], 
   }));
 
 app.use(fileUpload({
@@ -33,7 +33,6 @@ app.get('/teste', (req: Request, res: Response) => {
 
 app.use((err: Error, req:Request, res:Response, next: NextFunction) => {
     if(err instanceof Error) {
-        //Se for uma instancia do tipo error
 
         return res.status(400).json({
             error: err.message
