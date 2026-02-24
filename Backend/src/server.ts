@@ -1,14 +1,15 @@
 // 1 - Inicializar o servidor
+import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
-import 'dotenv/config';
 import path from 'path';
 import {router} from './routes';
 import fileUpload from 'express-fileupload';
 
 const app = express();  
 app.use(express.json());
+console.log("TESTE JWT SECRET:", process.env.JWT_SECRET);
 app.use(cors({
     origin: 'http://localhost:3000', // Permite que o frontend do localhost:3000 faça requisições
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
