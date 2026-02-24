@@ -1,8 +1,9 @@
 "use client"
 import { title } from "process"
-import { ShoppingCart, Package, Tags } from 'lucide-react'
+import { ShoppingCart, Package, Tags, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from "next/navigation"
+import { Button } from "@/components/ui/button"
 
 const menuItems = [
     {
@@ -55,6 +56,19 @@ export function Sidebar(){
         );
         })}
         </nav>
+
+        <div className="border-t border-app-border p-4">
+    <form action="">
+        <Button
+            type="submit"
+            variant="ghost"
+            className="w-full justify-start gap-3 text-white hover:text-white hover:bg-brand-primary/10"
+        >
+            <LogOut className="w-5 h-5" /> 
+            <span>Sair</span> 
+        </Button>
+            </form>
+        </div>
        </aside>
     );
 }
