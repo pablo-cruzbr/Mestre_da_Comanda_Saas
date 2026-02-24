@@ -16,36 +16,39 @@ import { cookies } from 'next/headers'
 import { api } from '@/services/api'
 
 export default async function Home() {
-  async function handleLogin(formData: FormData){
+  async function handleLogin(formData: FormData) {
     "use server"
     const email = formData.get("email")
     const password = formData.get("password")
 
-    if(email ==="" || password === ""){
+    if (email === "" || password === "") {
       console.log("POR FAVOR PREENCHA TODOS OS CAMPOS")
-    } 
-    try{
-    const response = await api.post("/session",{
-      email,
-      password
-    })
-    if(!response.data.token){
-      return;
+      return; // Importante parar a execução aqui
     }
 
-    const expressTime = 60 * 60 * 24 * 30 * 1000;
-    const cookieStore = await cookies();
-    cookieStore.set("session", response.data.token,{
-      maxAge: expressTime,
-      path:"/",
-      httpOnly: false,
-    secure: process.env.NODE_ENV === "production"
-   
-  })
-    }catch(err){
-      console.log("error")
+    try {
+      const response = await api.post("/session", { email, password })
+      
+      if (!response.data.token) {
+        return;
+      }
+
+      const expressTime = 60 * 60 * 24 * 30; // Remova o * 1000, o maxAge usa segundos
+      const cookieStore = await cookies();
+      
+      cookieStore.set("session", response.data.token, {
+        maxAge: expressTime,
+        path: "/",
+        httpOnly: true, // Mais seguro como true para JWT
+        secure: process.env.NODE_ENV === "production"
+      })
+
+    } catch (err) {
+      console.log("Erro no login:")
       console.log(err)
+      return; // Se der erro, para aqui e não redireciona
     }
+
     redirect("/dashboard");
   }
 
