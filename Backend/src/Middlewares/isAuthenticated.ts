@@ -23,7 +23,7 @@ export function isAuthenticated(
     try{
         const {sub} = verify(
             token,
-            process.env.JWT_SECREATE
+            process.env.JWT_SECRET
         )as PayLoad;
 
         //Criando uma tipagem para o id do Usuário: user_id.

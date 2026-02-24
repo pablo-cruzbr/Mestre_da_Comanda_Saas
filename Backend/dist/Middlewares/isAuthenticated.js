@@ -11,7 +11,7 @@ function isAuthenticated(req, res, next) {
     const [, token] = authToken.split(" ");
     //Validar o Token
     try {
-        const { sub } = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECREATE);
+        const { sub } = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
         //Criando uma tipagem para o id do Usuário: user_id.
         //Recuperar o id do token e colocar dentro de uma variavel, user_id dentro do req.
         req.user_id = sub;
