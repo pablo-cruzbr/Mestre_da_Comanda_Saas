@@ -11,10 +11,43 @@ import { Label } from '@radix-ui/react-label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 import { api } from '@/services/api'
 
-
 export default async function Home() {
+  async function handleLogin(formData: FormData){
+    "use server"
+    const email = formData.get("email")
+    const password = formData.get("password")
+
+    if(email ==="" || password === ""){
+      console.log("POR FAVOR PREENCHA TODOS OS CAMPOS")
+    } 
+    try{
+    const response = await api.post("/session",{
+      email,
+      password
+    })
+    if(!response.data.token){
+      return;
+    }
+
+    const expressTime = 60 * 60 * 24 * 30 * 1000;
+    const cookieStore = await cookies();
+    cookieStore.set("session", response.data.token,{
+      maxAge: expressTime,
+      path:"/",
+      httpOnly: false,
+    secure: process.env.NODE_ENV === "production"
+   
+  })
+    }catch(err){
+      console.log("error")
+      console.log(err)
+    }
+    redirect("/dashboard");
+  }
 
   return (
     <div className="min-h-screen bg-app-background flex items-center justify-center p-4">
@@ -29,12 +62,13 @@ export default async function Home() {
                   Gestão de Comandas <span className="text-white font-medium">que multiplica seu faturamento e agiliza seu caixa.</span> 
                 </p>
                 <CardContent>
-                    <form  className="flex flex-col gap-4"> 
+                    <form  action={handleLogin} className="flex flex-col gap-4"> 
                         <div className="flex flex-col gap-4">
                             <Label htmlFor='name' className="text-white">
                                 Email</Label>
                             <Input
                                 type='text'
+                                name='email'
                                 id='email'
                                 placeholder='Digite seu email'
                                 required
@@ -47,6 +81,7 @@ export default async function Home() {
                                 Password</Label>
                             <Input
                                 type='password'
+                                name='password'
                                 id='password'
                                 placeholder='Digite seu password'
                                 required
@@ -55,7 +90,7 @@ export default async function Home() {
                         </div>
     
                         <Button type="submit" className="w-full bg-brand-primary text-white hover:bg-brand-primary">
-                            Cadastrar
+                            Entrar
                         </Button>
     
                         <p className="text-center text-sm text-gray-100">
