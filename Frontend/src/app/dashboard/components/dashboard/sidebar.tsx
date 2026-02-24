@@ -31,7 +31,7 @@ export function Sidebar(){
       <nav className="flex-1 p-4 flex flex-col gap-2">
             {menuItems.map((menu) => (
                 <Link 
-                key={menu.href} 
+                key={menu.title} 
                 href={menu.href}
                 className="flex items-center gap-3 p-3 rounded-lg text-gray-300 hover:bg-brand-primary hover:text-white transition-all group"
                 >
