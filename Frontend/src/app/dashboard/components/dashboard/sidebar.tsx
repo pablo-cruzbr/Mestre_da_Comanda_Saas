@@ -2,8 +2,10 @@
 import { title } from "process"
 import { ShoppingCart, Package, Tags, LogOut } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter} from "next/navigation"
+import { deleteCookie } from "cookies-next";
 import { Button } from "@/components/ui/button"
+import {toast} from 'sonner'
 
 const menuItems = [
     {
@@ -24,6 +26,16 @@ const menuItems = [
 ]
 
 export function Sidebar(){
+
+    
+        const router = useRouter();
+        async function handleLogout(){
+            deleteCookie("session", {path: "/"})
+            toast.success("Logout Feito com Sucesso !")
+            router.replace("/")
+        }
+
+
     const pathname = usePathname()
     return(
        <aside className="hidden lg:flex flex-col h-screen w-64 border-app-border bg-app-sidebar">
@@ -58,7 +70,7 @@ export function Sidebar(){
         </nav>
 
         <div className="border-t border-app-border p-4">
-    <form action="">
+    <form action={handleLogout}>
         <Button
             type="submit"
             variant="ghost"
