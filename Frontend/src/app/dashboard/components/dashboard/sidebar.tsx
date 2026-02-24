@@ -79,7 +79,7 @@ export function Sidebar(){
             <LogOut className="w-5 h-5" /> 
             <span>Sair</span> 
         </Button>
-            </form>
+    </form>
         </div>
        </aside>
     );
