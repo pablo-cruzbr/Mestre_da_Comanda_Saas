@@ -2,13 +2,15 @@
 import { Header } from './components/Header/index' 
 import {Toaster} from 'sonner'
 import { OrderProvider } from '@/provider/order'
+import { Sidebar } from './components/dashboard/sidebar'
 
 export default function DashboardLayout({children}:
     {children: React.ReactNode}
 ){
     return(
         <>
-         <Header/>
+        {/* Sidebar Desktop */}
+        <Sidebar/>   
         <OrderProvider>
         {children}
         </OrderProvider>
