@@ -1,6 +1,9 @@
+"use client"
 import { title } from "process"
 import { ShoppingCart, Package, Tags } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname } from "next/navigation"
+
 const menuItems = [
     {
         title: "Pedidos",
@@ -20,6 +23,7 @@ const menuItems = [
 ]
 
 export function Sidebar(){
+    const pathname = usePathname()
     return(
        <aside className="hidden lg:flex flex-col h-screen w-64 border-app-border bg-app-sidebar">
 
@@ -29,16 +33,27 @@ export function Sidebar(){
         </div>
 
       <nav className="flex-1 p-4 flex flex-col gap-2">
-            {menuItems.map((menu) => (
-                <Link 
-                key={menu.title} 
-                href={menu.href}
-                className="flex items-center gap-3 p-3 rounded-lg text-gray-300 hover:bg-brand-primary hover:text-white transition-all group"
-                >
-                <menu.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="font-medium">{menu.title}</span>
-                </Link>
-            ))}
+            {menuItems.map((menu) => {
+        const Icon = menu.icon;
+        const isActive = pathname === menu.href;
+
+        return (
+            <Link
+            key={menu.title}
+            href={menu.href}
+            className={`flex items-center gap-3 p-3 rounded-lg transition-all group ${
+                isActive 
+                ? "bg-brand-primary text-white" 
+                : "text-gray-300 hover:bg-brand-primary/10 hover:text-white"
+            }`}
+            >
+            <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                isActive ? "text-white" : "text-gray-400"
+            }`} />
+            <span className="font-medium">{menu.title}</span>
+            </Link>
+        );
+        })}
         </nav>
        </aside>
     );
