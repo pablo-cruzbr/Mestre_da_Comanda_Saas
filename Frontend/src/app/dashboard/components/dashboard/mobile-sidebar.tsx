@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter} from "next/navigation"
 import { deleteCookie } from "cookies-next";
 import {toast} from 'sonner'
-
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 const menuItems = [
     {
         title: "Pedidos",
