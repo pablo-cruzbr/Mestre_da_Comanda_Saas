@@ -1,5 +1,10 @@
-
+"use client"
 import { ShoppingCart, Package, Tags, LogOut } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname, useRouter} from "next/navigation"
+import { deleteCookie } from "cookies-next";
+import {toast} from 'sonner'
+
 const menuItems = [
     {
         title: "Pedidos",
@@ -19,6 +24,13 @@ const menuItems = [
 ]
 
 export function MobileSidebar(){
+     const router = useRouter();
+            async function handleLogout(){
+                deleteCookie("session", {path: "/"})
+                toast.success("Logout Feito com Sucesso !")
+                router.replace("/")
+            }
+
     return(
         <div>
             <h1>TESTE MOBILE</h1>
