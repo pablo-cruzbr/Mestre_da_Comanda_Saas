@@ -37,7 +37,7 @@ export function MobileSidebar(){
        
     return(
         <div className='lg:hidden'>
-            <h1>TESTE MOBILE</h1>
+            <header className="sticky top-0 z-50 border-b border-app-border bg-app-card"></header>
         </div>
     )
 }
