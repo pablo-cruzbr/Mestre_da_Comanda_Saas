@@ -27,6 +27,7 @@ const menuItems = [
 
 export function MobileSidebar(){
     const router = useRouter();
+    const pathname = usePathname()
     const  [open, setOpen] = useState(false)
 
     async function handleLogout(){
@@ -35,7 +36,8 @@ export function MobileSidebar(){
         router.replace("/")
     }
 
-       
+    
+
     return(
         <div className='lg:hidden'>
             <header className="sticky top-0 z-50 border-b border-app-border bg-app-card">
@@ -46,6 +48,35 @@ export function MobileSidebar(){
                                 <Menu className="h-6 w-6"/>
                             </Button>
                         </SheetTrigger>
+                        <SheetContent>
+                                <SheetHeader>Menu</SheetHeader>
+                               <nav className="flex-1 p-4 flex flex-col gap-2">
+
+        <nav className="flex-1 p-4 flex flex-col gap-2">
+            {menuItems.map((menu) => {
+        const Icon = menu.icon;
+        const isActive = pathname === menu.href;
+
+        return (
+            <Link
+            key={menu.title}
+            href={menu.href}
+            className={`flex items-center gap-3 p-3 rounded-lg transition-all group ${
+                isActive 
+                ? "bg-brand-primary text-white" 
+                : "text-gray-300 hover:bg-brand-primary/10 hover:text-white"
+            }`}
+            >
+            <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                isActive ? "text-white" : "text-gray-400"
+            }`} />
+            <span className="font-medium">{menu.title}</span>
+            </Link>
+        );
+        })}
+        </nav>
+
+                        </SheetContent>
                     </Sheet>
                 </div>
             </header>
