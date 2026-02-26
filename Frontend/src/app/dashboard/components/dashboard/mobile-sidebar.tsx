@@ -5,6 +5,7 @@ import { usePathname, useRouter} from "next/navigation"
 import { deleteCookie } from "cookies-next";
 import {toast} from 'sonner'
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { useState } from 'react';
 const menuItems = [
     {
         title: "Pedidos",
@@ -24,15 +25,18 @@ const menuItems = [
 ]
 
 export function MobileSidebar(){
-     const router = useRouter();
-            async function handleLogout(){
-                deleteCookie("session", {path: "/"})
-                toast.success("Logout Feito com Sucesso !")
-                router.replace("/")
-            }
+    const router = useRouter();
+    const  [open, setOpen] = useState(false)
 
+    async function handleLogout(){
+        deleteCookie("session", {path: "/"})
+        toast.success("Logout Feito com Sucesso !")
+        router.replace("/")
+    }
+
+       
     return(
-        <div>
+        <div className='lg:hidden'>
             <h1>TESTE MOBILE</h1>
         </div>
     )
