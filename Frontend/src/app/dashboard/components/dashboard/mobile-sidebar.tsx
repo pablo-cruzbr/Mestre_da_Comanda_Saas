@@ -40,9 +40,9 @@ export function MobileSidebar(){
         <div className='lg:hidden'>
             <header className="sticky top-0 z-50 border-b border-app-border bg-app-card">
                 <div className="flex h-16 items-center justify-between px-4">
-                    <Sheet>
+                    <Sheet open={open} onOpenChange={setOpen}>
                         <SheetTrigger>
-                            <Button>
+                            <Button variant="ghost" size={"icon"}>
                                 <Menu className="h-6 w-6"/>
                             </Button>
                         </SheetTrigger>
