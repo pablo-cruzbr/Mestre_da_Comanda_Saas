@@ -2,7 +2,9 @@ import { api } from '@/services/api'
 import { getCookieServer } from '@/lib/cookieServer'
 import { handleRegisterCategory } from './actions' 
 import { Tags } from 'lucide-react'
-import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card'
+import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+
 interface CategoryProps {
     id: string;
     name: string;
@@ -29,6 +31,12 @@ export default async function Category() {
     return (
         <div className="space-y-4 sm:space-y-6">
             <h1 className="text-2xl sm:text-3xl font-bold text-white">Categorias</h1>
+        <p className="text-2x1 sm:text-base mt-1">Organize suas Categorias</p>
+        <div>
+
+            <Button>Teste</Button>
+
+        </div>
 {/* 
             <form action={handleRegisterCategory} className="flex flex-col gap-4">
                 <input
