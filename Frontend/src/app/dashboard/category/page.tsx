@@ -29,7 +29,7 @@ export default async function Category() {
     return (
         <div className="space-y-4 sm:space-y-6">
             <h1 className="text-2xl sm:text-3xl font-bold text-white">Categorias</h1>
-
+{/* 
             <form action={handleRegisterCategory} className="flex flex-col gap-4">
                 <input
                     type="text"
@@ -38,7 +38,7 @@ export default async function Category() {
                     required
                     className="p-3 rounded bg-[#1d1d2e] text-white border border-gray-800 focus:border-red-500 outline-none"
                 />    
-            </form>
+            </form> */}
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
                 {categories.map((category) => (
