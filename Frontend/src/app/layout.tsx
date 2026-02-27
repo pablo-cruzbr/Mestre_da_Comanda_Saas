@@ -29,7 +29,7 @@ export default function RootLayout({
              {/* Header Mobile */}
              <MobileSidebar/>
              <main className="flex-1 overflow-y-auto bg-app-background">
-              <div className="container max-w-full px-4 py-6">
+              <div className="container max-w-full px-0 py-0">
                 {children}
               </div>
              </main>
