@@ -1,58 +1,53 @@
-import styles from './styles.module.scss';
-import {Button} from '../components/button/index'
+import { api } from '@/services/api'
+import { getCookieServer } from '@/lib/cookieServer'
+import { Button } from '../components/button/index'
+import { handleRegisterCategory } from './actions' // Importando a ação que criamos
 
-//1 - Importar api para requisição
-import { api } from '@/services/api';
+interface CategoryProps {
+    id: string;
+    name: string;
+}
 
-//2 - Pegar o token do usuário
-import { getCookieServer } from '@/lib/cookieServer';
-
-//3 - Redirecionar o usuário para pagina dashboard
-import { redirect } from 'next/navigation';
-
-export default function Category(){
-
-    //Função Asyncrona para Registrar usuário:
-    async function handleRegisterCategory(formData: FormData){
-        "use server"
-
-        //Pegar a propriedade name do shcema/input
-        const name = formData.get("name")
-
-        //Validação Condicional para preencher o input
-        if(name === "") return;
-
-        const data = {
-        name: name,
-        }
-       
-        //Garantimos que o valor do token seja obtido aguardando a função ser executada com await.
+async function getCategories(): Promise<CategoryProps[]> {
+    try {
         const token = await getCookieServer();
-        //Vamos fazer um post em nossa rota /category com o Bearer token
-        
-        try{
-        const response = await api.post("/category", data, {
+        const response = await api.get("/category", {
             headers: {
-                Authorization: `Bearer ${token}`,
-            },
+                Authorization: `Bearer ${token}`
+            }
         });
-        console.log(response.data)
+        return response.data || [];
     } catch (err) {
-        console.log("Erro ao cadastrar categoria:", err);
-        return;
+        console.log(err);
+        return [];
     }
-        //Direcionar o usuário para o das dashboard
-        redirect("/dashboard")
-        }
-       
-        return(
+}
+
+export default async function Category() {
+    const categories = await getCategories();
+
+    return (
         <div className="space-y-4 sm:space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-2x1 sm:text-3xl font-bold text-white">Categorias</h1>
-                </div>
-            </div>
-            <button>Teste</button>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Categorias</h1>
+
+            <form action={handleRegisterCategory} className="flex flex-col gap-4">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Nome da categoria"
+                    required
+                    className="p-3 rounded bg-[#1d1d2e] text-white border border-gray-800 focus:border-red-500 outline-none"
+                />
+                
+            </form>
+
+            <section className="grid grid-cols-1 gap-4 mt-8">
+                {categories.map((category) => (
+                    <article key={category.id} className="p-4 bg-[#1d1d2e] rounded border border-gray-800 text-white">
+                        <span className="font-medium">{category.name}</span>
+                    </article>
+                ))}
+            </section>
         </div>
     )
 }
