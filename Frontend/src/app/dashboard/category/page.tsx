@@ -1,8 +1,8 @@
 import { api } from '@/services/api'
 import { getCookieServer } from '@/lib/cookieServer'
-import { Button } from '../components/button/index'
 import { handleRegisterCategory } from './actions' 
-
+import { Tags } from 'lucide-react'
+import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card'
 interface CategoryProps {
     id: string;
     name: string;
@@ -40,13 +40,17 @@ export default async function Category() {
                 />    
             </form>
 
-            <section className="grid grid-cols-1 gap-4 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
                 {categories.map((category) => (
-                    <article key={category.id} className="p-4 bg-[#1d1d2e] rounded border border-gray-800 text-white">
-                        <span className="font-medium">{category.name}</span>
-                    </article>
+                    <Card key={category.id} className="bg-app-card border-app-border transition-shadow hover:shadow-md text-white">
+                        <CardHeader className="font-medium">
+                            <CardTitle className="gap-2 flex items-center text-base md:text-lg">
+                                <Tags className="w-5 h-5"/>
+                                {category.name}</CardTitle>
+                            </CardHeader>
+                    </Card>
                 ))}
-            </section>
+            </div>
         </div>
     )
 }
