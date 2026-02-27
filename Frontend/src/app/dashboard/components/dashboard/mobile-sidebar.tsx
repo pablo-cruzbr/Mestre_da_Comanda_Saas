@@ -97,7 +97,7 @@ export function MobileSidebar(){
                 </SheetContent>
             </Sheet>
 
-            <h1 className='text-white text-3-1 font-bold tracking-tight'>
+            <h1 className='text-white text-2xl font-bold tracking-tight w-full flex items-center justify-center gap-2 text-center'>
             Mestre <span className='text-brand-primary'>das Comandas</span>
             </h1>
         </div>
