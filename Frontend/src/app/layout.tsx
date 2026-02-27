@@ -1,4 +1,3 @@
-// layout.tsx corrigido
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -17,17 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* MUDANÇA: 'lg:flex-row' cria a coluna da Sidebar e a coluna do Conteúdo */}
         <div className="flex flex-col lg:flex-row min-h-screen bg-app-background">
-          
-        
-          {/* 2. Container da Direita (Header Mobile + Conteúdo) */}
-          <div className="flex-1 flex flex-col">
-             
-             {/* Header Mobile (Sempre no topo) */}
+          <div className="flex-1 flex flex-col">           
              <MobileSidebar />
-
-             {/* Conteúdo da Página: Agora ele começa lá no topo ao lado da sidebar */}
              <main className="flex-1 bg-app-background p-4 lg:p-8">
                 {children}
              </main>

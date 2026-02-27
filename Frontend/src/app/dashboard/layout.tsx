@@ -1,29 +1,32 @@
-//Escopo para criar layout dentro da pagina dashboard
-import { Header } from './components/Header/index' 
-import {Toaster} from 'sonner'
-import { OrderProvider } from '@/provider/order'
-import { Sidebar } from './components/dashboard/sidebar'
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { MobileSidebar } from "./components/dashboard/mobile-sidebar";
+import { Sidebar } from "./components/dashboard/sidebar";
 
-export default function DashboardLayout({children}:
-    {children: React.ReactNode}
-){
-    return(
-        <>
-        {/* Sidebar Desktop */}
-        <Sidebar/>   
-        <OrderProvider>
-        {children}
-        </OrderProvider>
-        <Toaster 
-            position="bottom-right"
-            toastOptions={{
-                style:{
-                    backgroundColor:"#f1f1f1",
-                    color: "#131313",
-                    borderColor:"rgba(255,255,255,0.5)"
-                }
-            }}
-            />
-        </>
-    )
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+
+export const metadata: Metadata = { title: "Software Pizzaria", description: "Por Pablo Cruz" };
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="flex flex-col lg:flex-row min-h-screen bg-app-background">
+          
+          <Sidebar />
+          <div className="flex-1 flex flex-col">
+             <MobileSidebar />
+             <main className="flex-1 bg-app-background p-4 lg:p-8">
+                {children}
+             </main>
+          </div>
+        </div>
+      </body>
+    </html>
+  );
 }
