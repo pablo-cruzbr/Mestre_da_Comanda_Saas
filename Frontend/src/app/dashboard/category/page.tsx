@@ -1,3 +1,8 @@
+"use client"
+
+import { useEffect, useState } from 'react';
+import { api } from '@/services/api';
+import { getCookieClient } from '@/lib/cookieClient';
 import styles from './styles.module.scss';
 import {Button} from '../components/button/index'
 
@@ -11,10 +16,13 @@ import { getCookieServer } from '@/lib/cookieServer';
 import { redirect } from 'next/navigation';
 
 export default function Category(){
-interface Category {
-    id: string;
-    name: string
-}
+    const [categories, setCategories] = useState([]);
+
+    interface Category {
+        id: string;
+        name: string
+    }
+    
     //Função Asyncrona para Registrar usuário:
     async function handleRegisterCategory(formData: FormData){
         "use server"
@@ -48,7 +56,11 @@ interface Category {
         redirect("/dashboard")
         }
 
-        
+
+
+
+
+    
        
         return(
         <div className="space-y-4 sm:space-y-6">
