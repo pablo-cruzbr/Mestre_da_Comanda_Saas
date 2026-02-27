@@ -1,7 +1,7 @@
 import { api } from '@/services/api'
 import { getCookieServer } from '@/lib/cookieServer'
 import { Button } from '../components/button/index'
-import { handleRegisterCategory } from './actions' // Importando a ação que criamos
+import { handleRegisterCategory } from './actions' 
 
 interface CategoryProps {
     id: string;
