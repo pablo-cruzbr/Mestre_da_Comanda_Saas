@@ -6,9 +6,6 @@ import { getCookieClient } from '@/lib/cookieClient';
 import styles from './styles.module.scss';
 import {Button} from '../components/button/index'
 
-//1 - Importar api para requisição
-import { api } from '@/services/api';
-
 //2 - Pegar o token do usuário
 import { getCookieServer } from '@/lib/cookieServer';
 
@@ -22,7 +19,23 @@ export default function Category(){
         id: string;
         name: string
     }
-    
+
+    useEffect(() => {
+        async function handleGetCategory() {
+            try {
+                const token = await getCookieServer();
+
+                const response = await api.get("/category", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
+                setCategories(response.data)
+            } catch (err) {
+                console.log("Erro ao buscar categorias:", err)
+            }
+        }
+    })
     //Função Asyncrona para Registrar usuário:
     async function handleRegisterCategory(formData: FormData){
         "use server"
