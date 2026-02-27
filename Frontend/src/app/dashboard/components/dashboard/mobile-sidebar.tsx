@@ -43,14 +43,14 @@ export function MobileSidebar(){
         <div className="flex h-16 items-center justify-between px-4">
             <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
-                    <Button variant="ghost" size={"icon"}>
-                        <Menu className="h-6 w-6"/>
+                    <Button variant="ghost" size={"icon"} className="hover:bg-transparent"> 
+                        <Menu className="h-6 w-6 text-white hover:text-brand-primary transition-colors" />
                     </Button>
                 </SheetTrigger>
                 
-                <SheetContent side="left" className="bg-app-card border-app-border p-0">
+                <SheetContent side="left" className="bg-app-card border-app-border p-0 text-white">
                     <SheetHeader className="p-4 border-b border-app-border">
-                        <SheetTitle className="text-white text-left">Menu</SheetTitle>
+                        <SheetTitle className="text-white text-left hover: bg-app-card">Menu</SheetTitle>
                     </SheetHeader>
                     
                     <nav className="flex-1 p-4 flex flex-col gap-2">
@@ -65,20 +65,41 @@ export function MobileSidebar(){
                                     onClick={() => setOpen(false)}
                                     className={`flex items-center gap-3 p-3 rounded-lg transition-all group ${
                                         isActive 
-                                        ? "bg-brand-primary text-white" 
-                                        : "text-gray-300 hover:bg-brand-primary/10 hover:text-white"
+                                        ? "bg-brand-primary text-app-background" 
+                                        : "text-gray-300 hover:bg-amber-50" 
                                     }`}
                                 >
-                                    <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
-                                        isActive ? "text-white" : "text-gray-400"
-                                    }`} />
-                                    <span className="font-medium">{menu.title}</span>
+                                  <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                                    isActive 
+                                    ? "text-white" 
+                                    : "text-gray-400 group-hover:text-brand-primary" 
+                                }`} />
+                                    <span className={`font-medium ${
+                                        isActive ? "text-white" : "group-hover:text-app-background"
+                                    }`}>{menu.title}</span>
                                 </Link>
                             );
                         })}
                     </nav>
+
+                    <div className="absolute bottom-0 border-t w-full border-app-border p-4">
+                        <form action={handleLogout}>
+                            <Button
+                                type="submit"
+                                variant="ghost"
+                                className="w-full justify-start gap-3 text-white hover:text-white hover:bg-brand-primary/10"
+                            >
+                                <LogOut className="w-5 h-5" /> 
+                                <span>Sair</span> 
+                            </Button>
+                        </form>
+                    </div>
                 </SheetContent>
             </Sheet>
+
+            <h1 className='text-white text-2xl font-bold tracking-tight w-full flex items-center justify-center gap-2 text-center'>
+            Mestre <span className='text-brand-primary'>das Comandas</span>
+            </h1>
         </div>
     </header>
 </div>
