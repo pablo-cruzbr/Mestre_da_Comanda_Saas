@@ -66,7 +66,7 @@ export function MobileSidebar(){
                                     className={`flex items-center gap-3 p-3 rounded-lg transition-all group ${
                                         isActive 
                                         ? "bg-brand-primary text-app-background" 
-                                        : "text-gray-300 hover:bg-brand-primary/10" 
+                                        : "text-gray-300 hover:bg-amber-50" 
                                     }`}
                                 >
                                   <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
