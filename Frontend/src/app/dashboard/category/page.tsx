@@ -11,7 +11,10 @@ import { getCookieServer } from '@/lib/cookieServer';
 import { redirect } from 'next/navigation';
 
 export default function Category(){
-
+interface Category {
+    id: string;
+    name: string
+}
     //Função Asyncrona para Registrar usuário:
     async function handleRegisterCategory(formData: FormData){
         "use server"
@@ -44,6 +47,8 @@ export default function Category(){
         //Direcionar o usuário para o das dashboard
         redirect("/dashboard")
         }
+
+        
        
         return(
         <div className="space-y-4 sm:space-y-6">
