@@ -96,6 +96,10 @@ export function MobileSidebar(){
                     </div>
                 </SheetContent>
             </Sheet>
+
+            <h1 className='text-white text-3-1 font-bold tracking-tight'>
+            Mestre <span className='text-brand-primary'>das Comandas</span>
+            </h1>
         </div>
     </header>
 </div>
