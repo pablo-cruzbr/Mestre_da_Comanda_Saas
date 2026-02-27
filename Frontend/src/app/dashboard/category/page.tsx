@@ -37,8 +37,7 @@ export default async function Category() {
                     placeholder="Nome da categoria"
                     required
                     className="p-3 rounded bg-[#1d1d2e] text-white border border-gray-800 focus:border-red-500 outline-none"
-                />
-                
+                />    
             </form>
 
             <section className="grid grid-cols-1 gap-4 mt-8">
