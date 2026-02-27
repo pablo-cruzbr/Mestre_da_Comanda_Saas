@@ -13,13 +13,13 @@ import { getCookieServer } from '@/lib/cookieServer';
 import { redirect } from 'next/navigation';
 
 export default function Category(){
-    const [categories, setCategories] = useState([]);
-
-    interface Category {
+      interface CategoryProps {
         id: string;
         name: string
     }
 
+    const [categories, setCategories] = useState<CategoryProps[]>([]);
+    
     useEffect(() => {
         async function handleGetCategory() {
             try {
@@ -35,12 +35,12 @@ export default function Category(){
                 console.log("Erro ao buscar categorias:", err)
             }
         }
-    })
+        handleGetCategory()
+    }, []);
+
     //Função Asyncrona para Registrar usuário:
     async function handleRegisterCategory(formData: FormData){
-        "use server"
-
-        //Pegar a propriedade name do shcema/input
+        
         const name = formData.get("name")
 
         //Validação Condicional para preencher o input
