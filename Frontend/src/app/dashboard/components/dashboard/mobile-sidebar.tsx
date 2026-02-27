@@ -81,6 +81,19 @@ export function MobileSidebar(){
                             );
                         })}
                     </nav>
+
+                    <div className="absolute bottom-0 border-t w-full border-app-border p-4">
+                        <form action={handleLogout}>
+                            <Button
+                                type="submit"
+                                variant="ghost"
+                                className="w-full justify-start gap-3 text-white hover:text-white hover:bg-brand-primary/10"
+                            >
+                                <LogOut className="w-5 h-5" /> 
+                                <span>Sair</span> 
+                            </Button>
+                        </form>
+                    </div>
                 </SheetContent>
             </Sheet>
         </div>
