@@ -1,28 +1,32 @@
-import { Toaster } from 'sonner'
-import { OrderProvider } from '@/provider/order'
-import { Sidebar } from './components/dashboard/sidebar'
-import { MobileSidebar } from './components/dashboard/mobile-sidebar'
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { MobileSidebar } from "./components/dashboard/mobile-sidebar";
+import { Sidebar } from "./components/dashboard/sidebar";
 
-// Remova o html e body daqui, eles pertencem ao RootLayout (src/app/layout.tsx)
-export default function DashboardLayout({children}: {children: React.ReactNode}) {
-    return (
-        <OrderProvider>
-            <div className="flex flex-col lg:flex-row min-h-screen w-full bg-[#11111d]">
-                {/* Sidebar Desktop - Agora ela aparece lado a lado */}
-                <Sidebar />
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-                <div className="flex-1 flex flex-col">
-                    {/* Header Mobile */}
-                    <MobileSidebar />
-                    
-                    <main className="flex-1 overflow-y-auto p-4 lg:p-8">
-                        <div className="w-full">
-                            {children}
-                        </div>
-                    </main>
-                </div>
-            </div>
-            <Toaster />
-        </OrderProvider>
-    )
+export const metadata: Metadata = { title: "Software Pizzaria", description: "Por Pablo Cruz" };
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="flex flex-col lg:flex-row min-h-screen bg-app-background">
+          
+          <Sidebar />
+          <div className="flex-1 flex flex-col">
+             <MobileSidebar />
+             <main className="flex-1 bg-app-background p-4 lg:p-8">
+                {children}
+             </main>
+          </div>
+        </div>
+      </body>
+    </html>
+  );
 }

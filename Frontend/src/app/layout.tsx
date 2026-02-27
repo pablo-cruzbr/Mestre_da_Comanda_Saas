@@ -1,21 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import { MobileSidebar } from "./dashboard/components/dashboard/mobile-sidebar";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Sidebar } from "./dashboard/components/dashboard/sidebar";
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Software Pizzaria",
-  description: "Por Pablo Cruz",
-};
+export const metadata: Metadata = { title: "Software Pizzaria", description: "Por Pablo Cruz" };
 
 export default function RootLayout({
   children,
@@ -25,16 +15,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="flex min-h-screen flex-col bg-app-background">
-             {/* Header Mobile */}
-             <MobileSidebar/>
-             <main className="flex-1 overflow-y-auto bg-app-background">
-              <div className="container max-w-full px-0 py-0">
+        <div className="flex flex-col lg:flex-row min-h-screen bg-app-background">
+          
+          <Sidebar />
+          <div className="flex-1 flex flex-col">
+             <MobileSidebar />
+             <main className="flex-1 bg-app-background p-4 lg:p-8">
                 {children}
-              </div>
              </main>
+          </div>
         </div>
-      </body> 
+      </body>
     </html>
   );
 }
