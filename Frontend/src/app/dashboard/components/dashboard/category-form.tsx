@@ -22,6 +22,9 @@ export function CategoryForm() {
                     <Plus className="h-5 w-5 mr-2"/>
                 </Button>
             </DialogTrigger>
+            <DialogContent>
+                <h1>Teste</h1>
+            </DialogContent>
         </Dialog>
     )
 }
