@@ -55,11 +55,11 @@ export function Sidebar(){
             key={menu.title}
             href={menu.href}
            className={`flex items-center gap-3 p-3 mx-2 rounded-lg transition-all group ${
-    isActive 
-    ? "bg-brand-primary text-white shadow-lg shadow-brand-primary/20" 
-    : "text-gray-300 hover:bg-brand-primary/10 hover:text-white"
-}`}
-            >
+                isActive 
+                ? "bg-brand-primary text-white shadow-lg shadow-brand-primary/20" 
+                : "text-gray-300 hover:bg-brand-primary/10 hover:text-white"
+            }`}
+                        >
             <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
                 isActive ? "text-white" : "text-gray-400"
             }`} />
