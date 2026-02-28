@@ -31,10 +31,10 @@ export default function Orders({ orders }: Props) {
 
   return (
     <>
-      <main className={styles.container}>
+      <main >
 
         <section className={styles.containerHeader}>
-          <h1>Últimos pedidos</h1>
+          <h1  className="text-2xl sm:text-3xl font-bold text-white">Últimos pedidos</h1>
 
           <button>
             <RefreshCw
@@ -47,7 +47,7 @@ export default function Orders({ orders }: Props) {
 
         <section className={styles.listOrders}>
           {orders.length === 0 && (
-            <span className={styles.emptyItem}>
+            <span className="text-gray-400 text-sm sm:text-base mt-1">
               Nenhum pedido aberto no momento...
             </span>
           )}
