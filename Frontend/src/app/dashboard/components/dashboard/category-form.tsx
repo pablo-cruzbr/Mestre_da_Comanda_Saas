@@ -18,10 +18,17 @@ export function CategoryForm() {
     return(
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
-               
+                <Button className="w-full sm:w-auto bg-brand-primary text-white border-none">
+                    <Plus className="h-5 w-5 mr-2"/>
+                    Nova Categoria
+                </Button>
             </DialogTrigger>
+
             <DialogContent>
-              
+                <DialogHeader>
+                    <DialogHeader> Criar nova categoria</DialogHeader>
+                    <DialogDescription>Criando nova categoria...</DialogDescription>    
+                </DialogHeader>  
             </DialogContent>
         </Dialog>
     )
