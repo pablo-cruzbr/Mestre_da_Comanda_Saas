@@ -36,8 +36,8 @@ export default async function Category() {
             <p className="text-gray-400 text-sm sm:text-base mt-1">Organize suas Categorias</p>
         </div>
 
-        <Button className="w-full sm:w-auto">
-            Teste
+        <Button className="w-full sm:w-auto bg-brand-primary text-white border-none">
+         Criar Categoria
         </Button>
     </div>
 
