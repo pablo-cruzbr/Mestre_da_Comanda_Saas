@@ -21,7 +21,7 @@ export function CategoryForm() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-red-600 hover:bg-red-700 text-white border-none">
+                <Button className="bg-brand-primary text-white border-none">
                     <Plus className="h-5 w-5 mr-2"/>
                     Nova Categoria
                 </Button>
