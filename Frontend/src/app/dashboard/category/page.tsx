@@ -4,7 +4,7 @@ import { handleRegisterCategory } from './actions'
 import { Tags } from 'lucide-react'
 import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
+import { CategoryForm } from '../components/dashboard/category-form';
 interface CategoryProps {
     id: string;
     name: string;
@@ -39,6 +39,7 @@ export default async function Category() {
         <Button className="w-full sm:w-auto bg-brand-primary text-white border-none">
          Criar Categoria
         </Button>
+        <CategoryForm/>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

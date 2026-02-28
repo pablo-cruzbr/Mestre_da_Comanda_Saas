@@ -20,10 +20,11 @@ export function CategoryForm() {
             <DialogTrigger>
                 <Button>
                     <Plus className="h-5 w-5 mr-2"/>
+                    Nova Categoria
                 </Button>
             </DialogTrigger>
             <DialogContent>
-                <h1>Teste</h1>
+              
             </DialogContent>
         </Dialog>
     )
