@@ -47,7 +47,7 @@ export default function Orders({ orders }: Props) {
 
         <section className={styles.listOrders}>
           {orders.length === 0 && (
-            <span className={styles.emptyItem}>
+            <span className="text-gray-400 text-sm sm:text-base mt-1">
               Nenhum pedido aberto no momento...
             </span>
           )}
