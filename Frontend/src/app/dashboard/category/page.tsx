@@ -29,37 +29,31 @@ export default async function Category() {
     const categories = await getCategories();
 
     return (
-        <div className="space-y-4 sm:space-y-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Categorias</h1>
-        <p className="text-2x1 sm:text-base mt-1">Organize suas Categorias</p>
+       <div className="space-y-4 sm:space-y-6">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">      
         <div>
-
-            <Button>Teste</Button>
-
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Categorias</h1>
+            <p className="text-gray-400 text-sm sm:text-base mt-1">Organize suas Categorias</p>
         </div>
-{/* 
-            <form action={handleRegisterCategory} className="flex flex-col gap-4">
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Nome da categoria"
-                    required
-                    className="p-3 rounded bg-[#1d1d2e] text-white border border-gray-800 focus:border-red-500 outline-none"
-                />    
-            </form> */}
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
-                {categories.map((category) => (
-                    <Card key={category.id} className="bg-app-card border-app-border transition-shadow hover:shadow-md text-white">
-                        <CardHeader className="font-medium">
-                            <CardTitle className="gap-2 flex items-center text-base md:text-lg">
-                                <Tags className="w-5 h-5"/>
-                                {category.name}</CardTitle>
-                            </CardHeader>
-                    </Card>
-                ))}
-            </div>
-        </div>
+        <Button className="w-full sm:w-auto">
+            Teste
+        </Button>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {categories.map((category) => (
+            <Card key={category.id} className="bg-app-card border-app-border transition-shadow hover:shadow-md text-white">
+                <CardHeader className="font-medium">
+                    <CardTitle className="gap-2 flex items-center text-base md:text-lg">
+                        <Tags className="w-5 h-5"/>
+                        {category.name}
+                    </CardTitle>
+                </CardHeader>
+            </Card>
+        ))}
+    </div>
+</div>
     )
 }
 
