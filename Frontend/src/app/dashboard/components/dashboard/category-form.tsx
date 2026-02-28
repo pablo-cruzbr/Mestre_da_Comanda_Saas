@@ -20,7 +20,6 @@ export function CategoryForm() {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            {/* O Trigger fica FORA do Content */}
             <DialogTrigger asChild>
                 <Button className="bg-red-600 hover:bg-red-700 text-white border-none">
                     <Plus className="h-5 w-5 mr-2"/>
