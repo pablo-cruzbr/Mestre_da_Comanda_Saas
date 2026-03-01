@@ -3,6 +3,7 @@
 import { api } from '@/services/api'
 import { getCookieServer } from '@/lib/cookieServer'
 import { redirect } from 'next/navigation'
+import {toast} from 'sonner'
 
 export async function handleRegisterCategory(formData: FormData) {
     const name = formData.get("name")
@@ -20,6 +21,6 @@ export async function handleRegisterCategory(formData: FormData) {
         console.log("Erro ao cadastrar:", err);
         return;
     }
-
+    toast.success("Categoria Cadastrada com sucesso !!!")
     redirect("/dashboard/category");
 }
