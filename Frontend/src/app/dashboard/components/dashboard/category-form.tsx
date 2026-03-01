@@ -14,6 +14,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
+import { handleRegisterCategory } from "../../category/actions";
 
 export function CategoryForm() {
     const [open, setOpen] = useState(false);
@@ -35,7 +36,7 @@ export function CategoryForm() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <form className="space-y-4 mt-4">
+                <form  action={handleRegisterCategory} className="space-y-4 mt-4">
                     <div className="space-y-2">
                         <Label htmlFor="name">Nome da Categoria</Label>
                         <Input
