@@ -20,15 +20,15 @@ export function CategoryForm() {
     const [open, setOpen] = useState(false);
 
     async function handleClientAction(formData: FormData) {
-        try {
-            await handleRegisterCategory(formData);
-            
-            toast.success("Categoria cadastrada com sucesso!");
-            setOpen(false); 
-        } catch (error) {
-            toast.error("Erro ao cadastrar categoria.");
-        }
+    try {
+        await handleRegisterCategory(formData);
+
+        toast.success("Categoria cadastrada com sucesso!");
+        setOpen(false); 
+    } catch (error) {       
+        toast.error("Erro ao cadastrar categoria.");
     }
+}
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
