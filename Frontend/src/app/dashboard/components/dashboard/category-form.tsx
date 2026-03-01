@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-
 import {
   Dialog,
   DialogContent,
@@ -15,9 +14,21 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { handleRegisterCategory } from "../../category/actions";
+import { toast } from "sonner"; 
 
 export function CategoryForm() {
     const [open, setOpen] = useState(false);
+
+    async function handleClientAction(formData: FormData) {
+    try {
+        await handleRegisterCategory(formData);
+
+        toast.success("Categoria cadastrada com sucesso!");
+        setOpen(false); 
+    } catch (error) {       
+        toast.error("Erro ao cadastrar categoria.");
+    }
+}
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -36,7 +47,7 @@ export function CategoryForm() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <form  action={handleRegisterCategory} className="space-y-4 mt-4">
+                <form action={handleClientAction} className="space-y-4 mt-4">
                     <div className="space-y-2">
                         <Label htmlFor="name">Nome da Categoria</Label>
                         <Input

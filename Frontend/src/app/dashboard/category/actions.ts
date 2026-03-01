@@ -2,11 +2,11 @@
 
 import { api } from '@/services/api'
 import { getCookieServer } from '@/lib/cookieServer'
-import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache' 
 
 export async function handleRegisterCategory(formData: FormData) {
     const name = formData.get("name")
-    if (!name || name === "") return;
+    if (!name) return;
 
     const token = await getCookieServer();
 
@@ -18,8 +18,8 @@ export async function handleRegisterCategory(formData: FormData) {
         });
     } catch (err) {
         console.log("Erro ao cadastrar:", err);
-        return;
+        throw new Error("Falha ao cadastrar"); 
     }
 
-    redirect("/dashboard/category");
+    revalidatePath("/dashboard/category"); 
 }

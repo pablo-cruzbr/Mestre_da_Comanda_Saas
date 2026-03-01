@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MobileSidebar } from "./components/dashboard/mobile-sidebar";
 import { Sidebar } from "./components/dashboard/sidebar";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -23,6 +24,12 @@ export default function RootLayout({
              <MobileSidebar />
              <main className="flex-1 bg-app-background p-4 lg:p-8">
                 {children}
+                 <Toaster 
+                  position="bottom-right" 
+                  richColors 
+                  closeButton
+                  theme="dark"
+                />
              </main>
           </div>
         </div>
