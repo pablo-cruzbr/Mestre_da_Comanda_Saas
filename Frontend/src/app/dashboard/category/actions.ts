@@ -23,3 +23,4 @@ export async function handleRegisterCategory(formData: FormData) {
 
     redirect("/dashboard");
 }
+
