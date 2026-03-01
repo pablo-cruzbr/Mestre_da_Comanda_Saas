@@ -15,7 +15,7 @@ const menuItems = [
     },
     {
         title: "Produtos",
-        href: "/dashboard/produtos",
+        href: "/dashboard/products",
         icon: Package
     },
     {
