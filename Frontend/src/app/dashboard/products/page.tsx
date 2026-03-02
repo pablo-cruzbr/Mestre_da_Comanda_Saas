@@ -8,6 +8,8 @@ import { ProductForm } from '../components/dashboard/products-form';
 interface CategoryProps {
     id: string;
     name: string;
+
+    token: string | null;
 }
 
 async function getProducts(): Promise<CategoryProps[]> {
@@ -39,6 +41,7 @@ async function getCategories() {
 
 export default async function Products() {
     const categories = await getProducts();
+    const token = await getCookieServer();
 
     return (
        <div className="space-y-4 sm:space-y-6">
@@ -48,7 +51,7 @@ export default async function Products() {
             <p className="text-gray-400 text-sm sm:text-base mt-1">Visualize seus Produtos</p>
         </div>
 
-        <ProductForm categories={categories}/>
+        <ProductForm categories={categories} token={token}/>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
