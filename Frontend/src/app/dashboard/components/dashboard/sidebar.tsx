@@ -35,7 +35,6 @@ export function Sidebar(){
             router.replace("/")
         }
 
-
     const pathname = usePathname()
     return(
        <aside className="hidden lg:flex flex-col h-screen w-64 border-r border-app-border bg-app-sidebar sticky left-0 top-0">
