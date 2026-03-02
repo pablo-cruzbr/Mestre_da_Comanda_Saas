@@ -5,6 +5,8 @@ import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CategoryForm } from '../components/dashboard/category-form';
 import { ProductForm } from '../components/dashboard/products-form';
+import { ProductProps } from '@/lib/product.types';
+
 interface CategoryProps {
     id: string;
     name: string;
@@ -12,7 +14,7 @@ interface CategoryProps {
     token: string | null;
 }
 
-async function getProducts(): Promise<CategoryProps[]> {
+async function getProducts(): Promise<ProductProps[]> {
     try {
         const token = await getCookieServer();
         const response = await api.get("/category", {
@@ -30,7 +32,7 @@ async function getProducts(): Promise<CategoryProps[]> {
 async function getCategories() {
     try {
         const token = await getCookieServer();
-        const response = await api.get("/category", {
+        const response = await api.get("/products", {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data || [];
@@ -60,6 +62,7 @@ export default async function Products() {
                 <CardHeader className="font-medium">
                     <CardTitle className="gap-2 flex items-center text-base md:text-lg">
                         <Tags className="w-5 h-5"/>
+                    
                         {category.name}
                     </CardTitle>
                 </CardHeader>
