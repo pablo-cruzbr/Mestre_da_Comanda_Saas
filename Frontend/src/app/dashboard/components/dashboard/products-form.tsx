@@ -118,16 +118,20 @@ export function ProductForm({ categories }: Props) {
                         <input type="file" className="hidden" accept="image/png, image/jpeg" onChange={handleFile} />
                     </Label>
 
-                   <select 
-                    name="category" 
-                    className="w-full h-10 px-3 rounded bg-[#12121c] border border-gray-700 text-white focus:border-red-500 outline-none"
-                    >
-                        {categories?.map((category, index) => (
-                            <option key={category.id || index} value={index}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
+                   <div className="space-y-1">
+                        <Label>Categoria</Label>
+                        <select 
+                            name="category" 
+                            className="w-full h-10 px-3 rounded bg-[#12121c] border border-gray-700 text-white outline-none focus:border-red-500"
+                        >
+                            {/* Percorre a lista e cria uma <option> para cada categoria */}
+                            {categories?.map((category, index) => (
+                                <option key={category.id} value={index}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
                     <div className="space-y-1">
                         <Label htmlFor="name">Nome</Label>
@@ -141,7 +145,7 @@ export function ProductForm({ categories }: Props) {
 
                     <div className="space-y-1">
                         <Label htmlFor="description">Descrição</Label>
-                        <Textarea id="description" name="description" required placeholder="Descreva o produto..." className="bg-[#12121c] border-gray-700 min-h-[80px]" />
+                        <Textarea id="description" name="description" required placeholder="Descreva o produto..." className="bg-[#12121c] border-gray-700 min-h-20" />
                     </div>
 
                     <Button type="submit" className="w-full bg-brand-primary mt-2">

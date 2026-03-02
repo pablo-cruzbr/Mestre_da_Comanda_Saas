@@ -25,6 +25,18 @@ async function getProducts(): Promise<CategoryProps[]> {
     }
 }
 
+async function getCategories() {
+    try {
+        const token = await getCookieServer();
+        const response = await api.get("/category", {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data || [];
+    } catch (err) {
+        return [];
+    }
+}
+
 export default async function Products() {
     const categories = await getProducts();
 
@@ -36,7 +48,7 @@ export default async function Products() {
             <p className="text-gray-400 text-sm sm:text-base mt-1">Visualize seus Produtos</p>
         </div>
 
-        <ProductForm/>
+        <ProductForm categories={categories}/>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
