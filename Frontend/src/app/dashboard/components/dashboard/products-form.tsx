@@ -1,5 +1,5 @@
 "use client"
-
+import axios, { AxiosError } from 'axios';
 import { ChangeEvent, useState } from "react"
 import {
     Dialog,
@@ -26,9 +26,11 @@ interface CategoryProps {
 
 interface Props {
     categories: CategoryProps[]
+
+    token: string | null;
 }
 
-export function ProductForm({ categories }: Props) {
+export function ProductForm({ categories, token }: Props) {
     const [open, setOpen] = useState(false);
     const [image, setImage] = useState<File | null>(null);
     const [previewImage, setPreviewImage] = useState("");
@@ -65,12 +67,21 @@ export function ProductForm({ categories }: Props) {
         data.append("category_id", categories[Number(categoryIndex)].id);
         data.append("file", image);
 
-        const token = getCookieClient();
+       // const token = getCookieClient();
+
+        console.log("TOKEN NO CLIENTE:", token); // Verifique isso no F12!
+
+        if (!token) {
+            toast.error("Sua sessão expirou. Faça login novamente.");
+            return;
+        }
 
         try {
-            await api.post("/product", data, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+           await api.post("/product", data, {
+            headers: { 
+                Authorization: `Bearer ${token}` // <--- ESSE TOKEN VEM DO SERVIDOR
+            },
+        });
 
             toast.success("Produto cadastrado com sucesso!");
     
@@ -80,6 +91,17 @@ export function ProductForm({ categories }: Props) {
             
         } catch (error) {
             toast.error("Erro ao cadastrar o produto.");
+
+            // 1. Logar o erro completo no console para você investigar
+    console.error("ERRO DETALHADO:", error);
+
+    // 2. Tentar pegar a mensagem real da API
+    if (error instanceof AxiosError) {
+        const message = error.response?.data?.error || "Erro ao cadastrar o produto.";
+        toast.error(message);
+    } else {
+        toast.error("Ocorreu um erro inesperado.");
+    }
         }
     }
 
