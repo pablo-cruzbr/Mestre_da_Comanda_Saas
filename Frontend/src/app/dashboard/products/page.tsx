@@ -36,7 +36,6 @@ async function getProducts(): Promise<ProductProps[]> {
 }
 
 export default async function Products() {
-    // Chamadas em paralelo para carregar a página mais rápido
     const [categories, products, token] = await Promise.all([
         getCategories(),
         getProducts(),
@@ -85,7 +84,7 @@ export default async function Products() {
                                 {product.description}
                             </p>
                             <div className="flex items-center justify-between pt-2 border-t border-app-border">
-                                <span className="text-xl font-black text-brand-primary">
+                                <span className="text-xl font-bold text-brand-primary">
                                    R$ {product.price}
                                 </span>
                                 <Package className="w-4 h-4 text-gray-600" />
