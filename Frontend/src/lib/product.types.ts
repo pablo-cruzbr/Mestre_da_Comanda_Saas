@@ -4,6 +4,7 @@ export type ProductProps = {
   name: string;
   description: string;
   banner: string;
+  price: string;
 
   category: {
     id: string,
