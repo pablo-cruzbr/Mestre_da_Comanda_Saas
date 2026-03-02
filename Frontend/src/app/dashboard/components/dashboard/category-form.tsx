@@ -48,8 +48,8 @@ export function CategoryForm() {
                 </DialogHeader>
 
                 <form action={handleClientAction} className="space-y-4 mt-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="name">Nome da Categoria</Label>
+                    <div className="space-y-4">
+                        <Label htmlFor="name" className="block mb-2">Nome da Categoria</Label>
                         <Input
                             id="name"
                             name="name"
