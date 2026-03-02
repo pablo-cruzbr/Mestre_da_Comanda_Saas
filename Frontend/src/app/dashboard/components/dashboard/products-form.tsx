@@ -67,10 +67,6 @@ export function ProductForm({ categories, token }: Props) {
         data.append("category_id", categories[Number(categoryIndex)].id);
         data.append("file", image);
 
-       // const token = getCookieClient();
-
-        console.log("TOKEN NO CLIENTE:", token); // Verifique isso no F12!
-
         if (!token) {
             toast.error("Sua sessão expirou. Faça login novamente.");
             return;
@@ -79,7 +75,7 @@ export function ProductForm({ categories, token }: Props) {
         try {
            await api.post("/product", data, {
             headers: { 
-                Authorization: `Bearer ${token}` // <--- ESSE TOKEN VEM DO SERVIDOR
+                Authorization: `Bearer ${token}` 
             },
         });
 
@@ -92,10 +88,6 @@ export function ProductForm({ categories, token }: Props) {
         } catch (error) {
             toast.error("Erro ao cadastrar o produto.");
 
-            // 1. Logar o erro completo no console para você investigar
-    console.error("ERRO DETALHADO:", error);
-
-    // 2. Tentar pegar a mensagem real da API
     if (error instanceof AxiosError) {
         const message = error.response?.data?.error || "Erro ao cadastrar o produto.";
         toast.error(message);
@@ -146,7 +138,6 @@ export function ProductForm({ categories, token }: Props) {
                             name="category" 
                             className="w-full h-10 px-3 rounded bg-[#12121c] border border-gray-700 text-white outline-none focus:border-red-500"
                         >
-                            {/* Percorre a lista e cria uma <option> para cada categoria */}
                             {categories?.map((category, index) => (
                                 <option key={category.id} value={index}>
                                     {category.name}
