@@ -10,9 +10,8 @@ interface DeleteButtonProps {
 }
 
 export function DeleteButtonProduct({ productId }: DeleteButtonProps) {
-    
+      const router = useRouter();
     async function handleClientDelete() {
-        const router = useRouter();
         const confirmed = window.confirm("Tem certeza que deseja excluir este produto?");
         
         if (confirmed) {
