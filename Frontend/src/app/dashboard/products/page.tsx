@@ -80,7 +80,7 @@ export default async function Products() {
                                 </div>
                                 
                                 <span className=" whitespace-nowrap">
-                                     <DeleteButtonProduct />
+                                     <DeleteButtonProduct productId={product.id} />
                                 </span>
                             </div>
                         </CardHeader>
