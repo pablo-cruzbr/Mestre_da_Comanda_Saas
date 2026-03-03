@@ -22,6 +22,7 @@ import { ListOrdersController } from "./controlers/order/ListOrdersController";
 import { DetailOrderController } from "./controlers/order/DetailOrderController";
 import { FinishOrderController } from "./controlers/order/FinishOrderController";
 import { ListProductsController } from "./controlers/product/ListTotalProductController";
+import { DeleteProductController } from "./controlers/product/DeleteProductController";
 
 const router = Router();
 
@@ -32,6 +33,7 @@ const upload = multer(uploadConfig.upload("./tmp"));
 
 //Criar/Cadastrar um usuário
 router.post('/users', new CreateUserController().handle)
+
 
 //Logar o Usuário
 router.post('/session', new AuthUserController().handle)
@@ -54,6 +56,8 @@ router.get('/delete/category', isAuthenticated,  new RemoveCategoryController().
 //router.post('/product', upload.single('file'), new CreateProductController().handle)
 
 router.post('/product', isAuthenticated, new CreateProductController().handle)
+router.delete('/product/:id', new DeleteProductController().handle)
+
 
 router.get('/category/product', isAuthenticated, new ListByCategoryController().handle)
 router.get('/products', isAuthenticated, new ListProductsController().handle)
