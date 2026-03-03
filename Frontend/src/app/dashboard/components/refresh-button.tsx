@@ -14,8 +14,12 @@ export function RefreshButton() {
     }
 
     return (
-        <Button onClick={handleManualRefresh} variant="ghost" size="icon">
-            <RefreshCw size={24} className="text-white " />
-        </Button>
+        
+    <RefreshCw   
+        size={23}
+        color="#FFFF"
+        onClick={handleManualRefresh}  
+        className='cursor-pointer'    
+    />
     );
 }
