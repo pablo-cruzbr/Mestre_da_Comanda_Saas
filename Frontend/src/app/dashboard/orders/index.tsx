@@ -1,7 +1,6 @@
 "use client";
 
 import { useContext } from "react";
-import styles from "../orders/styles.module.scss";
 import { RefreshCw } from "lucide-react";
 import { OrderProps } from "@/lib/order.types";
 import { Modalorder } from "../components/modal";
@@ -9,16 +8,16 @@ import { OrderContext } from "@/provider/order";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { calculateTotalOrder } from '@/lib/helper';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface Props {
   orders: OrderProps[];
 }
 
 export default function Orders({ orders }: Props) {
-   const {order} = useContext(OrderContext);
-  const router = useRouter();
-
   const { isOpen, onRequestOpen } = useContext(OrderContext);
+  const router = useRouter();
 
   async function handleDetailOrder(order_id: string) {
     await onRequestOpen(order_id);
@@ -31,21 +30,16 @@ export default function Orders({ orders }: Props) {
 
   return (
     <>
-      <main >
+      <main className="container mx-auto p-4">
+        <section className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Pedidos em Produção</h1>
 
-        <section className={styles.containerHeader}>
-          <h1  className="text-2xl sm:text-3xl font-bold text-white">Pedidos em Produção</h1>
-
-          <button>
-            <RefreshCw
-              size={24}
-              color="#FFFF"
-              onClick={handleRefresh}
-            />
+          <button onClick={handleRefresh} className="hover:opacity-70 transition-all">
+            <RefreshCw size={24} color="#FFFF" />
           </button>
         </section>
 
-        <section className={styles.listOrders}>
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {orders.length === 0 && (
             <span className="text-gray-400 text-sm sm:text-base mt-1">
               Nenhum pedido aberto no momento...
@@ -53,50 +47,44 @@ export default function Orders({ orders }: Props) {
           )}
 
           {orders.map((order) => (
-            <button
+            <Card
               key={order.id}
-              className={styles.orderItem}
+              className="bg-app-card border-app-border text-white cursor-pointer hover:border-brand-primary transition-colors"
               onClick={() => handleDetailOrder(order.id)}
             >
-              <div className={styles.etiquetas}></div>
-
-              
-              <span className={styles.orderTitle}>
-                Mesa: {order.table}
-              </span>
-
-                <div className={styles.divider}></div>
-             
-              <div className={styles.orderDetails}>
-                {order.name && <p>Cliente: {order.name}</p>}
-                <p>Status: {order.status ? "Em andamento" : "Rascunho"}</p>
-              </div>
-             
-              {order.items && order.items.length > 0 && (
-                <div className={styles.productsPreview}>
-                  <strong>Produtos Pedidos:</strong>
-
-                  {order.items.slice(0, 5).map((item) => (
-                    <p key={item.id}>
-                      • {item.product.name} (x{item.amount}) 
-                    </p>
-                  ))}
-
-                  {order.items.length > 10 && (
-                    <p style={{ opacity: 0.7 }}>
-                      ...e mais {order.items.length - 2} itens
-                    </p>
-                  )}
-                  
-                  <h3 className={styles.total}>
-                  Valor Total: R$ {calculateTotalOrder(order.items)}
-                </h3>
-                                  
+              <CardHeader>
+                <div className="flex items-center justify-between gap-2">
+                  <CardTitle className="text-lg lg:text-xl font-bold">Mesa {order.table}</CardTitle>
+                  <Badge variant="secondary" className="text-xs select-none">produção</Badge>
                 </div>
-              )}
-            </button>
-          ))}
+              </CardHeader>
 
+              {order.items && order.items.length > 0 && (
+                <CardContent className="space-y-3">
+                  <div className="text-sm">
+                    <strong className="block mb-1">Produtos:</strong>
+                    {order.items.slice(0, 3).map((item) => (
+                      <p key={item.id} className="text-gray-300">
+                        • (x{item.amount}) {item.product.name} 
+                      </p>
+                    ))}
+
+                    {order.items.length > 3 && (
+                      <p className="text-gray-500 italic mt-1">
+                        ...e mais {order.items.length - 3} itens
+                      </p>
+                    )}
+
+                    <div className="mt-4 pt-2 border-t border-gray-700">
+                      <h3 className="font-bold text-brand-primary">
+                        Total: R$ {calculateTotalOrder(order.items)}
+                      </h3>
+                    </div>
+                  </div>
+                </CardContent>
+              )}
+            </Card>
+          ))}
         </section>
       </main>
 

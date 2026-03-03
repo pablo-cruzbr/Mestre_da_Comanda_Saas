@@ -13,8 +13,7 @@ export function RefreshButton() {
         toast.success("Lista atualizada!");
     }
 
-    return (
-        
+    return ( 
     <RefreshCw   
         size={23}
         color="#FFFF"
