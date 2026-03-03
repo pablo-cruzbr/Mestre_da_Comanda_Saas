@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { MobileSidebar } from "./dashboard/components/dashboard/mobile-sidebar";
-
+import { OrderProvider } from "@/provider/order";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
@@ -19,7 +19,9 @@ export default function RootLayout({
           <div className="flex-1 flex flex-col">           
              <MobileSidebar />
              <main className="flex-1 bg-app-background p-4 lg:p-8">
+              <OrderProvider>
                 {children}
+              </OrderProvider>
              </main>
           </div>
         </div>
