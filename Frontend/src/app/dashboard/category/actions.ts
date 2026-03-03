@@ -23,3 +23,32 @@ export async function handleRegisterCategory(formData: FormData) {
 
     revalidatePath("/dashboard/category"); 
 }
+
+export async function handleDeleteProduct(productId: string) {
+    if(!productId){
+        return{sucess: false, error:"Falha ap deletar produto"}
+    }
+
+      const token = await getCookieServer();
+
+      if(!token){
+        return{sucess: false, error:"Falha a buscar o token"}
+    }
+
+    try {
+    await api.delete("/product", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+        data: {
+            product_id: productId 
+        }
+    });
+
+    return { success: true }; 
+
+} catch (err) {
+    console.log("Erro ao deletar:", err);
+    return { success: false, error: "Falha ao deletar produto" };
+}
+}
