@@ -4,6 +4,7 @@ import { Package, Tags } from 'lucide-react'
 import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card';
 import { ProductForm } from '../components/dashboard/products-form';
 import { ProductProps } from '@/lib/product.types';
+import { DeleteButtonProduct } from '../components/dashboard/delete-button';
 
 interface CategoryProps {
     id: string;
@@ -69,26 +70,38 @@ export default async function Products() {
                         </div>
 
                         <CardHeader className="p-4 flex-1">
-                            <div className="flex justify-between items-start gap-2">
-                                <CardTitle className="text-lg font-bold line-clamp-1">
-                                    {product.name}
-                                </CardTitle>
-                                <span className="bg-brand-primary/10 text-brand-primary text-[10px] uppercase font-bold px-2 py-1 rounded border border-brand-primary/20 whitespace-nowrap">
-                                    {product.category.name}
+                            <div className="flex justify-between items-start gap-4 w-full">
+                                <div className="flex items-center gap-2 flex-1">
+                                    <CardTitle className="text-lg font-bold line-clamp-1">
+                                        {product.name}
+                                    </CardTitle>
+                                    
+                                   
+                                </div>
+                                
+                                <span className=" whitespace-nowrap">
+                                     <DeleteButtonProduct productId={product.id} />
                                 </span>
                             </div>
                         </CardHeader>
+                         
 
                         <CardContent className="p-4 pt-0 space-y-3">
                             <p className="text-sm text-gray-400 line-clamp-2 h-10">
                                 {product.description}
                             </p>
+                            
                             <div className="flex items-center justify-between pt-2 border-t border-app-border">
                                 <span className="text-xl font-bold text-brand-primary">
                                    R$ {product.price}
                                 </span>
                                 <Package className="w-4 h-4 text-gray-600" />
                             </div>
+
+                            <span className="bg-brand-primary/10 text-brand-primary text-[10px] uppercase font-bold px-2 py-1 rounded border border-brand-primary/20 whitespace-nowrap">
+                                    {product.category.name}
+                                    
+                                </span>
                         </CardContent>
                     </Card>
                 ))}
