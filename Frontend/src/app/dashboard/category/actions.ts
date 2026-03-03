@@ -36,7 +36,7 @@ export async function handleDeleteProduct(productId: string) {
     }
 
     try {
-    await api.delete("/product", {
+    await api.delete(`/product/${productId}`, {
         headers: {
             Authorization: `Bearer ${token}`
         },

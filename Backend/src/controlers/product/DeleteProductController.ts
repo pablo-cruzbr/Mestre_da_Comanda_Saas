@@ -3,15 +3,19 @@ import { DeleteProductService } from '../../services/products/DeleteProductServi
 
 class DeleteProductController {
     async handle(req: Request, res: Response) {
-        const product_id = req.query.product_id as string;
+        const product_id = req.params.id as string;
 
         const deleteProductService = new DeleteProductService();
 
-        const product = await deleteProductService.execute({
-            product_id
-        });
+        try {
+            const product = await deleteProductService.execute({
+                product_id
+            });
 
-        return res.json(product);
+            return res.json(product);
+        } catch (err) {
+            return res.status(400).json({ error: "Erro ao deletar produto." });
+        }
     }
 }
 
