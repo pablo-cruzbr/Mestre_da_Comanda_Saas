@@ -34,12 +34,12 @@ export default function Orders({ orders }: Props) {
       <main >
 
         <section className={styles.containerHeader}>
-          <h1  className="text-2xl sm:text-3xl font-bold text-white">Últimos pedidos</h1>
+          <h1  className="text-2xl sm:text-3xl font-bold text-white">Pedidos em Produção</h1>
 
           <button>
             <RefreshCw
               size={24}
-              color="#3fffa3"
+              color="#FFFF"
               onClick={handleRefresh}
             />
           </button>
