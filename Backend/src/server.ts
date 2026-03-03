@@ -9,7 +9,7 @@ import fileUpload from 'express-fileupload';
 
 const app = express();  
 app.use(express.json());
-console.log("TESTE JWT SECRET:", process.env.JWT_SECRET);
+
 app.use(cors({
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE'], 

@@ -13,11 +13,12 @@ import { Plus, UploadCloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea"; // Se tiver o componente de textarea
+import { Textarea } from "@/components/ui/textarea"; 
 import { toast } from "sonner";
 import Image from "next/image";
 import { getCookieClient } from "@/lib/cookieClient";
 import { api } from "@/services/api";
+import { useRouter } from 'next/navigation';
 
 interface CategoryProps {
     id: string;
@@ -31,6 +32,8 @@ interface Props {
 }
 
 export function ProductForm({ categories, token }: Props) {
+    const router = useRouter();
+
     const [open, setOpen] = useState(false);
     const [image, setImage] = useState<File | null>(null);
     const [previewImage, setPreviewImage] = useState("");
@@ -49,14 +52,53 @@ export function ProductForm({ categories, token }: Props) {
         }
     }
 
-    async function handleClientAction(formData: FormData) {
+   async function handleClientAction(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault(); 
+
+    const formData = new FormData(e.currentTarget);
+    
+    const categoryIndex = formData.get("category");
+    const name = formData.get("name");
+    const price = formData.get("price");
+    const description = formData.get("description");
+
+    if (!name || !categoryIndex || !price || !description || !image) {
+        toast.warning('Preencha todos os campos corretamente!');
+        return;
+    }
+
+    if (!token) {
+        toast.error("Sua sessão expirou. Faça login novamente.");
+        return;
+    }
+
+    // 3. Monta o payload para a API
+    const data = new FormData();
+    data.append("name", name as string);
+    data.append("price", price as string);
+    data.append("description", description as string);
+    data.append("category_id", categories[Number(categoryIndex)].id);
+    data.append("file", image);
+
+   try {
+        e.preventDefault();
+        e.stopPropagation(); // Adicione isso para garantir que o evento não suba
+
+        const formData = new FormData(e.currentTarget);
         const categoryIndex = formData.get("category");
         const name = formData.get("name");
         const price = formData.get("price");
         const description = formData.get("description");
 
-        if (!name || !categoryIndex || !price || !description || !image) {
-            toast.warning('Preencha todos os campos corretamente!')
+        // Validação super segura
+        if (!name || !price || !description || !image || categoryIndex === null) {
+            toast.warning('Preencha todos os campos!');
+            return;
+        }
+
+        const selectedCategory = categories[Number(categoryIndex)];
+        if (!selectedCategory) {
+            toast.error("Categoria inválida!");
             return;
         }
 
@@ -64,39 +106,31 @@ export function ProductForm({ categories, token }: Props) {
         data.append("name", name as string);
         data.append("price", price as string);
         data.append("description", description as string);
-        data.append("category_id", categories[Number(categoryIndex)].id);
+        data.append("category_id", selectedCategory.id);
         data.append("file", image);
 
         if (!token) {
-            toast.error("Sua sessão expirou. Faça login novamente.");
+            toast.error("Sessão expirada!");
             return;
         }
 
-        try {
-           await api.post("/product", data, {
-            headers: { 
-                Authorization: `Bearer ${token}` 
-            },
+        await api.post("/product", data, {
+            headers: { Authorization: `Bearer ${token}` },
         });
 
-            toast.success("Produto cadastrado com sucesso!");
-    
-            setPreviewImage("");
-            setImage(null);
-            setOpen(false);
-            
-        } catch (error) {
-            toast.error("Erro ao cadastrar o produto.");
+        toast.success("Cadastrado!");
+        setOpen(false);
+        setPreviewImage("");
+        setImage(null);
+        
+        // Use o refresh do router, mas o preventDefault acima já deve segurar o reload
+        router.refresh();
 
-    if (error instanceof AxiosError) {
-        const message = error.response?.data?.error || "Erro ao cadastrar o produto.";
-        toast.error(message);
-    } else {
-        toast.error("Ocorreu um erro inesperado.");
+    } catch (error) {
+        console.error("ERRO NO CADASTRO:", error);
+        toast.error("Erro ao cadastrar.");
     }
-        }
-    }
-
+}
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -114,7 +148,7 @@ export function ProductForm({ categories, token }: Props) {
                     </DialogDescription>
                 </DialogHeader>
 
-                <form action={handleClientAction} className="space-y-4 mt-2">
+                <form onSubmit={handleClientAction} className="space-y-4 mt-2">
                     <Label className="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer bg-[#12121c] hover:border-red-500 relative overflow-hidden group">
                         {previewImage ? (
                             <Image
