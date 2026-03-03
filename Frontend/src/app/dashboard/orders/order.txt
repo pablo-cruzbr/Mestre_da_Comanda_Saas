@@ -1,0 +1,114 @@
+"use client";
+
+import { useContext } from "react";
+import {RefreshCw } from "lucide-react";
+import { OrderProps } from "@/lib/order.types";
+import { Modalorder } from "../components/modal";
+import { OrderContext } from "@/provider/order";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { calculateTotalOrder } from '@/lib/helper';
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
+interface Props {
+  orders: OrderProps[];
+}
+
+export default function Orders({ orders }: Props) {
+   const {order} = useContext(OrderContext);
+  const router = useRouter();
+
+  const { isOpen, onRequestOpen } = useContext(OrderContext);
+
+  async function handleDetailOrder(order_id: string) {
+    await onRequestOpen(order_id);
+  }
+
+  function handleRefresh() {
+    router.refresh();
+    toast.success("Pedidos atualizados com sucesso !!!");
+  }
+
+  return (
+    <>
+      <main >
+
+        <section>
+          <h1  className="text-2xl sm:text-3xl font-bold text-white">Pedidos em Produção</h1>
+
+          <button>
+            <RefreshCw
+              size={24}
+              color="#FFFF"
+              onClick={handleRefresh}
+            />
+          </button>
+        </section>
+
+        <section>
+          {orders.length === 0 && (
+            <span className="text-gray-400 text-sm sm:text-base mt-1">
+              Nenhum pedido aberto no momento...
+            </span>
+          )}
+
+          {orders.map((order) => (
+            <Card
+              key={order.id}
+              className="bg-app-card border-app-border text-white"
+              onClick={() => handleDetailOrder(order.id)}
+            >
+       
+               <CardHeader>
+                <div className="flex items-center justify-between gap-2">
+                  <CardTitle className="text-lg lg:text-x1 font-bold">Mesa {order.table}</CardTitle>
+                <Badge variant="secondary" className="text-xs select-none">produção</Badge>
+                </div>
+              </CardHeader>
+
+            
+              
+              <span>
+                Mesa: {order.table}
+              </span>
+
+                <div></div>
+             
+              <div>
+                {order.name && <p>Cliente: {order.name}</p>}
+                <p>Status: {order.status ? "Em andamento" : "Rascunho"}</p>
+              </div>
+             
+              {order.items && order.items.length > 0 && (
+                <div>
+                  <strong>Produtos Pedidos:</strong>
+
+                  {order.items.slice(0, 5).map((item) => (
+                    <p key={item.id}>
+                      • {item.product.name} (x{item.amount}) 
+                    </p>
+                  ))}
+
+                  {order.items.length > 10 && (
+                    <p style={{ opacity: 0.7 }}>
+                      ...e mais {order.items.length - 2} itens
+                    </p>
+                  )}
+                  
+                  <h3>
+                  Valor Total: R$ {calculateTotalOrder(order.items)}
+                </h3>
+                                  
+                </div>
+              )}
+            </Card>
+          ))}
+
+        </section>
+      </main>
+
+      {isOpen && <Modalorder />}
+    </>
+  );
+}
