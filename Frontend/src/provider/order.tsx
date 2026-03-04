@@ -1,22 +1,20 @@
 'use client'
 
-//Context API
-
 import { ReactNode, createContext, useState } from "react" 
 import { api } from "@/services/api"
-import { getCookieClient } from "@/lib/cookieClient"
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-//Criar Tipagem para buscar informações do banco
-export interface OrderItemProps{
+// --- Tipagens ---
+
+export interface OrderItemProps {
     id: string;
     amount: number;
     created_at: string;
     order_id: string;
     product_id: string;
     name: string;
-    product:{
+    product: {
         id: string;
         name: string;
         price: string;
@@ -24,95 +22,109 @@ export interface OrderItemProps{
         banner: string;
         category_id: string;
     };
-    order:{
-      id: string;
-      table: number;
-      name: string | null;
-      draft: boolean;
-      status: boolean;  
+    order: {
+        id: string;
+        table: number;
+        name: string | null;
+        draft: boolean;
+        status: boolean;  
     }
 }
 
-//Criar nossa tipagem 1: vai receber as seguintes propridades: isOpen, onRequestOpen, onRequestClose
 type OrderContextData = {
-    isOpen: Boolean;
+    isOpen: boolean; 
     onRequestOpen: (order_id: string) => Promise<void>;
     onRequestClose: () => void;
     order: OrderItemProps[];
     finishOrder: (order_id: string) => Promise<void>;
 }
 
-//Criar nossa tipagem 2: que vai receber a renderização no nosso layout
 type OrderProviderProps = {
     children: ReactNode;
+    token: string | null; // Injetado pelo RootLayout (Server Side)
 }
 
-//Criar nosso Contexto
+// --- Contexto ---
+
 export const OrderContext = createContext({} as OrderContextData)
 
-export function OrderProvider({children}: OrderProviderProps) {
+export function OrderProvider({ children, token }: OrderProviderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [order, setOrder] = useState<OrderItemProps[]>([]);
     const router = useRouter();
 
+    /**
+     * Abre o modal e busca os itens do pedido
+     */
     async function onRequestOpen(order_id: string) {
-        setIsOpen(true);
-        console.log('Id da Order:', order_id)
+        // Se o token não existir, nem tentamos a chamada
+        if (!token) {
+            toast.error("Sessão inválida. Por favor, faça login novamente.");
+            return;
+        }
 
-        const token = getCookieClient();
-        console.log('Token de Usuário:', token)
-        const response = await api.get("/order/detail", {
-            headers:{
-                Authorization: `Bearer ${token}`
-            },
-                params:{
-                    order_id: order_id
+        try {
+            const response = await api.get("/order/detail", {
+                headers: { 
+                    Authorization: `Bearer ${token}` 
+                },
+                params: { 
+                    order_id: order_id 
                 }
-            })
-            setOrder(response.data)
-            console.log(response.data)
+            });
+
+            setOrder(response.data);
+            setIsOpen(true);
+
+        } catch (err: any) {
+            console.error("Erro ao buscar detalhes:", err.response?.data || err.message);
+            toast.error("Não foi possível carregar os detalhes do pedido.");
         }
-    
-        function onRequestClose() {
-        setIsOpen(false)
-        }
+    }
 
-        //FINALIZAR A ORDER - FECHAR
-        async function finishOrder(order_id: string){
-            const token = getCookieClient();
+    /**
+     * Fecha o modal
+     */
+    function onRequestClose() {
+        setIsOpen(false);
+    }
 
-            const data = {
-                order_id: order_id,
-            }
+    /**
+     * Finaliza o pedido (Fecha a mesa)
+     */
+    async function finishOrder(order_id: string) {
+        if (!token) return;
 
-            try{
-                await api.put("/finish/order", data, {
-                    headers:{
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                }catch(err){
-                    console.log(err);
-                    return;
+        try {
+            await api.put("/finish/order", { order_id }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
-                toast.success("Pedido Finalizado com Sucesso")
-                router.refresh();
-                setIsOpen(false)
-        }
+            });
 
-    return(
+            toast.success("Pedido finalizado com sucesso!");
+            
+            // Fecha o modal e atualiza os dados da página (Dashboard)
+            setIsOpen(false);
+            router.refresh();
+
+        } catch (err: any) {
+            console.error("Erro ao finalizar:", err.response?.data || err.message);
+            toast.error("Erro ao finalizar o pedido.");
+        }
+    }
+
+    return (
         <OrderContext.Provider 
-        value={{
-            isOpen,
-            onRequestOpen,
-            onRequestClose,
-            finishOrder,
-            order
-
+            value={{
+                isOpen,
+                onRequestOpen,
+                onRequestClose,
+                finishOrder,
+                order
             }}
-            >
+        >
             {children}
         </OrderContext.Provider>
     )
-
 }
