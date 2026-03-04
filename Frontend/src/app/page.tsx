@@ -33,20 +33,20 @@ export default async function Home() {
         return;
       }
 
-      const expressTime = 60 * 60 * 24 * 30; // Remova o * 1000, o maxAge usa segundos
+      const expressTime = 60 * 60 * 24 * 30; 
       const cookieStore = await cookies();
       
       cookieStore.set("session", response.data.token, {
         maxAge: expressTime,
         path: "/",
-        httpOnly: true, // Mais seguro como true para JWT
+        httpOnly: false, 
         secure: process.env.NODE_ENV === "production"
       })
 
     } catch (err) {
       console.log("Erro no login:")
       console.log(err)
-      return; // Se der erro, para aqui e não redireciona
+      return; 
     }
 
     redirect("/dashboard");

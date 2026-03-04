@@ -1,9 +1,14 @@
-import {getCookie} from "cookies-next"
-
 export function getCookieClient() {
-    const token = getCookie("session");
-    return token;
-    }
+  if (typeof window === "undefined") return null;
 
+  // Pegamos todos os cookies do navegador
+  const cookies = document.cookie.split('; ');
+  // Procuramos o que começa com "session="
+  const sessionCookie = cookies.find(row => row.startsWith('session='));
 
-//Quando estivermos num componente server ou client agente usa essa função que vai pegar o token, devolver pra gente ou o token ou vazio
+  if (sessionCookie) {
+    return sessionCookie.split('=')[1];
+  }
+
+  return null;
+}
