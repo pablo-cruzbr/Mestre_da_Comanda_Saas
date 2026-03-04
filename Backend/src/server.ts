@@ -1,4 +1,3 @@
-// 1 - Inicializar o servidor
 import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
@@ -11,10 +10,10 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Permite que o frontend do localhost:3000 faça requisições
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
-  }));
+  origin: ['http://localhost:3000', 'https://mestre-da-comanda-saas-2qod.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+}));
 
 app.use(fileUpload({
     limits: { fileSize: 50 * 1024 * 1024 } // 50MB
@@ -35,8 +34,6 @@ app.get('/teste', (req: Request, res: Response) => {
 
 app.use((err: Error, req:Request, res:Response, next: NextFunction) => {
     if(err instanceof Error) {
-        //Se for uma instancia do tipo error
-
         return res.status(400).json({
             error: err.message
         })
