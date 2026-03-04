@@ -5,8 +5,6 @@ import { api } from "@/services/api"
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-// --- Tipagens ---
-
 export interface OrderItemProps {
     id: string;
     amount: number;
@@ -41,10 +39,8 @@ type OrderContextData = {
 
 type OrderProviderProps = {
     children: ReactNode;
-    token: string | null; // Injetado pelo RootLayout (Server Side)
+    token: string | null; 
 }
-
-// --- Contexto ---
 
 export const OrderContext = createContext({} as OrderContextData)
 
@@ -53,11 +49,7 @@ export function OrderProvider({ children, token }: OrderProviderProps) {
     const [order, setOrder] = useState<OrderItemProps[]>([]);
     const router = useRouter();
 
-    /**
-     * Abre o modal e busca os itens do pedido
-     */
     async function onRequestOpen(order_id: string) {
-        // Se o token não existir, nem tentamos a chamada
         if (!token) {
             toast.error("Sessão inválida. Por favor, faça login novamente.");
             return;
@@ -82,16 +74,10 @@ export function OrderProvider({ children, token }: OrderProviderProps) {
         }
     }
 
-    /**
-     * Fecha o modal
-     */
     function onRequestClose() {
         setIsOpen(false);
     }
 
-    /**
-     * Finaliza o pedido (Fecha a mesa)
-     */
     async function finishOrder(order_id: string) {
         if (!token) return;
 
@@ -104,7 +90,6 @@ export function OrderProvider({ children, token }: OrderProviderProps) {
 
             toast.success("Pedido finalizado com sucesso!");
             
-            // Fecha o modal e atualiza os dados da página (Dashboard)
             setIsOpen(false);
             router.refresh();
 

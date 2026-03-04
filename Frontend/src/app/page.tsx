@@ -23,7 +23,7 @@ export default async function Home() {
 
     if (email === "" || password === "") {
       console.log("POR FAVOR PREENCHA TODOS OS CAMPOS")
-      return; // Importante parar a execução aqui
+      return;
     }
 
     try {
