@@ -50,6 +50,8 @@ export function OrderProvider({ children, token }: OrderProviderProps) {
     const router = useRouter();
 
     async function onRequestOpen(order_id: string) {
+        console.log("Token atual:", token); 
+    console.log("Buscando detalhes para ID:", order_id);
         if (!token) {
             toast.error("Sessão inválida. Por favor, faça login novamente.");
             return;
