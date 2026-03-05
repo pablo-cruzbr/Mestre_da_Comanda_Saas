@@ -20,20 +20,16 @@ export const metadata: Metadata = {
   description: "Por Pablo Cruz",
 };
 
-
-// ADICIONADO O 'async' ABAIXO
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Agora o await funciona corretamente aqui
   const token = await getCookieServer();
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {/* PASSANDO O TOKEN PARA O PROVIDER ABAIXO */}
         <OrderProvider token={token}>
           {children}
         </OrderProvider>
