@@ -30,6 +30,7 @@ async function getProducts(): Promise<ProductProps[]> {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data || [];
+        console.error("ERRO CRÍTICO PRODUTOS:", err.response?.data || err.message);
     } catch (err) {
         console.log("Erro ao buscar produtos:", err);
         return [];

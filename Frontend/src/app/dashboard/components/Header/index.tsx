@@ -30,7 +30,6 @@ export function Header(){
                         src={logoImg}
                         width={190}
                         height={60}
-                        //Prioridade de carregamento
                         priority={true}
                         quality={100}
                     />
