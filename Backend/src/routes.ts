@@ -21,7 +21,7 @@ import { SendOrderController } from "./controlers/order/SendOrderController";
 import { ListOrdersController } from "./controlers/order/ListOrdersController";
 import { DetailOrderController } from "./controlers/order/DetailOrderController";
 import { FinishOrderController } from "./controlers/order/FinishOrderController";
-import { ListProductsController } from "./controlers/product/ListTotalProductController";
+import { ListProductsController } from "./controlers/product/ListProductsController.ts";
 import { DeleteProductController } from "./controlers/product/DeleteProductController";
 
 const router = Router();
