@@ -12,6 +12,9 @@ app.use(express.json());
 app.use(cors({
   origin: (origin, callback) => {
     const allowedOrigins = [
+      'http://localhost:3000',      
+      'http://localhost:8081',      
+      'http://localhost:19006',
       'http://localhost:3000',
       'https://mestre-da-comanda-saas-2qod.vercel.app',
       'https://mestre-da-comanda-saas.vercel.app' 
@@ -20,6 +23,7 @@ app.use(cors({
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
+      console.log("Origin bloqueado pelo CORS:", origin);
       callback(new Error('Not allowed by CORS'));
     }
   },

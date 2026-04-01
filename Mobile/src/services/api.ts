@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://192.168.162.204:3333'
-    //baseURL: 'http://localhost:3333'
-})
+  // Use o domínio principal da Vercel que aparece no seu print
+  baseURL: 'https://mestre-da-comanda-saas.vercel.app'
+});
 
-
-export {api};
+export { api };
