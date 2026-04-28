@@ -10,18 +10,18 @@ const Navbar = () => {
         <span>BiteHub</span>
        </div>
 
-       <nav>
-        <a href="/">Home</a>
-        <a href="/">Restaurants</a>
-        <a href="/">Foods</a>
-        <a href="/">Service</a>
+       <nav className="hidden md:flex space-x-8 font-medium">
+        <a href="/" className="hover:text-orange-400">Home</a>
+        <a href="/" className="hover:text-orange-400">Restaurants</a>
+        <a href="/" className="hover:text-orange-400">Foods</a>
+        <a href="/" className="hover:text-orange-400">Service</a>
        </nav>
 
-       <div>
-        <button>
+       <div className="flex items-center space-x-4">
+        <button className="hidden md:flex text-orange-400 text-xl">
           <FaShoppingCart/>
         </button>
-        <button>Register Now</button>
+        <button className="bg-orange-500 hover:bg-orange-600 transition text-white py-2 px-4 rounded-full text-sm font-medium">Register Now</button>
        </div>
     </header>
   )
