@@ -1,7 +1,7 @@
 import React from 'react';
-import img1 from "../assets/process1.png"; // Recomendo ícones de dashboard/telas
-import img2 from "../assets/process2.png"; // Recomendo ícones de smartphone
-import img3 from "../assets/process3.png"; // Recomendo ícones de analytics
+import img1 from "../assets/process1.png"; 
+import img2 from "../assets/process2.png"; 
+import img3 from "../assets/process3.png"; 
 import ProcessCard from '../layouts/ProcessCard';
 
 const processSteps = [
@@ -24,16 +24,19 @@ const processSteps = [
 
 const Process = () => {
   return (
-    <section className="py-20 px-5 lg:px-14 bg-white dark:bg-[#0a0a0b] transition-colors duration-300">
-      <div className="text-center mb-16">
-        <p className="text-[#e6005c] font-bold uppercase tracking-[0.2em] text-sm">Eficiência Operacional</p>
-        <h2 className="text-3xl md:text-5xl font-extrabold dark:text-white mt-2">
+    <section className="py-24 px-5 lg:px-14 bg-white dark:bg-[#0a0a0b] transition-colors duration-300">
+      <div className="text-center mb-20">
+        <p className="text-[#e6005c] font-bold uppercase tracking-[0.3em] text-xs md:text-sm">
+          Eficiência Operacional
+        </p>
+        <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mt-3">
           Como o Mestre funciona?
         </h2>
-        <div className="w-20 h-1.5 bg-[#e6005c] mx-auto mt-4 rounded-full" />
+
+        <div className="w-24 h-1.5 bg-[#e6005c] mx-auto mt-6 rounded-full dark:shadow-[0_0_15px_rgba(230,0,92,0.4)]" />
       </div>
     
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
         {processSteps.map((step, index) => (
           <ProcessCard 
             key={index} 
