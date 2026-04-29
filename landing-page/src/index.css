@@ -5,5 +5,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  @apply bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300;
+  /* Agora o padrão é o fundo escuro e texto claro */
+  @apply bg-[#0a0a0b] text-gray-100 transition-colors duration-300;
+}
+
+/* Caso você queira manter o suporte ao Light Mode como secundário */
+.light body {
+  @apply bg-white text-gray-900;
 }
