@@ -11,7 +11,6 @@ const App = () => {
     <Hero/>
     <Process/>
     <GetApp/>
-    <Testimonial/>
     </>
   )
 }
