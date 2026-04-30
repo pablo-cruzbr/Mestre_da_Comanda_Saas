@@ -6,7 +6,6 @@ const GetApp = () => {
     <section className="bg-white dark:bg-[#080B1A] py-12 lg:py-24 transition-colors duration-300">
       <div className="bg-pink-50 dark:bg-[#0F1429] py-16 lg:py-0 px-6 lg:px-20 rounded-[3.5rem] mx-4 lg:mx-16 border border-pink-100 dark:border-white/5 relative overflow-hidden shadow-2xl transition-colors duration-300">
         
-        {/* Glows de fundo */}
         <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#e6005c]/10 blur-[120px] rounded-full hidden dark:block" />
         <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[#e6005c]/5 blur-[120px] rounded-full hidden dark:block" />
 
