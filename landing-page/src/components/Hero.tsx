@@ -7,10 +7,8 @@ import { AiOutlineThunderbolt } from 'react-icons/ai'
 
 const Hero = () => {
   return (
-    // Alterado dark:bg-[#0a0a0b] para dark:bg-[#080B1A]
     <section className="bg-white dark:bg-[#080B1A] text-gray-900 dark:text-white min-h-[90vh] flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-between px-5 lg:px-14 py-10 gap-10 transition-colors duration-300">
       
-      {/* Lado Esquerdo - Texto e Call to Action */}
       <div className="lg:w-1/2 w-full text-center lg:text-left">
         <div className="inline-flex items-center mb-6 text-[#e6005c] font-bold bg-pink-50 dark:bg-[#e6005c]/10 px-4 py-2 rounded-full text-sm border border-pink-100 dark:border-[#e6005c]/20">
           <AiOutlineThunderbolt className="mr-2 text-lg animate-pulse"/> Gestão em tempo real
@@ -26,12 +24,16 @@ const Hero = () => {
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start">
-          <button className="bg-[#e6005c] hover:bg-[#ff1a75] active:scale-95 transition-all text-white font-bold rounded-2xl px-10 py-4 shadow-xl shadow-pink-500/20 w-full sm:w-auto">
+          <button 
+           onClick={() => window.location.href = 'https://mestre-da-comanda-saas-2qod.vercel.app/'}
+          className="bg-[#e6005c] hover:bg-[#ff1a75] active:scale-95 transition-all text-white font-bold rounded-2xl px-10 py-4 shadow-xl shadow-pink-500/20 w-full sm:w-auto">
             Começar Agora
           </button>
           
-          <button className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-bold hover:text-[#e6005c] transition-colors px-6 py-4 group">
-            <MdOutlineAdsClick className="text-2xl group-hover:scale-110 transition-transform" /> Ver Demo
+          <button 
+           onClick={() => window.location.href = 'https://mestre-da-comanda-saas-2qod.vercel.app/signup'}
+          className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-bold hover:text-[#e6005c] transition-colors px-6 py-4 group">
+            <MdOutlineAdsClick className="text-2xl group-hover:scale-110 transition-transform" /> Faça seu Cadastro
           </button>
         </div>
       </div>
