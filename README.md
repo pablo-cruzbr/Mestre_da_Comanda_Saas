@@ -1,3 +1,4 @@
+
 # 🍽️ Mestre da Comanda
 ## Sistema de Controle de Comandas
 ## 🚀 Tecnologias Utilizadas
@@ -15,19 +16,17 @@ Um sistema completo de **controle de comandas para restaurantes**, desenvolvido 
 
 
 ## 🖼️ Telas do Sistema
-<img width="900" height="800" alt="1" src="https://github.com/user-attachments/assets/91c09e4a-4e39-4eea-9efe-66d79ef8e0f0" />
 
+<img width="800" height="400" alt="download (1)" src="https://github.com/user-attachments/assets/05d5e52b-b07f-4062-99a0-0985f3e66887" />
 ---
 ### 💻 Web
-<img width="900" height="800" alt="2" src="https://github.com/user-attachments/assets/78cddbde-2bb0-4fd1-a593-74f188e2fe5c" />
-
+<img width="800" height="400" alt="download (2)" src="https://github.com/user-attachments/assets/19c4ed7f-562e-4f08-8eb5-937a3efd030d" />
 ---
 ### 📱 Mobile
-<img src="Frontend/src/assets/3.png" alt="Diagrama da arquitetura do sistema" width="900" />
+<img  width="800" height="auto"  src="Frontend/src/assets/3.png" alt="Diagrama da arquitetura do sistema" width="900" />
 ---
 
 ## Diagrama de Arquitetura do Sistema: A Fazer
-<img src="Frontend/src/assets/1.png" alt="Diagrama da arquitetura do sistema" width="750" />
 
 ---
 
