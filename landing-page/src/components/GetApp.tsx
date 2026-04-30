@@ -21,11 +21,15 @@ const GetApp = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5 justify-center md:justify-start">
-              <button className="bg-[#e6005c] hover:bg-[#ff1a75] text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-pink-500/20 transition-all active:scale-95">
+              <button 
+              onClick={() => window.location.href = 'https://frontend-portifolio-metadata-api.vercel.app/detalhesApp/'}
+              className="bg-[#e6005c] hover:bg-[#ff1a75] text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-pink-500/20 transition-all active:scale-95">
                 Baixar Aplicativo
               </button>
-              <button className="bg-white dark:bg-[#161D3A] text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 font-bold px-10 py-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-[#1c2545] transition-all">
-                Ver Tutorial
+              <button 
+              onClick={() => window.location.href = 'https://portifolio-metadata-api-v4.vercel.app/'}
+              className="bg-white dark:bg-[#161D3A] text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 font-bold px-10 py-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-[#1c2545] transition-all">
+                Conhecer o Desenvoledor
               </button>
             </div>
           </div>
