@@ -6,7 +6,6 @@ import ThemeToggle from './ThemeToggle';
 const Navbar = () => {
   return (
     <header className="flex items-center justify-between py-4 px-5 lg:px-14 bg-white dark:bg-[#080B1A] border-b border-gray-100 dark:border-white/5 transition-colors duration-300 sticky top-0 z-50 backdrop-blur-md bg-opacity-90 dark:bg-opacity-90">
-        
         <div className="flex items-center gap-1.5 text-2xl font-bold text-[#e6005c]">
           <HiOutlineDocumentText className="text-3xl" />
           <span className="tracking-tighter text-gray-900 dark:text-white">
