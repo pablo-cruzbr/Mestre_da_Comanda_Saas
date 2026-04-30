@@ -22,12 +22,16 @@ const Navbar = () => {
 
         <div className="flex items-center space-x-4">
           <ThemeToggle />
-          <button className="hidden md:flex items-center gap-2 text-gray-700 dark:text-gray-300 font-semibold hover:text-[#e6005c] transition-colors">
+          <button 
+            onClick={() => window.location.href = 'https://mestre-da-comanda-saas-2qod.vercel.app/'}
+            className="hidden md:flex items-center gap-2 text-gray-700 dark:text-gray-300 font-semibold hover:text-[#e6005c] transition-colors">
             <RiDashboardLine className="text-lg" />
-            Entrar
+              Login
           </button>
-          <button className="bg-[#e6005c] hover:bg-[#ff1a75] transition-all text-white py-2 px-6 rounded-xl text-sm font-bold shadow-[0_0_20px_rgba(230,0,92,0.3)] active:scale-95">
-            Testar Grátis
+          <button 
+            onClick={() => window.location.href = 'https://mestre-da-comanda-saas-2qod.vercel.app/signup'}
+            className="bg-[#e6005c] hover:bg-[#ff1a75] transition-all text-white py-2 px-6 rounded-xl text-sm font-bold shadow-[0_0_20px_rgba(230,0,92,0.3)] active:scale-95">
+              Registro
           </button>
         </div>
     </header>
