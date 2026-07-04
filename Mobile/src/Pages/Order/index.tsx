@@ -15,6 +15,7 @@ import { ModalPicker } from "../../components/ModalPicker";
 import { ListItem } from "../../components/ListItem";
 import { StackPramsList } from "../../routes/app.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { colors, radius, spacing } from "../../styles/theme";
 
 type RouteDetailParams = {
   Order: {
@@ -171,11 +172,14 @@ export default function Order() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Mesa {route.params.number}</Text>
+        <View style={styles.tableBadge}>
+          <Feather name="hash" size={16} color={colors.primary} />
+          <Text style={styles.title}>Mesa {route.params.number}</Text>
+        </View>
 
         {items.length === 0 && (
-          <TouchableOpacity onPress={handleCloseOrder}>
-            <Feather name="trash-2" size={28} color="#FF3F4B" />
+          <TouchableOpacity onPress={handleCloseOrder} style={styles.iconButton}>
+            <Feather name="trash-2" size={22} color={colors.danger} />
           </TouchableOpacity>
         )}
       </View>
@@ -184,8 +188,10 @@ export default function Order() {
         <TouchableOpacity
           style={styles.input}
           onPress={() => setModalCategoryVisible(true)}
+          activeOpacity={0.7}
         >
-          <Text style={{ color: "#FFF" }}>{categorySelect?.name}</Text>
+          <Text style={styles.inputText}>{categorySelect?.name}</Text>
+          <Feather name="chevron-down" size={20} color={colors.textMuted} />
         </TouchableOpacity>
       )}
 
@@ -193,16 +199,18 @@ export default function Order() {
         <TouchableOpacity
           style={styles.input}
           onPress={() => setModalProductVisible(true)}
+          activeOpacity={0.7}
         >
-          <Text style={{ color: "#FFF" }}>{productSelect?.name}</Text>
+          <Text style={styles.inputText}>{productSelect?.name}</Text>
+          <Feather name="chevron-down" size={20} color={colors.textMuted} />
         </TouchableOpacity>
       )}
 
       <View style={styles.qtdContainer}>
         <Text style={styles.qtdText}>Quantidade</Text>
         <TextInput
-          style={[styles.input, { width: "60%", textAlign: "center" }]}
-          placeholderTextColor="#F0F0F0"
+          style={styles.qtdInput}
+          placeholderTextColor={colors.placeholder}
           keyboardType="numeric"
           value={amount}
           onChangeText={setAmount}
@@ -210,29 +218,38 @@ export default function Order() {
       </View>
 
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.buttonAdd} onPress={handleAdd}>
-          <Text style={styles.buttonText}>+</Text>
+        <TouchableOpacity style={styles.buttonAdd} onPress={handleAdd} activeOpacity={0.8}>
+          <Feather name="plus" size={22} color={colors.surface} />
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, { opacity: items.length === 0 ? 0.3 : 1 }]}
+          style={[styles.button, { opacity: items.length === 0 ? 0.4 : 1 }]}
           disabled={items.length === 0}
           onPress={handleFinishOrder}
+          activeOpacity={0.8}
         >
           <Text style={styles.buttonText}>Avançar</Text>
+          <Feather name="arrow-right" size={18} color={colors.surface} />
         </TouchableOpacity>
       </View>
 
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        style={{ flex: 1, marginTop: 24 }}
-        data={items}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ListItem data={item} deleteItem={handleDeleteItem} />
-        )}
-      />
-      
+      {items.length === 0 ? (
+        <View style={styles.emptyState}>
+          <Feather name="shopping-bag" size={32} color={colors.textMuted} />
+          <Text style={styles.emptyStateText}>Nenhum item adicionado ainda</Text>
+        </View>
+      ) : (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          style={{ flex: 1, marginTop: spacing.lg }}
+          data={items}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <ListItem data={item} deleteItem={handleDeleteItem} />
+          )}
+        />
+      )}
+
       <Modal
         transparent={true}
         visible={modalCategoryVisible}
@@ -263,70 +280,110 @@ export default function Order() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1D1D2E",
+    backgroundColor: colors.background,
     paddingVertical: "5%",
     paddingEnd: "4%",
     paddingStart: "4%",
   },
   header: {
     flexDirection: "row",
-    marginBottom: 12,
+    marginBottom: spacing.md,
     alignItems: "center",
-    marginTop: 24,
+    justifyContent: "space-between",
+    marginTop: spacing.lg,
+  },
+  tableBadge: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   title: {
-    fontSize: 30,
-    color: "#FFFF",
+    fontSize: 24,
+    color: colors.text,
     fontWeight: "bold",
-    marginRight: 15,
+    marginLeft: spacing.xs,
+  },
+  iconButton: {
+    padding: spacing.xs,
   },
   input: {
-    backgroundColor: "#101026",
+    backgroundColor: colors.surface,
     width: "100%",
     height: 50,
-    marginBottom: 12,
-    paddingHorizontal: 10,
-    color: "#FFF",
-    fontSize: 20,
-    borderRadius: 4,
+    marginBottom: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.sm,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  inputText: {
+    color: colors.text,
+    fontSize: 16,
   },
   qtdContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginTop: spacing.xs,
   },
   qtdText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
-    color: "#FFFF",
+    color: colors.text,
+  },
+  qtdInput: {
+    backgroundColor: colors.surface,
+    width: "60%",
+    height: 50,
+    marginBottom: spacing.sm,
+    paddingHorizontal: spacing.md,
+    color: colors.text,
+    fontSize: 18,
+    textAlign: "center",
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   actions: {
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-between",
+    marginTop: spacing.xs,
   },
   buttonAdd: {
     width: "20%",
-    backgroundColor: "#3fd1ff",
-    borderRadius: 4,
-    height: 40,
+    backgroundColor: colors.secondary,
+    borderRadius: radius.sm,
+    height: 44,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonText: {
-    color: "#101026",
-    fontSize: 18,
+    color: colors.surface,
+    fontSize: 16,
     fontWeight: "bold",
+    marginRight: spacing.xs,
   },
   button: {
-    backgroundColor: "#3fffa3",
-    height: 40,
+    backgroundColor: colors.primary,
+    height: 44,
     width: "75%",
-    borderRadius: 4,
+    borderRadius: radius.sm,
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row",
+  },
+  emptyState: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: spacing.lg,
+  },
+  emptyStateText: {
+    color: colors.textMuted,
+    fontSize: 14,
+    marginTop: spacing.sm,
   },
 });
