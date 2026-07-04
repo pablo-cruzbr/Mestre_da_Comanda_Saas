@@ -5,6 +5,7 @@ import { api } from "../../services/api"
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native"
 import { StackPramsList } from "../../routes/app.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { colors, radius, spacing } from "../../styles/theme";
 
 type RouteDetailParams = {
     FinishOrder:{
@@ -30,17 +31,21 @@ export function FinishOrder(){
     }catch(err){
         console.log("ERRO AO FINALIZAR, tente mais tarder")
     }
- 
+
   }
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Você Deseja Finalizar esse Pedido ?</Text>
+            <View style={styles.iconCircle}>
+                <Feather name="shopping-cart" size={36} color={colors.primary} />
+            </View>
+
+            <Text style={styles.title}>Você deseja finalizar esse pedido?</Text>
             <Text style={styles.titleMesa}>Mesa {route.params.number}</Text>
 
-            <TouchableOpacity style={styles.button } onPress={handleFinish}>
+            <TouchableOpacity style={styles.button} onPress={handleFinish} activeOpacity={0.8}>
                     <Text style={styles.textButton}>Finalizar Pedido</Text>
-                    <Feather name="shopping-cart" size={20} color='#1d1d2e'/>
+                    <Feather name="check-circle" size={20} color={colors.surface}/>
                 </TouchableOpacity>
         </View>
     )
@@ -49,51 +54,51 @@ export function FinishOrder(){
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#1D1D2E",
+        backgroundColor: colors.background,
         paddingVertical: '5%',
         paddingEnd: '4%',
         paddingStart: '4%',
         justifyContent: 'center',
         alignItems: 'center'
     },
-    header:{
-        flexDirection: 'row',
-        marginBottom: 12,
-        marginTop: 0
+    iconCircle:{
+        width: 88,
+        height: 88,
+        borderRadius: 44,
+        backgroundColor: colors.surface,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: spacing.lg
     },
     title:{
         fontSize: 20,
-        color: '#FFFF',
+        color: colors.text,
         fontWeight: '500',
-        marginRight: 15       
+        textAlign: 'center',
+        marginBottom: spacing.xs
   },
 
   titleMesa:{
     fontSize: 25,
-    color: '#FFFF',
-    fontWeight: '500',
-    margin: 10  
+    color: colors.text,
+    fontWeight: '700',
+    marginBottom: spacing.xl
   },
 
   button:{
-    backgroundColor: '#3fffa3',
-    height: 40,
-    width: '65%',
+    backgroundColor: colors.primary,
+    height: 48,
+    width: '80%',
     justifyContent:'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderRadius: 4
-
-
+    borderRadius: radius.sm
   },
   textButton:{
-    color: '#101026',
-    fontSize: 18,
+    color: colors.surface,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginRight: 6
+    marginRight: spacing.xs
   }
 
 })
-
-
-
