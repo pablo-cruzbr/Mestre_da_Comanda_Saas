@@ -3,7 +3,6 @@ import {
     Text,
     View,
     StyleSheet,
-    Image,
     TextInput,
     TouchableOpacity,
     ActivityIndicator,
@@ -14,6 +13,7 @@ import {
 
     import { AuthContext, } from '../contexts/authContext';
     import { colors, radius, spacing } from '../styles/theme';
+    import { Logo } from '../components/Logo';
 
 export default function Signin(){
     //Quero consumir as informações do usuário e o loading
@@ -49,10 +49,9 @@ export default function Signin(){
                 contentContainerStyle={styles.scrollContent}
                 keyboardShouldPersistTaps="handled"
             >
-                <Image
-                style={styles.logo}
-                source={require('../assets/logo3.png')}
-                />
+                <View style={styles.logo}>
+                    <Logo />
+                </View>
 
                 <View style={styles.card}>
                     <Text style={styles.welcome}>Bem-vindo de volta</Text>
@@ -111,9 +110,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacing.md
     },
     logo: {
-        width: 260,
-        height: 90,
-        resizeMode: 'contain',
         marginBottom: spacing.lg,
     },
     card:{
