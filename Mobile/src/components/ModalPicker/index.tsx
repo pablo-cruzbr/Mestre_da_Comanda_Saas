@@ -1,13 +1,15 @@
 import React from "react";
-import { 
-    View, 
-    Text, 
+import {
+    View,
+    Text,
     StyleSheet,
     TouchableOpacity,
     Dimensions,
     ScrollView,
-    Image 
+    Image
 } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { colors, radius, spacing } from "../../styles/theme";
 
 
 type ItemBase = {
@@ -67,11 +69,17 @@ export function ModalPicker<T extends ItemBase>({options, handleCloseModal, sele
     ))
 
     return(
-       <TouchableOpacity style={styles.container} onPress={handleCloseModal}>
+       <TouchableOpacity style={styles.container} activeOpacity={1} onPress={handleCloseModal}>
         <View style={styles.content}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-        {option}
-        </ScrollView>
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Selecione uma opção</Text>
+                <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
+                    <Feather name="x" size={22} color={colors.textMuted} />
+                </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+            {option}
+            </ScrollView>
         </View>
        </TouchableOpacity>
     )
@@ -82,49 +90,68 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: colors.overlay,
     },
     content:{
         width: WIDTH - 40,
-        height: HEIGHT / 2,
+        maxHeight: HEIGHT / 2,
         backgroundColor: '#FFF',
-        borderRadius: 4,
+        borderRadius: radius.lg,
+        overflow: 'hidden',
+    },
+    header:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: spacing.md,
+        paddingVertical: spacing.sm,
+        borderBottomWidth: 1,
+        borderBottomColor: '#EAEAEA',
+    },
+    headerTitle:{
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#101026',
+    },
+    closeButton:{
+        padding: spacing.xs,
     },
     option:{
         borderTopWidth: 0.8,
         borderTopColor: '#8a8a8a',
-    
-        paddingVertical: 10, 
+
+        paddingVertical: 10,
         flexDirection: 'row',
         alignItems: 'flex-start',
-        
+
     },
-    
-    bannerImage: { 
+
+    bannerImage: {
         width: 60,
-        height: 60, 
+        height: 60,
         borderRadius: 5,
-        marginLeft: 17, 
+        marginLeft: 17,
         marginRight: 10,
     },
-    
-   
+
+
     textContainer: {
-        flex: 1, 
-        paddingHorizontal: 17, 
+        flex: 1,
+        paddingHorizontal: 17,
         paddingVertical: 7,
     },
-    
- 
+
+
     itemName:{
         fontSize: 18,
         fontWeight: 'bold',
         color: '#101026',
-        marginBottom: 2, 
+        marginBottom: 2,
     },
 
     itemDescription:{
         fontSize: 14,
         fontWeight: '400',
-        color: '#555', 
+        color: '#555',
     }
 })

@@ -1,10 +1,11 @@
 import React from "react";
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
+import {
+    View,
+    Text,
+    StyleSheet,
     TouchableOpacity} from "react-native";
 import {Feather} from '@expo/vector-icons'
+import { colors, radius, spacing } from "../../styles/theme";
     interface ItemProps {
        data:{
         id: string;
@@ -22,10 +23,14 @@ export function ListItem({data, deleteItem}: ItemProps){
 
     return(
         <View style={styles.container}>
-            <Text style={styles.item}> Qtd {data.amount} - {data.name}</Text>
+            <View style={styles.qtdBadge}>
+                <Text style={styles.qtdText}>{data.amount}</Text>
+            </View>
 
-            <TouchableOpacity onPress={handleDeleteItem}>
-                <Feather name="trash-2" color="#FF3F4B" size={25}/>
+            <Text style={styles.item} numberOfLines={1}>{data.name}</Text>
+
+            <TouchableOpacity onPress={handleDeleteItem} style={styles.deleteButton}>
+                <Feather name="trash-2" color={colors.danger} size={20}/>
             </TouchableOpacity>
         </View>
     )
@@ -34,25 +39,36 @@ export function ListItem({data, deleteItem}: ItemProps){
 const styles = StyleSheet.create({
     container:{
         backgroundColor: '#101026',
-        flex: 1,
         alignItems: 'center',
         justifyContent:'space-between',
         flexDirection:'row',
-        marginBottom: 12,
-        paddingVertical: 12,
-        paddingHorizontal: 12,
-        borderRadius: 4,
-        borderWidth: 0.5,
-        borderColor: '#8a8a8a'
-        
+        marginBottom: spacing.sm,
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.sm,
+        borderRadius: radius.sm,
+        borderWidth: 1,
+        borderColor: colors.border
+    },
+    qtdBadge:{
+        backgroundColor: colors.background,
+        borderRadius: radius.sm,
+        paddingHorizontal: spacing.sm,
+        paddingVertical: spacing.xs,
+        marginRight: spacing.sm
+    },
+    qtdText:{
+        color: colors.primary,
+        fontSize: 14,
+        fontWeight: '700'
     },
     item:{
-        color: '#FFF',
-        fontSize: 17,
+        flex: 1,
+        color: colors.text,
+        fontSize: 16,
         fontWeight:'500'
-
+    },
+    deleteButton:{
+        padding: spacing.xs,
+        marginLeft: spacing.sm
     }
 })
-
-
-
