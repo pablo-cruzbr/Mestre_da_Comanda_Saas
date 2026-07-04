@@ -219,7 +219,7 @@ export default function Order() {
 
       <View style={styles.actions}>
         <TouchableOpacity style={styles.buttonAdd} onPress={handleAdd} activeOpacity={0.8}>
-          <Feather name="plus" size={22} color={colors.surface} />
+          <Feather name="plus" size={22} color={colors.onPrimary} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -229,7 +229,7 @@ export default function Order() {
           activeOpacity={0.8}
         >
           <Text style={styles.buttonText}>Avançar</Text>
-          <Feather name="arrow-right" size={18} color={colors.surface} />
+          <Feather name="arrow-right" size={18} color={colors.onPrimary} />
         </TouchableOpacity>
       </View>
 
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: colors.surface,
+    color: colors.onPrimary,
     fontSize: 16,
     fontWeight: "bold",
     marginRight: spacing.xs,

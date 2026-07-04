@@ -85,7 +85,7 @@ export default function Dashboard(){
                     disabled={number === ''}
                     activeOpacity={0.8}
                 >
-                    <Feather name="plus-circle" size={18} color={colors.surface} style={styles.buttonIcon} />
+                    <Feather name="plus-circle" size={18} color={colors.onPrimary} style={styles.buttonIcon} />
                     <Text style={styles.buttonText}>Abrir Mesa</Text>
                 </TouchableOpacity>
             </View>
@@ -168,6 +168,6 @@ export default function Dashboard(){
       buttonText:{
         fontWeight: 'bold',
         fontSize: 16,
-        color: colors.surface
+        color: colors.onPrimary
       }
   })

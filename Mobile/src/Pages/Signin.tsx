@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         marginTop: spacing.xs
     },
     buttonText:{
-        color: colors.surface,
+        color: colors.onPrimary,
         fontSize: 16,
         fontWeight: '700'
     },

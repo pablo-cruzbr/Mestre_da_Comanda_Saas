@@ -45,7 +45,7 @@ export function FinishOrder(){
 
             <TouchableOpacity style={styles.button} onPress={handleFinish} activeOpacity={0.8}>
                     <Text style={styles.textButton}>Finalizar Pedido</Text>
-                    <Feather name="check-circle" size={20} color={colors.surface}/>
+                    <Feather name="check-circle" size={20} color={colors.onPrimary}/>
                 </TouchableOpacity>
         </View>
     )
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.sm
   },
   textButton:{
-    color: colors.surface,
+    color: colors.onPrimary,
     fontSize: 16,
     fontWeight: 'bold',
     marginRight: spacing.xs
