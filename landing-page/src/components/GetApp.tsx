@@ -22,7 +22,7 @@ const GetApp = () => {
             
             <div className="flex flex-col sm:flex-row gap-5 justify-center md:justify-start">
               <button 
-              onClick={() => window.location.href = 'https://frontend-portifolio-metadata-api.vercel.app/detalhesApp/'}
+              onClick={() => window.location.href = 'https://drive.google.com/file/d/1hm0UYm43jk-W_bVwhxuNvziDJ8pO4QOK/view?usp=sharing'}
               className="bg-[#e6005c] hover:bg-[#ff1a75] text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-pink-500/20 transition-all active:scale-95">
                 Baixar Aplicativo
               </button>
