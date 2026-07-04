@@ -1,31 +1,45 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { colors, spacing } from "../../styles/theme";
 
-const BRAND_RED = "#FF4B4B";
+type LogoProps = {
+    size?: "md" | "lg";
+};
 
-export function Logo() {
+export function Logo({ size = "lg" }: LogoProps) {
+    const fontSize = size === "lg" ? 30 : 20;
+    const iconSize = size === "lg" ? 26 : 18;
+
     return (
         <View style={styles.container}>
-            <Text style={styles.line}>MESTRE DA</Text>
-            <Text style={[styles.line, styles.line2]}>COMANDA</Text>
+            <View style={[styles.iconBadge, size === "lg" && styles.iconBadgeLg]}>
+                <Feather name="file-text" size={iconSize} color={colors.primary} />
+            </View>
+            <Text style={[styles.line, { fontSize }]}>
+                Mestre das <Text style={styles.highlight}>Comandas</Text>
+            </Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: "row",
         alignItems: "center",
     },
-    line: {
-        fontSize: 30,
-        fontWeight: "900",
-        color: BRAND_RED,
-        letterSpacing: 1,
-        textShadowColor: "rgba(255, 255, 255, 0.5)",
-        textShadowOffset: { width: 0, height: 0 },
-        textShadowRadius: 4,
+    iconBadge: {
+        marginRight: spacing.xs,
     },
-    line2: {
-        marginTop: -4,
+    iconBadgeLg: {
+        marginRight: spacing.sm,
+    },
+    line: {
+        fontWeight: "800",
+        color: colors.text,
+        letterSpacing: 0.2,
+    },
+    highlight: {
+        color: colors.primary,
     },
 });
