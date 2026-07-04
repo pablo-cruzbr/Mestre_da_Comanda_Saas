@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Dashboard from '../Pages/Dashboard';
 import Order from '../Pages/Order';
 import { FinishOrder } from '../Pages/FinishOrder';
+import { colors } from '../styles/theme';
 
 export type StackPramsList = {
     Dashboard: undefined;
@@ -38,12 +39,14 @@ function AppRoutes(){
             options={{
                 title: 'Finalizando',
                 headerStyle:{
-                    backgroundColor: '#1d1d2e'
+                    backgroundColor: colors.background
                 },
-                headerTintColor: '#FFF',
+                headerTintColor: colors.text,
                 headerTitleStyle:{
-                    fontSize: 23,
-                }
+                    fontSize: 20,
+                    fontWeight: '700',
+                },
+                headerShadowVisible: false,
             }}
             />
         </Stack.Navigator>
