@@ -70,7 +70,7 @@ export default function login(){
                         </div>
 
                         <div className="flex flex-col gap-4">
-                            <Label htmlFor='name' className="text-white">
+                            <Label htmlFor='email' className="text-white">
                                 Email</Label>
                             <Input
                                 type='text'
@@ -83,7 +83,7 @@ export default function login(){
                         </div>
 
                         <div className="flex flex-col gap-4">
-                            <Label htmlFor='name' className="text-white">
+                            <Label htmlFor='password' className="text-white">
                                 Password</Label>
                             <Input
                                 type='password'
