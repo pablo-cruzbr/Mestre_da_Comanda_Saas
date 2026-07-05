@@ -61,31 +61,34 @@ export default function login(){
                             <Input
                                 type='text'
                                 id='name'
+                                name='name'
                                 placeholder='Digite seu nome'
                                 required
                                 minLength={3}
                                 className="text-white bg-app-card border-app-border"
                             />
                         </div>
-    
+
                         <div className="flex flex-col gap-4">
                             <Label htmlFor='name' className="text-white">
                                 Email</Label>
                             <Input
                                 type='text'
                                 id='email'
+                                name='email'
                                 placeholder='Digite seu email'
                                 required
                                 className="text-white bg-app-card border-app-border"
                             />
                         </div>
-    
+
                         <div className="flex flex-col gap-4">
                             <Label htmlFor='name' className="text-white">
                                 Password</Label>
                             <Input
                                 type='password'
                                 id='password'
+                                name='password'
                                 placeholder='Digite seu password'
                                 required
                                 className="text-white bg-app-card border-app-border"
