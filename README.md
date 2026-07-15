@@ -1,6 +1,9 @@
 
 # 🍽️ Mestre da Comanda
 ## Sistema de Controle de Comandas
+## ▶ Demonstração em Vídeo
+
+https://github.com/user-attachments/assets/5a5ceaa1-862c-433d-8e06-27521ffc3a78
 ## 🚀 Tecnologias Utilizadas
 
 <p align="center">
